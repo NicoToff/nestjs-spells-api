@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Spell } from "./entities/spell.entity";
-import { spells } from "./spells.mockup";
 
 @Injectable()
 export class SpellsService {
@@ -12,7 +11,10 @@ export class SpellsService {
   ) {}
 
   findAll() {
-    return this.spellsRepository.find();
+    return this.spellsRepository.find({
+      relations: ["sources"],
+      cache: true,
+    });
   }
 
   findOne(slug: string) {
@@ -20,12 +22,18 @@ export class SpellsService {
       where: {
         slug,
       },
+      relations: ["sources"],
     });
   }
 
-  async initMockup() {
-    await this.spellsRepository.clear();
-    await this.spellsRepository.save(spells);
-    return this.spellsRepository.find();
+  findBySource(source: string) {
+    return this.spellsRepository.find({
+      where: {
+        sources: {
+          slug: source,
+        },
+      },
+      relations: ["sources"],
+    });
   }
 }

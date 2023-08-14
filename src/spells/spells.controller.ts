@@ -15,8 +15,8 @@ export class SpellsController {
     return this.spellsService.findOne(slug);
   }
 
-  @Get("init-mockup")
-  initMockup() {
-    return this.spellsService.initMockup();
+  @Get("source/:source")
+  findBySource(@Param("source") source: string) {
+    return this.spellsService.findBySource(source);
   }
 }

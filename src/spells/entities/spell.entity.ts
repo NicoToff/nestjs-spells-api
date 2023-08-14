@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from "typeorm";
+import { Source } from "../../sources/entities/source.entity";
+import { slugify } from "../../../lib/slugify";
+import { SpellDataType } from "lib/spell-data";
 
 @Entity()
 export class Spell {
@@ -14,8 +17,17 @@ export class Spell {
   @Column()
   description: string;
 
-  // @Column({ nullable: true })
-  // sources: string;
+  @ManyToMany(() => Source, (source) => source.spell)
+  @JoinTable()
+  sources: Source[];
+
+  constructor(data?: SpellDataType) {
+    if (!data) return;
+    this.slug = slugify(data.name);
+    this.name = data.name;
+    this.level = data.level;
+    this.description = data.description;
+  }
 
   // @Column({ nullable: true })
   // school: string;
