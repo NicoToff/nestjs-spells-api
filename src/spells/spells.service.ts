@@ -1,12 +1,31 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Spell } from "./entities/spell.entity";
+import { spells } from "./spells.mockup";
 
 @Injectable()
 export class SpellsService {
+  constructor(
+    @InjectRepository(Spell)
+    private spellsRepository: Repository<Spell>
+  ) {}
+
   findAll() {
-    return `This action returns all spells`;
+    return this.spellsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} spell`;
+  findOne(slug: string) {
+    return this.spellsRepository.findOne({
+      where: {
+        slug,
+      },
+    });
+  }
+
+  async initMockup() {
+    await this.spellsRepository.clear();
+    await this.spellsRepository.save(spells);
+    return this.spellsRepository.find();
   }
 }

@@ -10,8 +10,13 @@ export class SpellsController {
     return this.spellsService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.spellsService.findOne(+id);
+  @Get(":slug")
+  findOne(@Param("slug") slug: string) {
+    return this.spellsService.findOne(slug);
+  }
+
+  @Get("init-mockup")
+  initMockup() {
+    return this.spellsService.initMockup();
   }
 }
