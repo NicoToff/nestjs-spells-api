@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from "typeorm";
-import { Source } from "../../sources/entities/source.entity";
+import { Source, type SourceType } from "../../sources/entities/source.entity";
 import { slugify } from "../../../lib/slugify";
-import { SpellDataType } from "lib/spell-data";
 
 @Entity()
 export class Spell {
@@ -14,8 +13,14 @@ export class Spell {
   @Column()
   level: number;
 
+  @Column({ nullable: true })
+  flavor?: string;
+
   @Column()
   description: string;
+
+  @Column({ nullable: true })
+  atHigherLevels?: string;
 
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
@@ -27,6 +32,8 @@ export class Spell {
     this.name = data.name;
     this.level = data.level;
     this.description = data.description;
+    this.flavor = data.flavor;
+    this.atHigherLevels = data.atHigherLevels;
   }
 
   // @Column({ nullable: true })
@@ -51,11 +58,13 @@ export class Spell {
   // components: string;
 
   // @Column({ nullable: true })
-  // atHigherLevels: string;
-
-  // @Column({ nullable: true })
   // classes: string;
 
   // @Column({ nullable: true })
   // subclasses: string;
 }
+
+/** Valid typing to create new Spell objects. */
+export type SpellDataType = Omit<Spell, "slug" | "sources"> & {
+  sources: SourceType[];
+};
