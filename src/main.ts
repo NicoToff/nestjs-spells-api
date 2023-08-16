@@ -11,9 +11,9 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
-  await app.listen(3000, "0.0.0.0", (err, address) => {
-    if (err) Logger.error(err);
-    Logger.debug(`Listening at ${address}`, "App");
+  await app.listen(8000, "0.0.0.0", (err, address) => {
+    if (err) Logger.error(err, "AppMain");
+    Logger.debug(`Listening at ${address}`, "AppMain");
   });
 }
 bootstrap();
