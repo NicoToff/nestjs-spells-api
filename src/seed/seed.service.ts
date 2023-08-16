@@ -1,9 +1,10 @@
 import { Injectable, Inject, OnModuleInit } from "@nestjs/common";
+import { Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Spell } from "../spells/entities/spell.entity";
 import { Source, SourceType } from "../sources/entities/source.entity";
-import { SpellDataType } from "lib/spell-data";
+import { SpellDataType } from "../spells/entities/spell.entity";
 
 export type SeedConfig = {
   sourceData: readonly SourceType[];
@@ -22,11 +23,21 @@ export class SeedService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    Logger.debug("Seeding database...", "SeedService");
+    Logger.debug(
+      `${this.seedConfig.sourceData.length} available sources to seed`,
+      "SeedService"
+    );
+    Logger.debug(
+      `${this.seedConfig.spellData.length} available spells to seed`,
+      "SeedService"
+    );
     const allSources = await this.seedSources();
     this.seedSpells(allSources);
   }
 
   private async seedSources() {
+    const firstCount = await this.sourceRepository.count();
     for (const data of this.seedConfig.sourceData) {
       const exists = await this.sourceRepository.exist({
         where: { name: data },
@@ -36,6 +47,11 @@ export class SeedService implements OnModuleInit {
         await this.sourceRepository.save(new Source(data));
       }
     }
+    const secondCount = await this.sourceRepository.count();
+    Logger.debug(
+      `Seeded ${secondCount - firstCount} new spell sources`,
+      "SeedService"
+    );
     return this.sourceRepository.find();
   }
 
@@ -49,6 +65,7 @@ export class SeedService implements OnModuleInit {
         spell.sources = sources.filter((source) =>
           data.sources.includes(source.name)
         );
+        Logger.debug(`Seeding spell "${spell.name}"`, "SeedService");
         this.spellRepository.save(spell);
       }
     });

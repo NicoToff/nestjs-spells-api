@@ -36,11 +36,8 @@ export class Source {
   @ManyToMany(() => Spell, (spell) => spell.sources)
   spell: Spell[];
 
-  constructor(data?: unknown) {
+  constructor(data?: SourceType) {
     if (!data) return;
-    if (!isSourceType(data)) {
-      throw new Error(`${data} is not a valid source type`);
-    }
     this.slug = slugify(data);
     this.name = data;
   }
