@@ -20,7 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:init": "ts-node ./db/sqlite3/init.ts",
-    "db:populate": "ts-node ./db/sqlite3/populate.ts"
+    "db:populate": "ts-node ./db/sqlite3/populate.ts",
+    "docker:build": "ts-node docker-rebuild.ts"
   },
   "dependencies": {
     "@fastify/static": "^6.10.2",
