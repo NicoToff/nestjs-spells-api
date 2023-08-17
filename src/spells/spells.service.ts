@@ -12,29 +12,29 @@ export class SpellsService {
 
   private relations: SpellRelation[] = ["sources", "school"];
 
-  async findAll(simplifyRelations: boolean) {
+  async findAll(simpleRelations: boolean) {
     const spells = await this.spellsRepository.find({
       relations: this.relations,
       cache: true,
     });
-    if (simplifyRelations) {
-      return spells.map(this.flattenSpell);
+    if (simpleRelations) {
+      return spells.map(this.simplify);
     }
     return spells;
   }
 
-  async findOne(slug: string, simplifyRelations: boolean) {
+  async findOne(slug: string, simpleRelations: boolean) {
     const spell = await this.spellsRepository.findOne({
       where: { slug },
       relations: this.relations,
     });
-    if (simplifyRelations && spell) {
-      return this.flattenSpell(spell);
+    if (simpleRelations && spell) {
+      return this.simplify(spell);
     }
     return spell;
   }
 
-  async findBySource(source: string, simplifyRelations: boolean) {
+  async findBySource(source: string, simpleRelations: boolean) {
     const spells = await this.spellsRepository.find({
       where: {
         sources: {
@@ -43,13 +43,13 @@ export class SpellsService {
       },
       relations: this.relations,
     });
-    if (simplifyRelations) {
-      return spells.map(this.flattenSpell);
+    if (simpleRelations) {
+      return spells.map(this.simplify);
     }
     return spells;
   }
 
-  private flattenSpell(spell: Spell) {
+  private simplify(spell: Spell) {
     return {
       ...spell,
       school: spell.school.name,
