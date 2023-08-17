@@ -2,10 +2,12 @@ import { Controller, Get, Query, Param } from "@nestjs/common";
 import { SpellsService } from "./spells.service";
 import {
   ApiQuery,
+  ApiTags,
   type ApiQueryOptions,
   ApiParam,
   ApiOperation,
 } from "@nestjs/swagger";
+import { QueryBooleanPipe } from "../../lib/pipes/query-boolean.pipe";
 
 const simpleRelationsOptions = {
   name: "simpleRelations",
@@ -16,6 +18,7 @@ const simpleRelationsOptions = {
     "`school: {slug: 'abjuration', name: 'Abjuration'}` will become `school: 'Abjuration'`",
 } as const satisfies ApiQueryOptions;
 
+@ApiTags("Spells")
 @Controller("spells")
 export class SpellsController {
   constructor(private readonly spellsService: SpellsService) {}
@@ -27,7 +30,7 @@ export class SpellsController {
   @Get()
   @ApiQuery(simpleRelationsOptions)
   findAll(
-    @Query("simpleRelations")
+    @Query("simpleRelations", QueryBooleanPipe)
     simpleRelations: boolean = false
   ) {
     return this.spellsService.findAll(simpleRelations);
@@ -46,7 +49,7 @@ export class SpellsController {
   })
   findOne(
     @Param("spellSlug") spellSlug: string,
-    @Query("simpleRelations") simpleRelations: boolean = false
+    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
   ) {
     return this.spellsService.findOne(spellSlug, simpleRelations);
   }
@@ -65,7 +68,7 @@ export class SpellsController {
   })
   findBySource(
     @Param("sourceSlug") sourceSlug: string,
-    @Query("simpleRelations") simpleRelations: boolean = false
+    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
   ) {
     return this.spellsService.findBySource(sourceSlug, simpleRelations);
   }
@@ -84,7 +87,7 @@ export class SpellsController {
   })
   findBySchool(
     @Param("schoolSlug") schoolSlug: string,
-    @Query("simpleRelations") simpleRelations: boolean = false
+    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
   ) {
     return this.spellsService.findBySchool(schoolSlug, simpleRelations);
   }
@@ -103,7 +106,7 @@ export class SpellsController {
   })
   findByGroup(
     @Param("groupSlug") groupSlug: string,
-    @Query("simpleRelations") simpleRelations: boolean = false
+    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
   ) {
     return this.spellsService.findByGroup(groupSlug, simpleRelations);
   }
