@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Spell } from "./entities/spell.entity";
+import { Spell, type SpellRelation } from "./entities/spell.entity";
 
 @Injectable()
 export class SpellsService {
@@ -10,9 +10,11 @@ export class SpellsService {
     private spellsRepository: Repository<Spell>
   ) {}
 
+  private relations: SpellRelation[] = ["sources", "school"];
+
   findAll() {
     return this.spellsRepository.find({
-      relations: ["sources"],
+      relations: this.relations,
       cache: true,
     });
   }
@@ -22,7 +24,7 @@ export class SpellsService {
       where: {
         slug,
       },
-      relations: ["sources"],
+      relations: this.relations,
     });
   }
 
@@ -33,7 +35,19 @@ export class SpellsService {
           slug: source,
         },
       },
-      relations: ["sources"],
+      relations: this.relations,
     });
+  }
+
+  flattenSpell(spell: Spell) {
+    return {
+      ...spell,
+      school: spell.school.name,
+      sources: spell.sources.map((source) => source.name),
+    };
+  }
+
+  flattenSpellArray(spells: Spell[]) {
+    return spells.map((spell) => this.flattenSpell(spell));
   }
 }
