@@ -48,7 +48,7 @@ To just start the existing container, run:
   docker start nestjs-slim
 ```
 
-<datails>
+<details>
 
 <summary>Docker manually</summary>
 
