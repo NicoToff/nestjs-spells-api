@@ -6,7 +6,7 @@ const simplifyRelationsOptions = {
   name: "simplifyRelations",
   required: false,
   description:
-    "Make relation data easy to consume by returning only the name property of the relation or an array of them.",
+    "Make relation data easier to consume by returning only the `name` property value of the relation or an array of those values.",
   example:
     "school: {slug: 'abjuration', name: 'Abjuration'} will become school: 'Abjuration'",
 } as const;
@@ -21,45 +21,38 @@ export class SpellsController {
   })
   @Get()
   @ApiQuery(simplifyRelationsOptions)
-  async findAll(
+  findAll(
     @Query("simplifyRelations")
     simplifyRelations: boolean = false
   ) {
-    const findAllSpells = await this.spellsService.findAll();
-    if (simplifyRelations) {
-      return this.spellsService.flattenSpellArray(findAllSpells);
-    }
-    return findAllSpells;
+    return this.spellsService.findAll(simplifyRelations);
   }
 
   @ApiOperation({
     summary: "Get a single spell",
     description:
-      "This endpoint returns a single spell, referenced by its slug (slugs are used as ID in the database). If the spell is not found, it returns null.",
+      "This endpoint returns a single spell, referenced by its slug (slugs are used as ID in the database). If the spell is not found, null is returned.",
   })
   @Get(":slug")
   @ApiQuery(simplifyRelationsOptions)
-  async findOne(
+  findOne(
     @Param("slug") slug: string,
     @Query("simplifyRelations") simplifyRelations: boolean = false
   ) {
-    const findOneSpell = await this.spellsService.findOne(slug);
-    if (simplifyRelations && findOneSpell) {
-      return this.spellsService.flattenSpell(findOneSpell);
-    }
-    return findOneSpell;
+    return this.spellsService.findOne(slug, simplifyRelations);
   }
 
+  @ApiOperation({
+    summary: "Get spells from a given school",
+    description:
+      "This endpoint returns all spells from a given school, referenced by the school's slug (slugs are used as ID in the database). If the school is not found, null is returned.",
+  })
   @Get("source/:source")
   @ApiQuery(simplifyRelationsOptions)
-  async findBySource(
+  findBySource(
     @Param("source") source: string,
     @Query("simplifyRelations") simplifyRelations: boolean = false
   ) {
-    const findSpellsBySource = await this.spellsService.findBySource(source);
-    if (simplifyRelations) {
-      return this.spellsService.flattenSpellArray(findSpellsBySource);
-    }
-    return findSpellsBySource;
+    return this.spellsService.findBySource(source, simplifyRelations);
   }
 }

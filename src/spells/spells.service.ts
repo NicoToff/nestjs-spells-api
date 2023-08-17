@@ -12,24 +12,30 @@ export class SpellsService {
 
   private relations: SpellRelation[] = ["sources", "school"];
 
-  findAll() {
-    return this.spellsRepository.find({
+  async findAll(simplifyRelations: boolean) {
+    const spells = await this.spellsRepository.find({
       relations: this.relations,
       cache: true,
     });
+    if (simplifyRelations) {
+      return spells.map(this.flattenSpell);
+    }
+    return spells;
   }
 
-  findOne(slug: string) {
-    return this.spellsRepository.findOne({
-      where: {
-        slug,
-      },
+  async findOne(slug: string, simplifyRelations: boolean) {
+    const spell = await this.spellsRepository.findOne({
+      where: { slug },
       relations: this.relations,
     });
+    if (simplifyRelations && spell) {
+      return this.flattenSpell(spell);
+    }
+    return spell;
   }
 
-  findBySource(source: string) {
-    return this.spellsRepository.find({
+  async findBySource(source: string, simplifyRelations: boolean) {
+    const spells = await this.spellsRepository.find({
       where: {
         sources: {
           slug: source,
@@ -37,17 +43,17 @@ export class SpellsService {
       },
       relations: this.relations,
     });
+    if (simplifyRelations) {
+      return spells.map(this.flattenSpell);
+    }
+    return spells;
   }
 
-  flattenSpell(spell: Spell) {
+  private flattenSpell(spell: Spell) {
     return {
       ...spell,
       school: spell.school.name,
       sources: spell.sources.map((source) => source.name),
     };
-  }
-
-  flattenSpellArray(spells: Spell[]) {
-    return spells.map((spell) => this.flattenSpell(spell));
   }
 }
