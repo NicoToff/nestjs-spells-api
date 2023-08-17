@@ -5,6 +5,7 @@ import { SeedService, SeedConfig, SEED_CONFIG } from "./seed.service";
 
 import { Source, SOURCES } from "../sources/entities/source.entity";
 import { School, SCHOOLS } from "../schools/entities/school.entity";
+import { Group, GROUPS } from "../groups/entities/group.entity";
 import { Spell } from "../spells/entities/spell.entity";
 import { spellData } from "../../lib/spell-data";
 
@@ -13,6 +14,7 @@ import { spellData } from "../../lib/spell-data";
     TypeOrmModule.forFeature([Spell]),
     TypeOrmModule.forFeature([Source]),
     TypeOrmModule.forFeature([School]),
+    TypeOrmModule.forFeature([Group]),
   ],
   providers: [
     SeedService,
@@ -22,6 +24,7 @@ import { spellData } from "../../lib/spell-data";
         sourceData: SOURCES,
         spellData: spellData,
         schoolData: SCHOOLS,
+        groupData: GROUPS,
       } as SeedConfig,
     },
   ],

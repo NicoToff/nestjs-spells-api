@@ -8,27 +8,34 @@ import {
 } from "typeorm";
 import { Source, type SourceType } from "../../sources/entities/source.entity";
 import { School, type SchoolType } from "../../schools/entities/school.entity";
+import { Group, type GroupType } from "../../groups/entities/group.entity";
 import { slugify } from "../../../lib/slugify";
 
 @Entity()
 export class Spell {
   @PrimaryColumn()
   slug: string;
-  /** The spell's full name. */
+
   @Column()
   name: string;
-  /** The spell's level. A cantrip level is 0. */
+
   @Column()
   level: number;
-  /** (Relation) The school of the spell. */
+
   @ManyToOne(() => School, (school) => school.spell)
   school: School;
+
+  @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
+  group?: Group;
 
   @Column()
   castingTime: string;
 
   @Column()
   range: string;
+
+  @Column({ nullable: true })
+  area?: string;
 
   @Column()
   duration: string;
@@ -51,6 +58,9 @@ export class Spell {
   @Column({ nullable: true })
   atHigherLevels?: string;
 
+  @Column({ nullable: true })
+  cantripUpgrade?: string;
+
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
   sources: Source[];
@@ -62,6 +72,7 @@ export class Spell {
     this.level = data.level;
     this.castingTime = data.castingTime;
     this.range = data.range;
+    this.area = data.area;
     this.duration = data.duration;
     this.components = data.components;
     this.concentration = data.concentration;
@@ -69,15 +80,17 @@ export class Spell {
     this.description = data.description;
     this.flavor = data.flavor;
     this.atHigherLevels = data.atHigherLevels;
+    this.cantripUpgrade = data.cantripUpgrade;
   }
 }
 
 /** Valid typing to create new Spell objects. */
 export type SpellRelation = keyof Pick<
   typeof Spell.prototype,
-  "school" | "sources"
+  "school" | "sources" | "group"
 >;
 export type SpellDataType = Omit<Spell, "slug" | SpellRelation> & {
   school: SchoolType;
+  group?: GroupType;
   sources: SourceType[];
 };

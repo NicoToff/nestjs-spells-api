@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Spell, type SpellRelation } from "./entities/spell.entity";
@@ -10,7 +10,7 @@ export class SpellsService {
     private spellsRepository: Repository<Spell>
   ) {}
 
-  private relations: SpellRelation[] = ["sources", "school"];
+  private relations: SpellRelation[] = ["sources", "school", "group"];
 
   async findAll(simpleRelations: boolean) {
     const spells = await this.spellsRepository.find({
@@ -35,10 +35,45 @@ export class SpellsService {
   }
 
   async findBySource(source: string, simpleRelations: boolean) {
+    Logger.debug(`Finding spells by source: ${source}`, "SpellsService");
     const spells = await this.spellsRepository.find({
       where: {
         sources: {
           slug: source,
+        },
+      },
+      relations: this.relations,
+    });
+    Logger.debug(
+      `Found ${spells.length} spells by source: ${source}`,
+      "SpellsService"
+    );
+    if (simpleRelations) {
+      return spells.map(this.simplify);
+    }
+    return spells;
+  }
+
+  async findBySchool(school: string, simpleRelations: boolean) {
+    const spells = await this.spellsRepository.find({
+      where: {
+        school: {
+          slug: school,
+        },
+      },
+      relations: this.relations,
+    });
+    if (simpleRelations) {
+      return spells.map(this.simplify);
+    }
+    return spells;
+  }
+
+  async findByGroup(group: string, simpleRelations: boolean) {
+    const spells = await this.spellsRepository.find({
+      where: {
+        group: {
+          slug: group,
         },
       },
       relations: this.relations,
@@ -53,6 +88,7 @@ export class SpellsService {
     return {
       ...spell,
       school: spell.school.name,
+      group: spell.group?.name,
       sources: spell.sources.map((source) => source.name),
     };
   }

@@ -38,35 +38,73 @@ export class SpellsController {
     description:
       "This endpoint returns a single spell, referenced by its slug (slugs are used as ID in the database). If the spell is not found, null is returned.",
   })
-  @Get(":slug")
+  @Get(":spellSlug")
   @ApiQuery(simpleRelationsOptions)
   @ApiParam({
-    name: "slug",
+    name: "spellSlug",
     description: "The slug of the spell to return",
   })
   findOne(
-    @Param("slug") slug: string,
+    @Param("spellSlug") spellSlug: string,
     @Query("simpleRelations") simpleRelations: boolean = false
   ) {
-    return this.spellsService.findOne(slug, simpleRelations);
+    return this.spellsService.findOne(spellSlug, simpleRelations);
+  }
+
+  @ApiOperation({
+    summary: "Get spells from a given source",
+    description:
+      "This endpoint returns all spells from a given source, referenced by the source's slug (slugs are used as ID in the database). If the source is not found, null is returned.",
+  })
+  @Get("source/:sourceSlug")
+  @ApiQuery(simpleRelationsOptions)
+  @ApiParam({
+    name: "sourceSlug",
+    description: "The slug of the source to look for",
+    example: "arcane",
+  })
+  findBySource(
+    @Param("sourceSlug") sourceSlug: string,
+    @Query("simpleRelations") simpleRelations: boolean = false
+  ) {
+    return this.spellsService.findBySource(sourceSlug, simpleRelations);
   }
 
   @ApiOperation({
     summary: "Get spells from a given school",
     description:
-      "This endpoint returns all spells from a given school, referenced by the school's slug (slugs are used as ID in the database). If the school is not found, null is returned.",
+      "This endpoint returns all spells from a given school, referenced by the school's slug (slugs are used as ID in the database). If the school is not found, an empty array is returned.",
   })
-  @Get("source/:source")
+  @Get("school/:schoolSlug")
   @ApiQuery(simpleRelationsOptions)
   @ApiParam({
-    name: "sourceSlug",
-    description: "The slug of the source to look for",
-    example: "'arcane', 'primal', 'wizard'...",
+    name: "schoolSlug",
+    description: "The slug of the school to look for",
+    example: "abjuration",
   })
-  findBySource(
-    @Param("sourceSlug") source: string,
+  findBySchool(
+    @Param("schoolSlug") schoolSlug: string,
     @Query("simpleRelations") simpleRelations: boolean = false
   ) {
-    return this.spellsService.findBySource(source, simpleRelations);
+    return this.spellsService.findBySchool(schoolSlug, simpleRelations);
+  }
+
+  @ApiOperation({
+    summary: "Get spells from a given group",
+    description:
+      "This endpoint returns all spells from a given group, referenced by the group's slug (slugs are used as ID in the database). If the group is not found, an empty array is returned.",
+  })
+  @Get("group/:groupSlug")
+  @ApiQuery(simpleRelationsOptions)
+  @ApiParam({
+    name: "groupSlug",
+    description: "The slug of the group to look for",
+    example: "elemental-torrents",
+  })
+  findByGroup(
+    @Param("groupSlug") groupSlug: string,
+    @Query("simpleRelations") simpleRelations: boolean = false
+  ) {
+    return this.spellsService.findByGroup(groupSlug, simpleRelations);
   }
 }

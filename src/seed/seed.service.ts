@@ -6,11 +6,13 @@ import { Repository } from "typeorm";
 import { Spell, type SpellDataType } from "../spells/entities/spell.entity";
 import { Source, type SourceType } from "../sources/entities/source.entity";
 import { School, type SchoolType } from "../schools/entities/school.entity";
+import { Group, type GroupType } from "../groups/entities/group.entity";
 
 export type SeedConfig = {
   sourceData: readonly SourceType[];
   spellData: readonly SpellDataType[];
   schoolData: readonly SchoolType[];
+  groupData: readonly GroupType[];
 };
 export const SEED_CONFIG = Symbol("SEED_CONFIG");
 
@@ -23,6 +25,8 @@ export class SeedService implements OnModuleInit {
     private readonly sourceRepository: Repository<Source>,
     @InjectRepository(School)
     private readonly schoolRepository: Repository<School>,
+    @InjectRepository(Group)
+    private readonly groupRepository: Repository<Group>,
     @Inject(SEED_CONFIG) private readonly seedConfig: SeedConfig
   ) {}
 
@@ -38,7 +42,8 @@ export class SeedService implements OnModuleInit {
     );
     const allSources = await this.seedSources();
     const allSchools = await this.seedSchools();
-    this.seedSpells(allSources, allSchools);
+    const allGroups = await this.seedGroups();
+    this.seedSpells(allSources, allSchools, allGroups);
   }
 
   private async seedSources() {
@@ -79,7 +84,30 @@ export class SeedService implements OnModuleInit {
     return this.schoolRepository.find();
   }
 
-  private async seedSpells(sources: Source[], schools: School[]) {
+  private async seedGroups() {
+    const firstCount = await this.groupRepository.count();
+    for (const data of this.seedConfig.groupData) {
+      const exists = await this.groupRepository.exist({
+        where: { name: data },
+      });
+
+      if (!exists) {
+        await this.groupRepository.save(new Group(data));
+      }
+    }
+    const secondCount = await this.groupRepository.count();
+    Logger.debug(
+      `Seeded ${secondCount - firstCount} new spell groups`,
+      "SeedService"
+    );
+    return this.groupRepository.find();
+  }
+
+  private async seedSpells(
+    sources: Source[],
+    schools: School[],
+    groups: Group[]
+  ) {
     this.seedConfig.spellData.forEach(async (data) => {
       const exists = await this.spellRepository.exist({
         where: { name: data.name },
@@ -92,6 +120,11 @@ export class SeedService implements OnModuleInit {
         spell.school = schools.find(
           (school) => school.name === data.school
         ) as School;
+        if (data.group) {
+          spell.group = groups.find(
+            (group) => group.name === data.group
+          ) as Group;
+        }
         Logger.debug(`Seeding spell "${spell.name}"`, "SeedService");
         this.spellRepository.save(spell);
       }

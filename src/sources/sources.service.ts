@@ -16,9 +16,7 @@ export class SourcesService {
 
   findOne(slug: string) {
     return this.sourcesRepository.findOne({
-      where: {
-        slug,
-      },
+      where: { slug },
     });
   }
 }

@@ -1,21 +1,21 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { School } from "./entities/school.entity";
+import { Group } from "./entities/group.entity";
 
 @Injectable()
-export class SchoolsService {
+export class GroupsService {
   constructor(
-    @InjectRepository(School)
-    private schoolsRepository: Repository<School>
+    @InjectRepository(Group)
+    private groupsRepository: Repository<Group>
   ) {}
 
   findAll() {
-    return this.schoolsRepository.find();
+    return this.groupsRepository.find();
   }
 
   findOne(slug: string) {
-    return this.schoolsRepository.findOne({
+    return this.groupsRepository.findOne({
       where: { slug },
     });
   }
