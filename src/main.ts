@@ -20,10 +20,10 @@ async function bootstrap() {
       "Serves homebrew spells (and more) for D&D 5th edition. This is a work in progress, built with NestJS. More information can be found at: https://github.com/NicoToff/nestjs-spells-api"
     )
     .setLicense(
-      "MIT",
+      "MIT License",
       "https://raw.githubusercontent.com/NicoToff/nestjs-spells-api/main/LICENSE"
     )
-    .setVersion("0.1")
+    .setVersion("0.0.1")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/", app, document);

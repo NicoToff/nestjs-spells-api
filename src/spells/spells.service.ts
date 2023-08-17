@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Spell, type SpellRelation } from "./entities/spell.entity";
@@ -35,7 +35,6 @@ export class SpellsService {
   }
 
   async findBySource(source: string, simpleRelations: boolean) {
-    Logger.debug(`Finding spells by source: ${source}`, "SpellsService");
     const spells = await this.spellsRepository.find({
       where: {
         sources: {
@@ -44,10 +43,6 @@ export class SpellsService {
       },
       relations: this.relations,
     });
-    Logger.debug(
-      `Found ${spells.length} spells by source: ${source}`,
-      "SpellsService"
-    );
     if (simpleRelations) {
       return spells.map(this.simplify);
     }
