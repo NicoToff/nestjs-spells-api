@@ -49,19 +49,21 @@ To just start the existing container, run:
 ```
 
 <datails>
-  <summary>Docker manually</summary>
 
-  If you want to do it manually, you can build and run the image with:
+<summary>Docker manually</summary>
 
-  ```bash
-  docker build -t nestjs-spells-api-image .
-  ```
+If you want to do it manually, you can build and run the image with:
 
-  And run it with:
+```bash
+docker build -t nestjs-spells-api-image .
+```
 
-  ```bash
-  docker run -d --name nestjs-spells-api -p 8000:8000 nestjs-spells-api-image
-  ```
+And run it with:
+
+```bash
+docker run -d --name nestjs-spells-api -p 8000:8000 nestjs-spells-api-image
+```
+
 </details>
 
 ### Fly.io
