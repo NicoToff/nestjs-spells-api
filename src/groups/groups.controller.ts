@@ -3,6 +3,7 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { GroupsService } from "./groups.service";
 import { Group } from "./entities/group.entity";
+import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 @ApiTags("Spell relation datails")
 @Controller("groups")
@@ -43,7 +44,10 @@ export class GroupsController {
     status: 404,
     description: "No group was found for the given slug",
   })
-  findOne(@Param("slug") slug: string) {
-    return this.groupsService.findOne(slug);
+  async findOne(@Param("slug") slug: string) {
+    return returnOrThrowIfNoContent(
+      await this.groupsService.findOne(slug),
+      `No group was found for slug "${slug}"`
+    );
   }
 }

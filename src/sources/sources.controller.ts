@@ -3,6 +3,7 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { SourcesService } from "./sources.service";
 import { Source } from "./entities/source.entity";
+import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 @ApiTags("Spell relation datails")
 @Controller("sources")
@@ -43,7 +44,10 @@ export class SourcesController {
     description: "No source was found for the given slug",
   })
   @Get(":slug")
-  findOne(@Param("slug") slug: string) {
-    return this.sourcesService.findOne(slug);
+  async findOne(@Param("slug") slug: string) {
+    return returnOrThrowIfNoContent(
+      await this.sourcesService.findOne(slug),
+      `No source was found for slug "${slug}"`
+    );
   }
 }

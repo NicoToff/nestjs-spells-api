@@ -3,6 +3,7 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { SchoolsService } from "./schools.service";
 import { School } from "./entities/school.entity";
+import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 @ApiTags("Spell relation datails")
 @Controller("schools")
@@ -43,7 +44,10 @@ export class SchoolsController {
     status: 404,
     description: "No school was found for the given slug",
   })
-  findOne(@Param("slug") slug: string) {
-    return this.schoolsService.findOne(slug);
+  async findOne(@Param("slug") slug: string) {
+    return returnOrThrowIfNoContent(
+      this.schoolsService.findOne(slug),
+      `No school was found for slug "${slug}"`
+    );
   }
 }
