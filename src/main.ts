@@ -15,7 +15,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle("D&D 5th NicoToff API")
+    .setTitle("D&D 5e NicoToff API")
     .setDescription(
       "Serves homebrew spells (and more) for D&D 5th edition. This is a work in progress, built with NestJS. More information can be found at: https://github.com/NicoToff/nestjs-spells-api"
     )

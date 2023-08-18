@@ -1,3 +1,4 @@
+// TODO: Find out how to type schema
 import { Controller, Get, Query, Param, applyDecorators } from "@nestjs/common";
 import {
   ApiQuery,
@@ -5,13 +6,13 @@ import {
   ApiParam,
   ApiOperation,
   ApiResponse,
-  ApiResponseOptions,
+  ApiResponseMetadata,
 } from "@nestjs/swagger";
 import { SpellsService, type SpellSimplified } from "./spells.service";
 import { QueryBooleanPipe } from "../../lib/pipes/query-boolean.pipe";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
-import type { Spell } from "./entities/spell.entity";
+import { Spell } from "./entities/spell.entity";
 
 @ApiTags("Spells")
 @Controller("spells")
@@ -134,16 +135,17 @@ function ApiQuerySimpleRelations() {
 }
 
 /** Prefilled with `status: 200` and `description: "The requested spell(s)"` */
-function ApiResponse200(apiResponseArgs?: ApiResponseOptions) {
+function ApiResponse200(apiResponseArgs?: ApiResponseMetadata) {
   return ApiResponse({
     status: 200,
     description: "The requested spell(s)",
+    // type: apiResponseArgs?.isArray ? [Spell] : Spell,
     ...apiResponseArgs,
   });
 }
 
 /** Prefilled with `status: 404` and `description: "No content was found"` */
-function ApiResponse404(apiResponseArgs?: ApiResponseOptions) {
+function ApiResponse404(apiResponseArgs?: ApiResponseMetadata) {
   return ApiResponse({
     status: 404,
     description: "No content was found",

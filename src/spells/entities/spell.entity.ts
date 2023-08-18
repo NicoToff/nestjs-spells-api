@@ -1,3 +1,4 @@
+// import { ApiProperty } from "@nestjs/swagger";
 import {
   Entity,
   Column,
@@ -13,54 +14,71 @@ import { slugify } from "../../../lib/slugify";
 
 @Entity()
 export class Spell {
+  // @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
+  // @ApiProperty()
   @Column()
   name: string;
 
+  // @ApiProperty()
   @Column()
   level: number;
 
+  // @ApiProperty({ type: () => School })
   @ManyToOne(() => School, (school) => school.spell)
   school: School;
 
+  // @ApiProperty({ type: () => Group, required: false })
   @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
   group?: Group;
 
+  // @ApiProperty()
   @Column()
   castingTime: string;
 
+  // @ApiProperty()
   @Column()
   range: string;
 
+  // @ApiProperty({ required: false })
   @Column({ nullable: true })
   area?: string;
 
+  // @ApiProperty()
   @Column()
   duration: string;
 
+  // @ApiProperty()
   @Column({ default: "" })
   components: string;
 
+  // @ApiProperty({ required: false })
   @Column({ default: false })
   concentration?: boolean;
 
+  // @ApiProperty({ required: false })
   @Column({ default: false })
   ritual?: boolean;
 
+  // @ApiProperty({ required: false })
   @Column({ nullable: true })
   flavor?: string;
 
+  // @ApiProperty()
   @Column()
   description: string;
 
+  // @ApiProperty({ required: false })
   @Column({ nullable: true })
   atHigherLevels?: string;
 
+  // @ApiProperty({ required: false })
   @Column({ nullable: true })
   cantripUpgrade?: string;
 
+  // @ApiProperty({ type: () => Source, isArray: true })
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
   sources: Source[];

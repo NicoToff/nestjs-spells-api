@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { Spell } from "../../spells/entities/spell.entity";
 import { slugify } from "lib/slugify";
@@ -19,9 +20,11 @@ export const isSchoolType = (value: unknown): value is SchoolType => {
 
 @Entity()
 export class School {
+  @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
+  @ApiProperty()
   @Column()
   name: SchoolType;
 

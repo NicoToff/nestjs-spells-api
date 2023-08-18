@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Entity, Column, PrimaryColumn, ManyToMany } from "typeorm";
 import { Spell } from "../../spells/entities/spell.entity";
 import { slugify } from "lib/slugify";
@@ -27,9 +28,11 @@ export const isSourceType = (value: unknown): value is SourceType => {
 
 @Entity()
 export class Source {
+  @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
+  @ApiProperty()
   @Column()
   name: SourceType;
 

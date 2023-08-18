@@ -1,7 +1,8 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { ApiTags, ApiParam, ApiOperation } from "@nestjs/swagger";
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { SchoolsService } from "./schools.service";
+import { School } from "./entities/school.entity";
 
 @ApiTags("Spell relation datails")
 @Controller("schools")
@@ -13,6 +14,11 @@ export class SchoolsController {
     description: "This endpoint returns all spell schools in the database.",
   })
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: "The list of all spell schools",
+    type: [School],
+  })
   findAll() {
     return this.schoolsService.findAll();
   }
@@ -28,6 +34,15 @@ export class SchoolsController {
     example: "abjuration",
   })
   @Get(":slug")
+  @ApiResponse({
+    status: 200,
+    description: "The school with the given slug",
+    type: School,
+  })
+  @ApiResponse({
+    status: 404,
+    description: "No school was found for the given slug",
+  })
   findOne(@Param("slug") slug: string) {
     return this.schoolsService.findOne(slug);
   }

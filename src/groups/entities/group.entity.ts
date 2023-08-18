@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { Spell } from "../../spells/entities/spell.entity";
 import { slugify } from "../../../lib/slugify";
@@ -10,9 +11,11 @@ export const isGroupType = (value: unknown): value is GroupType => {
 
 @Entity()
 export class Group {
+  @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
+  @ApiProperty()
   @Column()
   name: GroupType;
 

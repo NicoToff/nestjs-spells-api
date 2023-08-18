@@ -1,7 +1,8 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { ApiTags, ApiParam, ApiOperation } from "@nestjs/swagger";
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { GroupsService } from "./groups.service";
+import { Group } from "./entities/group.entity";
 
 @ApiTags("Spell relation datails")
 @Controller("groups")
@@ -13,6 +14,11 @@ export class GroupsController {
     description: "This endpoint returns all spell groups in the database.",
   })
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: "The list of all spell groups",
+    type: [Group],
+  })
   findAll() {
     return this.groupsService.findAll();
   }
@@ -28,6 +34,15 @@ export class GroupsController {
     example: "elemental-torrents",
   })
   @Get(":slug")
+  @ApiResponse({
+    status: 200,
+    description: "The group with the given slug",
+    type: Group,
+  })
+  @ApiResponse({
+    status: 404,
+    description: "No group was found for the given slug",
+  })
   findOne(@Param("slug") slug: string) {
     return this.groupsService.findOne(slug);
   }
