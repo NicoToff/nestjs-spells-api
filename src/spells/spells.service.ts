@@ -88,3 +88,5 @@ export class SpellsService {
     };
   }
 }
+
+export type SpellSimplified = ReturnType<SpellsService["simplify"]>;
