@@ -4,8 +4,9 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { SchoolsService } from "./schools.service";
 import { School } from "./entities/school.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
+import { ApiTagsEnum } from "../../lib/constants";
 
-@ApiTags("Spell relation datails")
+@ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("schools")
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}

@@ -4,8 +4,9 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { SourcesService } from "./sources.service";
 import { Source } from "./entities/source.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
+import { ApiTagsEnum } from "../../lib/constants";
 
-@ApiTags("Spell relation details")
+@ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("sources")
 export class SourcesController {
   constructor(private readonly sourcesService: SourcesService) {}
