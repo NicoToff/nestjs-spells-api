@@ -5,7 +5,7 @@ import { SourcesService } from "./sources.service";
 import { Source } from "./entities/source.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
-@ApiTags("Spell relation datails")
+@ApiTags("Spell relation details")
 @Controller("sources")
 export class SourcesController {
   constructor(private readonly sourcesService: SourcesService) {}

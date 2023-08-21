@@ -1,7 +1,5 @@
-// TODO: Find out how to type schema
-import { Controller, Get, Query, Param, applyDecorators } from "@nestjs/common";
+import { Controller, Get, Param, applyDecorators } from "@nestjs/common";
 import {
-  ApiQuery,
   ApiTags,
   ApiParam,
   ApiOperation,
@@ -9,7 +7,6 @@ import {
   ApiResponseMetadata,
 } from "@nestjs/swagger";
 import { SpellsService, type SpellSimplified } from "./spells.service";
-import { QueryBooleanPipe } from "../../lib/pipes/query-boolean.pipe";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 import { Spell } from "./entities/spell.entity";
@@ -24,13 +21,9 @@ export class SpellsController {
     description: "This endpoint returns all homebrewed spells in the database.",
   })
   @Get()
-  @ApiQuerySimpleRelations()
   @ApiResponse200()
-  findAll(
-    @Query("simpleRelations", QueryBooleanPipe)
-    simpleRelations: boolean = false
-  ) {
-    return this.spellsService.findAll(simpleRelations);
+  findAll() {
+    return this.spellsService.findAll();
   }
 
   @ApiOperation({
@@ -45,12 +38,9 @@ export class SpellsController {
     example: "fireball",
   })
   @ApiMethodDecoratorsForArrays()
-  async findOne(
-    @Param("spellSlug") spellSlug: string,
-    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
-  ) {
+  async findOne(@Param("spellSlug") spellSlug: string) {
     return returnOrThrowIfNoContent(
-      await this.spellsService.findOne(spellSlug, simpleRelations),
+      await this.spellsService.findOne(spellSlug),
       `No spell was found for slug "${spellSlug}"`
     );
   }
@@ -67,12 +57,9 @@ export class SpellsController {
     example: "arcane",
   })
   @ApiMethodDecoratorsForArrays()
-  async findBySource(
-    @Param("sourceSlug") sourceSlug: string,
-    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
-  ) {
+  async findBySource(@Param("sourceSlug") sourceSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
-      await this.spellsService.findBySource(sourceSlug, simpleRelations),
+      await this.spellsService.findBySource(sourceSlug),
       `No spell was found for source with slug "${sourceSlug}"`
     );
   }
@@ -89,12 +76,9 @@ export class SpellsController {
     example: "abjuration",
   })
   @ApiMethodDecoratorsForArrays()
-  async findBySchool(
-    @Param("schoolSlug") schoolSlug: string,
-    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
-  ) {
+  async findBySchool(@Param("schoolSlug") schoolSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
-      await this.spellsService.findBySchool(schoolSlug, simpleRelations),
+      await this.spellsService.findBySchool(schoolSlug),
       `No spell was found for school with slug "${schoolSlug}"`
     );
   }
@@ -111,27 +95,12 @@ export class SpellsController {
     example: "elemental-torrents",
   })
   @ApiMethodDecoratorsForArrays()
-  async findByGroup(
-    @Param("groupSlug") groupSlug: string,
-    @Query("simpleRelations", QueryBooleanPipe) simpleRelations: boolean = false
-  ) {
+  async findByGroup(@Param("groupSlug") groupSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
-      await this.spellsService.findByGroup(groupSlug, simpleRelations),
+      await this.spellsService.findByGroup(groupSlug),
       `No spell was found for group with slug "${groupSlug}"`
     );
   }
-}
-
-/** All doc data to explain the `simpleRelations` query parameter */
-function ApiQuerySimpleRelations() {
-  return ApiQuery({
-    name: "simpleRelations",
-    required: false,
-    description:
-      "Make relation data easier to consume by returning only the `name` property value of the relation or an array of those values.",
-    example:
-      "`school: {slug: 'abjuration', name: 'Abjuration'}` will become `school: 'Abjuration'`",
-  });
 }
 
 /** Prefilled with `status: 200` and `description: "The requested spell(s)"` */
@@ -139,7 +108,7 @@ function ApiResponse200(apiResponseArgs?: ApiResponseMetadata) {
   return ApiResponse({
     status: 200,
     description: "The requested spell(s)",
-    // type: apiResponseArgs?.isArray ? [Spell] : Spell,
+    type: apiResponseArgs?.isArray ? [Spell] : Spell,
     ...apiResponseArgs,
   });
 }
@@ -153,11 +122,7 @@ function ApiResponse404(apiResponseArgs?: ApiResponseMetadata) {
   });
 }
 
-/** Contains `ApiQuerySimpleRelations()`, `ApiResponse200({ isArray: true })` and `ApiResponse404()` */
+/** Contains `ApiResponse200({ isArray: true })` and `ApiResponse404()` */
 function ApiMethodDecoratorsForArrays() {
-  return applyDecorators(
-    ApiQuerySimpleRelations(),
-    ApiResponse200({ isArray: true }),
-    ApiResponse404()
-  );
+  return applyDecorators(ApiResponse200({ isArray: true }), ApiResponse404());
 }

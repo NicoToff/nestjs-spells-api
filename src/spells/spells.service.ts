@@ -12,30 +12,22 @@ export class SpellsService {
 
   private relations: SpellRelation[] = ["sources", "school", "group"];
 
-  async findAll(simpleRelations: boolean) {
-    const spells = await this.spellsRepository.find({
+  findAll() {
+    return this.spellsRepository.find({
       relations: this.relations,
       cache: true,
     });
-    if (simpleRelations) {
-      return spells.map(this.simplify);
-    }
-    return spells;
   }
 
-  async findOne(slug: string, simpleRelations: boolean) {
-    const spell = await this.spellsRepository.findOne({
+  findOne(slug: string) {
+    return this.spellsRepository.findOne({
       where: { slug },
       relations: this.relations,
     });
-    if (simpleRelations && spell) {
-      return this.simplify(spell);
-    }
-    return spell;
   }
 
-  async findBySource(source: string, simpleRelations: boolean) {
-    const spells = await this.spellsRepository.find({
+  findBySource(source: string) {
+    return this.spellsRepository.find({
       where: {
         sources: {
           slug: source,
@@ -43,14 +35,10 @@ export class SpellsService {
       },
       relations: this.relations,
     });
-    if (simpleRelations) {
-      return spells.map(this.simplify);
-    }
-    return spells;
   }
 
-  async findBySchool(school: string, simpleRelations: boolean) {
-    const spells = await this.spellsRepository.find({
+  findBySchool(school: string) {
+    return this.spellsRepository.find({
       where: {
         school: {
           slug: school,
@@ -58,14 +46,10 @@ export class SpellsService {
       },
       relations: this.relations,
     });
-    if (simpleRelations) {
-      return spells.map(this.simplify);
-    }
-    return spells;
   }
 
-  async findByGroup(group: string, simpleRelations: boolean) {
-    const spells = await this.spellsRepository.find({
+  findByGroup(group: string) {
+    return this.spellsRepository.find({
       where: {
         group: {
           slug: group,
@@ -73,13 +57,12 @@ export class SpellsService {
       },
       relations: this.relations,
     });
-    if (simpleRelations) {
-      return spells.map(this.simplify);
-    }
-    return spells;
   }
-
-  private simplify(spell: Spell) {
+  /**
+   * Make relation data on a spell easier to consume by returning only the `name` property value of the relation or an array of those values.
+   * @example school: {slug: 'abjuration', name: 'Abjuration'} will become school: 'Abjuration'
+   */
+  simplifyRelations(spell: Spell) {
     return {
       ...spell,
       school: spell.school.name,
@@ -89,4 +72,4 @@ export class SpellsService {
   }
 }
 
-export type SpellSimplified = ReturnType<SpellsService["simplify"]>;
+export type SpellSimplified = ReturnType<SpellsService["simplifyRelations"]>;

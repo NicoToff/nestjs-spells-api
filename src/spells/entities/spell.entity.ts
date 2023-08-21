@@ -1,4 +1,4 @@
-// import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 import {
   Entity,
   Column,
@@ -14,71 +14,71 @@ import { slugify } from "../../../lib/slugify";
 
 @Entity()
 export class Spell {
-  // @ApiProperty()
+  @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   name: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   level: number;
 
-  // @ApiProperty({ type: () => School })
+  @ApiProperty({ type: () => School })
   @ManyToOne(() => School, (school) => school.spell)
   school: School;
 
-  // @ApiProperty({ type: () => Group, required: false })
+  @ApiProperty({ type: () => Group, required: false })
   @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
   group?: Group;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   castingTime: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   range: string;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ nullable: true })
   area?: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   duration: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column({ default: "" })
   components: string;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ default: false })
   concentration?: boolean;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ default: false })
   ritual?: boolean;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ nullable: true })
   flavor?: string;
 
-  // @ApiProperty()
+  @ApiProperty()
   @Column()
   description: string;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ nullable: true })
   atHigherLevels?: string;
 
-  // @ApiProperty({ required: false })
+  @ApiProperty({ required: false })
   @Column({ nullable: true })
   cantripUpgrade?: string;
 
-  // @ApiProperty({ type: () => Source, isArray: true })
+  @ApiProperty({ type: () => Source, isArray: true })
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
   sources: Source[];
