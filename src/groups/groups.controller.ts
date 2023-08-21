@@ -4,8 +4,9 @@ import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { GroupsService } from "./groups.service";
 import { Group } from "./entities/group.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
+import { ApiTagsEnum } from "../../lib/constants";
 
-@ApiTags("Spell relation datails")
+@ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("groups")
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}

@@ -10,8 +10,9 @@ import { SpellsService, type SpellSimplified } from "./spells.service";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 import { Spell } from "./entities/spell.entity";
+import { ApiTagsEnum } from "../../lib/constants";
 
-@ApiTags("Spells")
+@ApiTags(ApiTagsEnum.Spells)
 @Controller("spells")
 export class SpellsController {
   constructor(private readonly spellsService: SpellsService) {}
