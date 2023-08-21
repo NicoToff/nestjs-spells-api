@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Spell, type SpellRelation } from "./entities/spell.entity";
+import { CreateSpellDto } from "./entities/create-spell.dto";
 
 @Injectable()
 export class SpellsService {
@@ -58,6 +59,11 @@ export class SpellsService {
       relations: this.relations,
     });
   }
+
+  create(createSpellDto: CreateSpellDto) {
+    return this.spellsRepository.save(createSpellDto);
+  }
+
   /**
    * Make relation data on a spell easier to consume by returning only the `name` property value of the relation or an array of those values.
    * @example school: {slug: 'abjuration', name: 'Abjuration'} will become school: 'Abjuration'

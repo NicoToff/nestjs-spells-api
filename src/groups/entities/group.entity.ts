@@ -2,12 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { Spell } from "../../spells/entities/spell.entity";
 import { slugify } from "../../../lib/slugify";
-
-export const GROUPS = ["Elemental Torrents"] as const;
-export type GroupType = (typeof GROUPS)[number];
-export const isGroupType = (value: unknown): value is GroupType => {
-  return GROUPS.includes(value as GroupType);
-};
+import type { GroupName } from "./group.type";
 
 @Entity()
 export class Group {
@@ -17,12 +12,12 @@ export class Group {
 
   @ApiProperty()
   @Column()
-  name: GroupType;
+  name: GroupName;
 
   @OneToMany(() => Spell, (spell) => spell.group)
   spell: Spell[];
 
-  constructor(data?: GroupType) {
+  constructor(data?: GroupName) {
     if (!data) return;
     this.slug = slugify(data);
     this.name = data;

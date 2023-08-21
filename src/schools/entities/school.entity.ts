@@ -1,37 +1,24 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { Spell } from "../../spells/entities/spell.entity";
-import { slugify } from "lib/slugify";
-
-export const SCHOOLS = [
-  "Abjuration",
-  "Conjuration",
-  "Divination",
-  "Enchantment",
-  "Evocation",
-  "Illusion",
-  "Necromancy",
-  "Transmutation",
-] as const;
-export type SchoolType = (typeof SCHOOLS)[number];
-export const isSchoolType = (value: unknown): value is SchoolType => {
-  return SCHOOLS.includes(value as SchoolType);
-};
+import { slugify } from "../../../lib/slugify";
+import { ISchoolBase } from "./school.interface";
+import { SchoolName } from "./school.type";
 
 @Entity()
-export class School {
+export class School implements ISchoolBase {
   @ApiProperty()
   @PrimaryColumn()
   slug: string;
 
   @ApiProperty()
   @Column()
-  name: SchoolType;
+  name: SchoolName;
 
   @OneToMany(() => Spell, (spell) => spell.school)
   spell: Spell[];
 
-  constructor(data?: SchoolType) {
+  constructor(data?: SchoolName) {
     if (!data) return;
     this.slug = slugify(data);
     this.name = data;

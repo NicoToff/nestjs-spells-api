@@ -1,10 +1,19 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { SourcesService } from "./sources.service";
 import { Source } from "./entities/source.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 import { ApiTagsEnum } from "../../lib/constants";
+import { CreateSourceDto } from "./entities/source.dto";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("sources")
@@ -50,5 +59,25 @@ export class SourcesController {
       await this.sourcesService.findOne(slug),
       `No source was found for slug "${slug}"`
     );
+  }
+
+  @ApiOperation({
+    summary: "Create a new source",
+    description:
+      "This endpoint creates a new spell source. The source is created with the given name, and a slug is automatically generated from it. The source name must be unique.",
+  })
+  @ApiResponse({
+    status: 201,
+    description: "The created source",
+    type: Source,
+  })
+  @ApiResponse({
+    status: 409,
+    description: "A source with the given name already exists",
+  })
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() createSourceDto: CreateSourceDto) {
+    return this.sourcesService.create(createSourceDto);
   }
 }

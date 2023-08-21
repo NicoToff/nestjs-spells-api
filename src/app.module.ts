@@ -10,7 +10,7 @@ import { SpellsModule } from "./spells/spells.module";
 import { SourcesModule } from "./sources/sources.module";
 import { SchoolsModule } from "./schools/schools.module";
 import { GroupsModule } from "./groups/groups.module";
-import { SeedModule } from "./seed/seed.module";
+// import { SeedModule } from "./seed/seed.module";
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { SeedModule } from "./seed/seed.module";
     SourcesModule,
     SchoolsModule,
     GroupsModule,
-    SeedModule,
+    // SeedModule,
   ],
 })
 export class AppModule {}

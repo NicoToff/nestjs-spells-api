@@ -1,10 +1,19 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { GroupsService } from "./groups.service";
 import { Group } from "./entities/group.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 import { ApiTagsEnum } from "../../lib/constants";
+import { CreateGroupDto } from "./entities/group.dto";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("groups")
@@ -50,5 +59,25 @@ export class GroupsController {
       await this.groupsService.findOne(slug),
       `No group was found for slug "${slug}"`
     );
+  }
+
+  @ApiOperation({
+    summary: "Create a new group",
+    description:
+      "This endpoint creates a new spell group. The group is created with the given name, and a slug is automatically generated from it. The group name must be unique.",
+  })
+  @Post()
+  @ApiResponse({
+    status: 201,
+    description: "The newly created group",
+    type: Group,
+  })
+  @ApiResponse({
+    status: 409,
+    description: "A group with the given name already exists",
+  })
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() createGroupDto: CreateGroupDto) {
+    return this.groupsService.create(createGroupDto);
   }
 }

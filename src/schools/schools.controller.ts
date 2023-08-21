@@ -1,10 +1,19 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 import { SchoolsService } from "./schools.service";
 import { School } from "./entities/school.entity";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 import { ApiTagsEnum } from "../../lib/constants";
+import { CreateSchoolDto } from "./entities/school.dto";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller("schools")
@@ -50,5 +59,25 @@ export class SchoolsController {
       this.schoolsService.findOne(slug),
       `No school was found for slug "${slug}"`
     );
+  }
+
+  @ApiOperation({
+    summary: "Create a new school",
+    description:
+      "This endpoint creates a new spell school. The school is created with the given name, and a slug is automatically generated from it. The school name must be unique.",
+  })
+  @ApiResponse({
+    status: 201,
+    description: "The created school",
+    type: School,
+  })
+  @ApiResponse({
+    status: 409,
+    description: "A school with the given name already exists",
+  })
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() createSchoolDto: CreateSchoolDto) {
+    return this.schoolsService.create(createSchoolDto);
   }
 }

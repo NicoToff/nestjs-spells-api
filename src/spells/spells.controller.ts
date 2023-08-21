@@ -1,4 +1,13 @@
-import { Controller, Get, Param, applyDecorators } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  applyDecorators,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import {
   ApiTags,
   ApiParam,
@@ -7,9 +16,11 @@ import {
   ApiResponseMetadata,
 } from "@nestjs/swagger";
 import { SpellsService, type SpellSimplified } from "./spells.service";
-import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 import { Spell } from "./entities/spell.entity";
+import { CreateSpellDto } from "./entities/create-spell.dto";
+
+import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 import { ApiTagsEnum } from "../../lib/constants";
 
 @ApiTags(ApiTagsEnum.Spells)
@@ -101,6 +112,16 @@ export class SpellsController {
       await this.spellsService.findByGroup(groupSlug),
       `No spell was found for group with slug "${groupSlug}"`
     );
+  }
+
+  @ApiOperation({
+    summary: "Create a new spell",
+    description: "This endpoint creates a new spell. It requires valid auth.",
+  })
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() createSpellDto: CreateSpellDto) {
+    return this.spellsService.create(createSpellDto);
   }
 }
 
