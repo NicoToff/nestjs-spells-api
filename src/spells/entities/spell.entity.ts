@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 
 import { ISpellBase } from "./spell.interface";
+import { SpellLevel } from "./spell.type";
 
 import { Source } from "../../sources/entities/source.entity";
 import { School } from "../../schools/entities/school.entity";
@@ -28,7 +29,7 @@ export class Spell implements ISpellBase {
 
   @ApiProperty()
   @Column()
-  level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  level: SpellLevel;
 
   @ApiProperty()
   @Column()

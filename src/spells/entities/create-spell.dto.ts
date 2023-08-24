@@ -1,7 +1,5 @@
 import {
   IsNotEmpty,
-  Min,
-  Max,
   IsIn,
   IsArray,
   ArrayUnique,
@@ -10,7 +8,10 @@ import {
   IsBoolean,
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+
 import { ISpellBase } from "./spell.interface";
+import { SPELL_LEVELS, SpellLevel } from "./spell.type";
+
 import { SCHOOLS, SchoolName } from "../../schools/entities/school.type";
 import { GROUPS, GroupName } from "../../groups/entities/group.type";
 import { SOURCES, SourceName } from "../../sources/entities/source.type";
@@ -20,13 +21,12 @@ export class CreateSpellDto implements ISpellBase {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({
-    enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  @ApiProperty({ enum: SPELL_LEVELS })
+  @IsIn(SPELL_LEVELS, {
+    message: `Level must be one of the following: ${SPELL_LEVELS.join(", ")}`,
   })
-  @Min(0)
-  @Max(9)
   @IsNotEmpty()
-  level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  level: SpellLevel;
 
   @ApiProperty()
   @IsNotEmpty()

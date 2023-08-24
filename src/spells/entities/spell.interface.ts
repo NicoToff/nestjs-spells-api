@@ -1,6 +1,8 @@
+import { SpellLevel } from "./spell.type";
+
 export interface ISpellBase {
   name: string;
-  level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  level: SpellLevel;
   castingTime: string;
   range: string;
   area?: string;
