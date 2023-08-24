@@ -20,11 +20,12 @@ import { SpellsService, type SpellSimplified } from "./spells.service";
 import { Spell } from "./entities/spell.entity";
 import { CreateSpellDto } from "./entities/create-spell.dto";
 
+import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
+import { ApiPostOperationResponse } from "../../lib/decorators/api-swagger-bundled-decorators";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
-import { ApiTagsEnum } from "../../lib/constants";
 
 @ApiTags(ApiTagsEnum.Spells)
-@Controller("spells")
+@Controller(RoutePathPrefixEnum.spells)
 export class SpellsController {
   constructor(private readonly spellsService: SpellsService) {}
 
@@ -33,7 +34,7 @@ export class SpellsController {
     description: "This endpoint returns all homebrewed spells in the database.",
   })
   @Get()
-  @ApiResponse200()
+  @ApiResponse200({ isArray: true })
   findAll() {
     return this.spellsService.findAll();
   }
@@ -114,10 +115,7 @@ export class SpellsController {
     );
   }
 
-  @ApiOperation({
-    summary: "Create a new spell",
-    description: "This endpoint creates a new spell. It requires valid auth.",
-  })
+  @ApiPostOperationResponse("spell", Spell)
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createSpellDto: CreateSpellDto) {
@@ -130,7 +128,7 @@ function ApiResponse200(apiResponseArgs?: ApiResponseMetadata) {
   return ApiResponse({
     status: 200,
     description: "The requested spell(s)",
-    type: apiResponseArgs?.isArray ? [Spell] : Spell,
+    type: Spell,
     ...apiResponseArgs,
   });
 }

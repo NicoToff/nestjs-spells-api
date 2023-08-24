@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+
 import { Source } from "./entities/source.entity";
 import { CreateSourceDto } from "./entities/source.dto";
 
@@ -23,7 +24,7 @@ export class SourcesService {
 
   create(createSourceDto: CreateSourceDto) {
     Logger.verbose(
-      `Creating source: ${createSourceDto.name}`,
+      `Creating or updating source: ${createSourceDto.name}`,
       "SourcesService"
     );
     return this.sourcesRepository.save(new Source(createSourceDto.name));

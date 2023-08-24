@@ -21,8 +21,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:build": "ts-node dev-script/docker-rebuild.ts",
-    "seed": "ts-node dev-script/seed.ts dev",
-    "seed:prod": "ts-node dev-script/seed.ts"
+    "seed": "ts-node dev-script/seed.ts",
+    "seed:prod": "ts-node dev-script/seed.ts prod"
   },
   "dependencies": {
     "@fastify/static": "^6.10.2",

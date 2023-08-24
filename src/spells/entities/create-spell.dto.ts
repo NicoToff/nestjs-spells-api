@@ -11,9 +11,9 @@ import {
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { ISpellBase } from "./spell.interface";
-import { SCHOOLS } from "src/schools/entities/school.type";
-import { GROUPS } from "src/groups/entities/group.type";
-import { SOURCES } from "src/sources/entities/source.type";
+import { SCHOOLS, SchoolName } from "src/schools/entities/school.type";
+import { GROUPS, GroupName } from "src/groups/entities/group.type";
+import { SOURCES, SourceName } from "src/sources/entities/source.type";
 
 export class CreateSpellDto implements ISpellBase {
   @ApiProperty()
@@ -39,7 +39,7 @@ export class CreateSpellDto implements ISpellBase {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsNotEmpty()
-  area: string | null | undefined;
+  area?: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -52,17 +52,17 @@ export class CreateSpellDto implements ISpellBase {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsBoolean()
-  concentration: boolean | null | undefined;
+  concentration?: boolean;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsBoolean()
-  ritual: boolean | null | undefined;
+  ritual?: boolean;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsNotEmpty()
-  flavor: string | null | undefined;
+  flavor?: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -71,26 +71,26 @@ export class CreateSpellDto implements ISpellBase {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsNotEmpty()
-  atHigherLevels: string | null | undefined;
+  atHigherLevels?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsNotEmpty()
-  cantripUpgrade: string | null | undefined;
+  cantripUpgrade?: string;
 
   @ApiProperty({ enum: SCHOOLS })
   @IsNotEmpty()
   @IsIn(SCHOOLS, {
     message: `School must be one of the following: ${SCHOOLS.join(", ")}`,
   })
-  school: string;
+  school: SchoolName;
 
   @ApiProperty({ enum: GROUPS, required: false })
   @IsOptional()
   @IsIn(GROUPS, {
     message: `Group must be one of the following: ${GROUPS.join(", ")}`,
   })
-  group: string | null | undefined;
+  group?: GroupName;
 
   @ApiProperty({ enum: SOURCES, isArray: true })
   @IsArray({
@@ -104,5 +104,5 @@ export class CreateSpellDto implements ISpellBase {
       ", "
     )}`,
   })
-  sources: string[];
+  sources: SourceName[];
 }

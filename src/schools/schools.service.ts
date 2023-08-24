@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+
 import { School } from "./entities/school.entity";
 import { CreateSchoolDto } from "./entities/school.dto";
 
@@ -23,7 +24,7 @@ export class SchoolsService {
 
   create(createSchoolDto: CreateSchoolDto) {
     Logger.verbose(
-      `Creating school: ${createSchoolDto.name}`,
+      `Creating or updating school: ${createSchoolDto.name}`,
       "SchoolsService"
     );
     return this.schoolsRepository.save(new School(createSchoolDto.name));

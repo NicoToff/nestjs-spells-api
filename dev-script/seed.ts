@@ -2,19 +2,21 @@ import { SOURCES } from "../src/sources/entities/source.type";
 import { SCHOOLS } from "../src/schools/entities/school.type";
 import { GROUPS } from "../src/groups/entities/group.type";
 import { SPELL_DATA } from "../lib/spell-data";
+import { RoutePathPrefixEnum, type RoutePathPrefixType } from "lib/constants";
 import type { CreateSpellDto } from "../src/spells/entities/create-spell.dto";
+
 const PORT = 8000;
 const args = process.argv.slice(2);
 
-const basePath = args.includes("dev")
+const basePath = !args.includes("prod")
   ? `http://0.0.0.0:${PORT}`
   : "https://nestjs-spells-api.fly.dev";
 
-const create = async (data: string | CreateSpellDto, href: string) => {
-  const body =
-    typeof data === "string"
-      ? JSON.stringify({ name: data })
-      : JSON.stringify(data);
+const send = async (
+  data: CreateSpellDto | { name: string },
+  href: RoutePathPrefixType
+) => {
+  const body = JSON.stringify(data);
   const res = await fetch(`${basePath}/${href}`, {
     method: "POST",
     headers: {
@@ -28,24 +30,27 @@ const create = async (data: string | CreateSpellDto, href: string) => {
 const seedRelations = async () => {
   await Promise.allSettled(
     SOURCES.map((source) =>
-      create(source, "sources").then(console.log).catch(console.error)
+      send({ name: source }, RoutePathPrefixEnum.sources).catch(console.error)
     )
   );
   await Promise.allSettled(
     SCHOOLS.map((school) =>
-      create(school, "schools").then(console.log).catch(console.error)
+      send({ name: school }, RoutePathPrefixEnum.schools).catch(console.error)
     )
   );
   await Promise.allSettled(
     GROUPS.map((group) =>
-      create(group, "groups").then(console.log).catch(console.error)
+      send({ name: group }, RoutePathPrefixEnum.groups).catch(console.error)
     )
   );
   const json = await Promise.allSettled(
     SPELL_DATA.map((spell) =>
-      create(spell, "spells").then(console.log).catch(console.error)
+      send(spell as CreateSpellDto, RoutePathPrefixEnum.spells).catch(
+        console.error
+      )
     )
   );
+  console.log(`${json.length} spells created or updated`);
   console.log(json);
 };
 seedRelations();

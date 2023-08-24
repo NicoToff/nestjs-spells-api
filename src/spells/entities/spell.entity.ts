@@ -7,17 +7,14 @@ import {
   ManyToOne,
   JoinTable,
 } from "typeorm";
-import { Source } from "../../sources/entities/source.entity";
-import type { SourceName } from "../../sources/entities/source.type";
-import { School } from "../../schools/entities/school.entity";
-import {
-  isSchoolName,
-  type SchoolName,
-} from "../../schools/entities/school.type";
-import { Group } from "../../groups/entities/group.entity";
-import { isGroupName, type GroupName } from "../../groups/entities/group.type";
-import { slugify } from "../../../lib/slugify";
+
 import { ISpellBase } from "./spell.interface";
+
+import { Source } from "../../sources/entities/source.entity";
+import { School } from "../../schools/entities/school.entity";
+import { Group } from "../../groups/entities/group.entity";
+
+import { slugify } from "../../../lib/slugify";
 
 @Entity()
 export class Spell implements ISpellBase {
@@ -43,7 +40,7 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ required: false })
   @Column({ nullable: true })
-  area: string | null | undefined;
+  area?: string;
 
   @ApiProperty()
   @Column()
@@ -55,15 +52,15 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ required: false })
   @Column({ default: false })
-  concentration: boolean | null | undefined;
+  concentration?: boolean;
 
   @ApiProperty({ required: false })
   @Column({ default: false })
-  ritual: boolean | null | undefined;
+  ritual?: boolean;
 
   @ApiProperty({ required: false })
   @Column({ nullable: true })
-  flavor: string | null | undefined;
+  flavor?: string;
 
   @ApiProperty()
   @Column()
@@ -71,11 +68,11 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ required: false })
   @Column({ nullable: true })
-  atHigherLevels: string | null | undefined;
+  atHigherLevels?: string;
 
   @ApiProperty({ required: false })
   @Column({ nullable: true })
-  cantripUpgrade: string | null | undefined;
+  cantripUpgrade?: string;
 
   @ApiProperty({ type: () => School })
   @ManyToOne(() => School, (school) => school.spell)
@@ -83,14 +80,20 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ type: () => Group, required: false })
   @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
-  group: Group | null | undefined;
+  group?: Group;
 
   @ApiProperty({ type: () => Source, isArray: true })
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
   sources: Source[];
 
-  constructor(data?: SpellDataType) {
+  static readonly spellRelationColumnNames = [
+    "school",
+    "sources",
+    "group",
+  ] satisfies SpellRelationColumnName[];
+
+  constructor(data?: Omit<Spell, "slug" | "spellRelationColumnNames">) {
     if (!data) return;
     this.slug = slugify(data.name);
     this.name = data.name;
@@ -109,37 +112,7 @@ export class Spell implements ISpellBase {
   }
 }
 
-/** Valid typing to create new Spell objects. */
-export type SpellRelation = keyof Pick<
+type SpellRelationColumnName = keyof Pick<
   typeof Spell.prototype,
   "school" | "sources" | "group"
 >;
-export type SpellDataType = Omit<Spell, "slug" | SpellRelation> & {
-  school: SchoolName;
-  group?: GroupName;
-  sources: SourceName[];
-};
-export function isSpellDataType(obj: unknown): obj is SpellDataType {
-  return (
-    typeof obj === "object" &&
-    obj !== null &&
-    typeof (obj as SpellDataType).name === "string" &&
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes((obj as SpellDataType).level) &&
-    isSchoolName((obj as SpellDataType).school) &&
-    ((obj as SpellDataType).group == null ||
-      isGroupName((obj as SpellDataType).group)) &&
-    typeof (obj as SpellDataType).castingTime === "string" &&
-    typeof (obj as SpellDataType).range === "string" &&
-    (typeof (obj as SpellDataType).area === "string" ||
-      (obj as SpellDataType).area == null) &&
-    typeof (obj as SpellDataType).duration === "string" &&
-    typeof (obj as SpellDataType).components === "string" &&
-    (typeof (obj as SpellDataType).concentration === "boolean" ||
-      (obj as SpellDataType).concentration == null) &&
-    (typeof (obj as SpellDataType).ritual === "boolean" ||
-      (obj as SpellDataType).ritual == null) &&
-    typeof (obj as SpellDataType).description === "string" &&
-    Array.isArray((obj as SpellDataType).sources) &&
-    (obj as SpellDataType).sources.every((source) => typeof source === "string")
-  );
-}

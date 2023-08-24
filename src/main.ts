@@ -28,7 +28,7 @@ async function bootstrap() {
       "MIT License",
       "https://raw.githubusercontent.com/NicoToff/nestjs-spells-api/main/LICENSE"
     )
-    .setVersion("0.0.1")
+    .setVersion("0.0.2")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/", app, document);
