@@ -1,54 +1,57 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-import { GroupsService } from "./groups.service";
 import { Group } from "./entities/group.entity";
+import { GroupsService } from "./groups.service";
+import { CreateGroupDto } from "./entities/group.dto";
+
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
-import { ApiTagsEnum } from "../../lib/constants";
+import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
+import {
+  ApiGetAllOperationBundle,
+  ApiGetBySlugOperationBundle,
+  ApiPostOperationResponse,
+} from "../../lib/decorators/api-swagger-bundled-decorators";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
-@Controller("groups")
+@Controller(RoutePathPrefixEnum.groups)
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
-  @ApiOperation({
-    summary: "Get all groups",
-    description: "This endpoint returns all spell groups in the database.",
+  @ApiGetAllOperationBundle({
+    entity: "spell group",
+    type: Group,
   })
   @Get()
-  @ApiResponse({
-    status: 200,
-    description: "The list of all spell groups",
-    type: [Group],
-  })
   findAll() {
     return this.groupsService.findAll();
   }
 
-  @ApiOperation({
-    summary: "Get a single group",
-    description:
-      "This endpoint returns a single spell group, referenced by its slug (slugs are used as ID in the database). If the group is not found, null is returned.",
-  })
-  @ApiParam({
-    name: "slug",
-    description: "The slug of the group to return",
-    example: "elemental-torrents",
+  @ApiGetBySlugOperationBundle({
+    entity: "spell group",
+    type: Group,
+    paramExample: "elemental-torrents",
   })
   @Get(":slug")
-  @ApiResponse({
-    status: 200,
-    description: "The group with the given slug",
-    type: Group,
-  })
-  @ApiResponse({
-    status: 404,
-    description: "No group was found for the given slug",
-  })
   async findOne(@Param("slug") slug: string) {
     return returnOrThrowIfNoContent(
       await this.groupsService.findOne(slug),
       `No group was found for slug "${slug}"`
     );
+  }
+
+  @ApiPostOperationResponse("group", Group)
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() createGroupDto: CreateGroupDto) {
+    return this.groupsService.create(createGroupDto);
   }
 }

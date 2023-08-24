@@ -7,13 +7,17 @@ import {
   ManyToOne,
   JoinTable,
 } from "typeorm";
-import { Source, type SourceType } from "../../sources/entities/source.entity";
-import { School, type SchoolType } from "../../schools/entities/school.entity";
-import { Group, type GroupType } from "../../groups/entities/group.entity";
+
+import { ISpellBase } from "./spell.interface";
+
+import { Source } from "../../sources/entities/source.entity";
+import { School } from "../../schools/entities/school.entity";
+import { Group } from "../../groups/entities/group.entity";
+
 import { slugify } from "../../../lib/slugify";
 
 @Entity()
-export class Spell {
+export class Spell implements ISpellBase {
   @ApiProperty()
   @PrimaryColumn()
   slug: string;
@@ -24,15 +28,7 @@ export class Spell {
 
   @ApiProperty()
   @Column()
-  level: number;
-
-  @ApiProperty({ type: () => School })
-  @ManyToOne(() => School, (school) => school.spell)
-  school: School;
-
-  @ApiProperty({ type: () => Group, required: false })
-  @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
-  group?: Group;
+  level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
   @ApiProperty()
   @Column()
@@ -78,12 +74,26 @@ export class Spell {
   @Column({ nullable: true })
   cantripUpgrade?: string;
 
+  @ApiProperty({ type: () => School })
+  @ManyToOne(() => School, (school) => school.spell)
+  school: School;
+
+  @ApiProperty({ type: () => Group, required: false })
+  @ManyToOne(() => Group, (group) => group.spell, { nullable: true })
+  group?: Group;
+
   @ApiProperty({ type: () => Source, isArray: true })
   @ManyToMany(() => Source, (source) => source.spell)
   @JoinTable()
   sources: Source[];
 
-  constructor(data?: SpellDataType) {
+  static readonly spellRelationColumnNames = [
+    "school",
+    "sources",
+    "group",
+  ] satisfies SpellRelationColumnName[];
+
+  constructor(data?: Omit<Spell, "slug" | "spellRelationColumnNames">) {
     if (!data) return;
     this.slug = slugify(data.name);
     this.name = data.name;
@@ -102,13 +112,7 @@ export class Spell {
   }
 }
 
-/** Valid typing to create new Spell objects. */
-export type SpellRelation = keyof Pick<
+type SpellRelationColumnName = keyof Pick<
   typeof Spell.prototype,
   "school" | "sources" | "group"
 >;
-export type SpellDataType = Omit<Spell, "slug" | SpellRelation> & {
-  school: SchoolType;
-  group?: GroupType;
-  sources: SourceType[];
-};

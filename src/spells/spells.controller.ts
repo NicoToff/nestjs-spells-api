@@ -1,4 +1,13 @@
-import { Controller, Get, Param, applyDecorators } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  applyDecorators,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import {
   ApiTags,
   ApiParam,
@@ -7,13 +16,16 @@ import {
   ApiResponseMetadata,
 } from "@nestjs/swagger";
 import { SpellsService, type SpellSimplified } from "./spells.service";
-import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 import { Spell } from "./entities/spell.entity";
-import { ApiTagsEnum } from "../../lib/constants";
+import { CreateSpellDto } from "./entities/create-spell.dto";
+
+import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
+import { ApiPostOperationResponse } from "../../lib/decorators/api-swagger-bundled-decorators";
+import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 @ApiTags(ApiTagsEnum.Spells)
-@Controller("spells")
+@Controller(RoutePathPrefixEnum.spells)
 export class SpellsController {
   constructor(private readonly spellsService: SpellsService) {}
 
@@ -22,7 +34,7 @@ export class SpellsController {
     description: "This endpoint returns all homebrewed spells in the database.",
   })
   @Get()
-  @ApiResponse200()
+  @ApiResponse200({ isArray: true })
   findAll() {
     return this.spellsService.findAll();
   }
@@ -102,6 +114,13 @@ export class SpellsController {
       `No spell was found for group with slug "${groupSlug}"`
     );
   }
+
+  @ApiPostOperationResponse("spell", Spell)
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() createSpellDto: CreateSpellDto) {
+    return this.spellsService.create(createSpellDto);
+  }
 }
 
 /** Prefilled with `status: 200` and `description: "The requested spell(s)"` */
@@ -109,7 +128,7 @@ function ApiResponse200(apiResponseArgs?: ApiResponseMetadata) {
   return ApiResponse({
     status: 200,
     description: "The requested spell(s)",
-    type: apiResponseArgs?.isArray ? [Spell] : Spell,
+    type: Spell,
     ...apiResponseArgs,
   });
 }

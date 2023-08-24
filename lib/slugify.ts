@@ -1,3 +1,6 @@
+/** Returns a URL-safe version of the argument.
+ *
+ * WARNING: Special characters are entirely removed. */
 export function slugify(str: string): string {
   const normalizedKey = str
     .replace(/[^\w\s]/g, "") // Remove all characters that are not letters, numbers, underscores or spaces, tabs and newlines.

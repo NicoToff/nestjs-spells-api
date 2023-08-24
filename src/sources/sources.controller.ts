@@ -1,48 +1,44 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-import { SourcesService } from "./sources.service";
 import { Source } from "./entities/source.entity";
+import { SourcesService } from "./sources.service";
+import { CreateSourceDto } from "./entities/source.dto";
+
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
-import { ApiTagsEnum } from "../../lib/constants";
+import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
+import {
+  ApiGetAllOperationBundle,
+  ApiGetBySlugOperationBundle,
+  ApiPostOperationResponse,
+} from "../../lib/decorators/api-swagger-bundled-decorators";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
-@Controller("sources")
+@Controller(RoutePathPrefixEnum.sources)
 export class SourcesController {
   constructor(private readonly sourcesService: SourcesService) {}
 
-  @ApiOperation({
-    summary: "Get all sources",
-    description: "This endpoint returns all spell sources in the database.",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "The list of all spell sources",
-    type: [Source],
+  @ApiGetAllOperationBundle({
+    entity: "spell source",
+    type: Source,
   })
   @Get()
   findAll() {
     return this.sourcesService.findAll();
   }
 
-  @ApiOperation({
-    summary: "Get a single source",
-    description:
-      "This endpoint returns a single spell source, referenced by its slug (slugs are used as ID in the database). If the source is not found, null is returned.",
-  })
-  @ApiParam({
-    name: "slug",
-    description: "The slug of the source to return",
-    example: "arcane",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "The source with the given slug",
+  @ApiGetBySlugOperationBundle({
+    entity: "spell source",
     type: Source,
-  })
-  @ApiResponse({
-    status: 404,
-    description: "No source was found for the given slug",
+    paramExample: "arcane",
   })
   @Get(":slug")
   async findOne(@Param("slug") slug: string) {
@@ -50,5 +46,12 @@ export class SourcesController {
       await this.sourcesService.findOne(slug),
       `No source was found for slug "${slug}"`
     );
+  }
+
+  @ApiPostOperationResponse("source", Source)
+  @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(@Body() createSourceDto: CreateSourceDto) {
+    return this.sourcesService.create(createSourceDto);
   }
 }

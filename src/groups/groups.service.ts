@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+
 import { Group } from "./entities/group.entity";
+import { CreateGroupDto } from "./entities/group.dto";
 
 @Injectable()
 export class GroupsService {
@@ -18,5 +20,13 @@ export class GroupsService {
     return this.groupsRepository.findOne({
       where: { slug },
     });
+  }
+
+  create(createGroupDto: CreateGroupDto) {
+    Logger.verbose(
+      `Creating or updating group: ${createGroupDto.name}`,
+      "GroupsService"
+    );
+    return this.groupsRepository.save(new Group(createGroupDto.name));
   }
 }

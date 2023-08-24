@@ -1,5 +1,5 @@
 import { NestFactory } from "@nestjs/core";
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -13,6 +13,11 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    })
+  );
 
   const config = new DocumentBuilder()
     .setTitle("D&D 5e NicoToff API")
@@ -23,7 +28,7 @@ async function bootstrap() {
       "MIT License",
       "https://raw.githubusercontent.com/NicoToff/nestjs-spells-api/main/LICENSE"
     )
-    .setVersion("0.0.1")
+    .setVersion("0.0.2")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/", app, document);
