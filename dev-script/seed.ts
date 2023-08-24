@@ -1,7 +1,7 @@
 import { SOURCES } from "../src/sources/entities/source.type";
 import { SCHOOLS } from "../src/schools/entities/school.type";
 import { GROUPS } from "../src/groups/entities/group.type";
-import { SPELL_DATA } from "../lib/spell-data";
+import { SPELL_DATA } from "../src/spells/data/spell-data";
 import { RoutePathPrefixEnum, type RoutePathPrefixType } from "lib/constants";
 import type { CreateSpellDto } from "../src/spells/entities/create-spell.dto";
 

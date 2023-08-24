@@ -1,3 +1,5 @@
+import { join } from "path";
+
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
@@ -11,7 +13,7 @@ import { GroupsModule } from "./groups/groups.module";
     TypeOrmModule.forRoot({
       type: "sqlite",
       database: "./db/sqlite3/db.sqlite",
-      entities: [__dirname + "/**/*.entity{.ts,.js}"],
+      entities: [join(__dirname, "/**/*.entity{.ts,.js}")],
       synchronize: true,
     }),
     SpellsModule,

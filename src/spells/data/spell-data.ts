@@ -1,4 +1,4 @@
-import { CreateSpellDto } from "src/spells/entities/create-spell.dto";
+import { CreateSpellDto } from "../entities/create-spell.dto";
 
 export const SPELL_DATA: CreateSpellDto[] = [
   {

@@ -11,9 +11,9 @@ import {
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import { ISpellBase } from "./spell.interface";
-import { SCHOOLS, SchoolName } from "src/schools/entities/school.type";
-import { GROUPS, GroupName } from "src/groups/entities/group.type";
-import { SOURCES, SourceName } from "src/sources/entities/source.type";
+import { SCHOOLS, SchoolName } from "../../schools/entities/school.type";
+import { GROUPS, GroupName } from "../../groups/entities/group.type";
+import { SOURCES, SourceName } from "../../sources/entities/source.type";
 
 export class CreateSpellDto implements ISpellBase {
   @ApiProperty()
