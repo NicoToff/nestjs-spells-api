@@ -12,7 +12,7 @@ const basePath = !args.includes("prod")
   ? `http://0.0.0.0:${PORT}`
   : "https://nestjs-spells-api.fly.dev";
 
-const send = async (
+const post = async (
   data: CreateSpellDto | { name: string },
   href: RoutePathPrefixType
 ) => {
@@ -30,22 +30,22 @@ const send = async (
 const seedRelations = async () => {
   await Promise.allSettled(
     SOURCES.map((source) =>
-      send({ name: source }, RoutePathPrefixEnum.sources).catch(console.error)
+      post({ name: source }, RoutePathPrefixEnum.sources).catch(console.error)
     )
   );
   await Promise.allSettled(
     SCHOOLS.map((school) =>
-      send({ name: school }, RoutePathPrefixEnum.schools).catch(console.error)
+      post({ name: school }, RoutePathPrefixEnum.schools).catch(console.error)
     )
   );
   await Promise.allSettled(
     GROUPS.map((group) =>
-      send({ name: group }, RoutePathPrefixEnum.groups).catch(console.error)
+      post({ name: group }, RoutePathPrefixEnum.groups).catch(console.error)
     )
   );
   const json = await Promise.allSettled(
     SPELL_DATA.map((spell) =>
-      send(spell as CreateSpellDto, RoutePathPrefixEnum.spells).catch(
+      post(spell as CreateSpellDto, RoutePathPrefixEnum.spells).catch(
         console.error
       )
     )

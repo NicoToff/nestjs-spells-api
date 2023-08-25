@@ -110,6 +110,9 @@ export class Spell implements ISpellBase {
     this.flavor = data.flavor;
     this.atHigherLevels = data.atHigherLevels;
     this.cantripUpgrade = data.cantripUpgrade;
+    this.school = data.school;
+    this.group = data.group;
+    this.sources = data.sources;
   }
 }
 

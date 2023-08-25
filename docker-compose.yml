@@ -1,0 +1,8 @@
+version: '3'
+services:
+  nestjs-spells-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - API_KEYS=${API_KEYS}
