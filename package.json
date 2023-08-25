@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "depl": "flyctl deploy",
+    "depl": "ts-node dev-script/api-keys-send.ts && flyctl deploy",
     "start:dev": "nest start --watch",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@fastify/static": "^6.10.2",
     "@nestjs/common": "^10.1.3",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.1.3",
     "@nestjs/mapped-types": "^2.0.2",
     "@nestjs/platform-express": "^10.1.3",

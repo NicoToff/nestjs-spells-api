@@ -82,14 +82,13 @@ export class SpellsService {
     const sourcesFound = await this.allReposService.getSourceRepository().find({
       where: sources.map((source) => ({ name: source })),
     });
-    return this.spellsRepository.save(
-      new Spell({
-        ...createSpellDto,
-        school: schoolFound,
-        sources: sourcesFound,
-        group: groupFoundMaybe,
-      })
-    );
+    const newSpell = new Spell({
+      ...createSpellDto,
+      school: schoolFound,
+      sources: sourcesFound,
+      group: groupFoundMaybe,
+    });
+    return this.spellsRepository.save(newSpell);
   }
 
   /**

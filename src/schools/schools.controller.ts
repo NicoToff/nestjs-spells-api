@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Param,
   UsePipes,
@@ -20,6 +19,7 @@ import {
   ApiGetBySlugOperationBundle,
   ApiPostOperationResponse,
 } from "../../lib/decorators/api-swagger-bundled-decorators";
+import { PostGuard } from "../../lib/decorators/post-with-guard";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller(RoutePathPrefixEnum.schools)
@@ -49,7 +49,7 @@ export class SchoolsController {
   }
 
   @ApiPostOperationResponse("school", School)
-  @Post()
+  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createSchoolDto: CreateSchoolDto) {
     return this.schoolsService.create(createSchoolDto);

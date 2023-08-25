@@ -1,12 +1,18 @@
 import { spawn as _spawn, type SpawnOptions } from "child_process";
 
+console.error(
+  "ERROR: This script is deprecated, run 'docker-compose build' instead"
+);
+
+process.exit(1);
+
 const imageName = "nestjs-spells-api-slim";
 const containerName = "nestjs-slim";
 const portMapping = "8000:8000";
 const SUCCESS = 0;
 
 // Starts the build of the Docker image
-(function () {
+(async function () {
   const buildImage = spawn("docker", ["build", "-t", imageName, "."]);
 
   buildImage.on("close", (code) => {
