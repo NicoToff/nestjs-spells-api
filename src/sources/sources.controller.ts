@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Param,
   UsePipes,
@@ -20,6 +19,7 @@ import {
   ApiGetBySlugOperationBundle,
   ApiPostOperationResponse,
 } from "../../lib/decorators/api-swagger-bundled-decorators";
+import { PostGuard } from "../../lib/decorators/post-with-guard";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller(RoutePathPrefixEnum.sources)
@@ -49,7 +49,7 @@ export class SourcesController {
   }
 
   @ApiPostOperationResponse("source", Source)
-  @Post()
+  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
   create(@Body() createSourceDto: CreateSourceDto) {
     return this.sourcesService.create(createSourceDto);

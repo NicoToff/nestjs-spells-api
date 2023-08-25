@@ -1,9 +1,8 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
   Param,
+  Body,
   applyDecorators,
   UsePipes,
   ValidationPipe,
@@ -22,6 +21,7 @@ import { CreateSpellDto } from "./entities/create-spell.dto";
 
 import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
 import { ApiPostOperationResponse } from "../../lib/decorators/api-swagger-bundled-decorators";
+import { PostGuard } from "../../lib/decorators/post-with-guard";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 
 @ApiTags(ApiTagsEnum.Spells)
@@ -116,8 +116,8 @@ export class SpellsController {
   }
 
   @ApiPostOperationResponse("spell", Spell)
-  @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
+  @PostGuard()
   create(@Body() createSpellDto: CreateSpellDto) {
     return this.spellsService.create(createSpellDto);
   }

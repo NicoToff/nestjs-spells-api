@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Param,
   Body,
   UsePipes,
@@ -20,6 +19,7 @@ import {
   ApiGetBySlugOperationBundle,
   ApiPostOperationResponse,
 } from "../../lib/decorators/api-swagger-bundled-decorators";
+import { PostGuard } from "../../lib/decorators/post-with-guard";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller(RoutePathPrefixEnum.groups)
@@ -49,7 +49,7 @@ export class GroupsController {
   }
 
   @ApiPostOperationResponse("group", Group)
-  @Post()
+  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createGroupDto: CreateGroupDto) {
     return this.groupsService.create(createGroupDto);

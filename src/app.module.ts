@@ -9,6 +9,7 @@ import { SchoolsModule } from "./schools/schools.module";
 import { SourcesModule } from "./sources/sources.module";
 import { SpellsModule } from "./spells/spells.module";
 import { ApiKeyModule } from "./on-boot/api-keys.module";
+import { AuthGuardModule } from "./auth/auth.module";
 
 @Module({
   // NOTE : Imports are resolved in appearing order
@@ -21,6 +22,7 @@ import { ApiKeyModule } from "./on-boot/api-keys.module";
       synchronize: true,
     }),
     ApiKeyModule,
+    AuthGuardModule,
     GroupsModule,
     SchoolsModule,
     SourcesModule,

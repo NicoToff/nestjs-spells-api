@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Injectable, Logger, OnModuleInit } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -15,7 +15,9 @@ export class ApiKeyService implements OnModuleInit {
     const apiKeyMaybe = await this.apiKeyRepository.findOne({
       where: { apiKey },
     });
-    return apiKeyMaybe != null;
+    const isAuthed = apiKeyMaybe != null;
+    !isAuthed && Logger.verbose("UNAUTHORIZED", "ApiKeyService");
+    return isAuthed;
   }
 
   async onModuleInit() {
@@ -29,5 +31,6 @@ export class ApiKeyService implements OnModuleInit {
     // ... and re-populate with found API keys from environment
     const apiKeys = API_KEYS.map((apiKey) => new ApiKey(apiKey));
     await this.apiKeyRepository.save(apiKeys);
+    Logger.verbose("API keys saved to database from ENV", "ApiKeyService");
   }
 }
