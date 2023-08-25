@@ -29,8 +29,18 @@ Install the dependencies:
 
 ```bash
 pnpm install
-pnpm start:dev
+pnpm dev
 ```
+
+You are going to need some API keys to use POST routes and populate your database. The API keys must be in UUID format and are expected to be stored in ENV variables under "API_KEYS" (comma-separated).
+
+A dev-script convieniently creates a `.env` file for you with random API keys:
+
+```bash
+pnpm keygen
+```
+
+In local environment, these keys are automatically pulled from the `.env` file directly.
 
 ### Docker
 
@@ -55,13 +65,7 @@ To just start the existing container, run:
 If you want to do it manually, you can build and run the image with:
 
 ```bash
-docker build -t nestjs-spells-api-image .
-```
-
-And run it with:
-
-```bash
-docker run -d --name nestjs-spells-api -p 8000:8000 nestjs-spells-api-image
+docker-compose up -d --build
 ```
 
 </details>
@@ -71,5 +75,9 @@ docker run -d --name nestjs-spells-api -p 8000:8000 nestjs-spells-api-image
 [My personal instance of this API](https://nestjs-spells-api.fly.dev/) is hosted on [Fly.io](https://fly.io/). If you wish to also deploy this app through them, you'll find a `fly.toml` file in the repo that you can tailor to your needs. You can deploy your own instance with the following command:
 
 ```bash
-flyctl deploy
+pnpm depl
 ```
+
+This command will automically set secrets to your Fly.io instance.
+
+Whichever hosting provider you choose, you'll need to provide API keys as ENV variables. 
