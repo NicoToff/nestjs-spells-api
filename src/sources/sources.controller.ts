@@ -52,8 +52,8 @@ export class SourcesController {
   }
 
   @ApiPostOperationResponse("source", Source)
-  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
+  @PostGuard()
   create(@Body() createSourceDto: CreateSourceDto) {
     return this.sourcesService.create(createSourceDto);
   }

@@ -39,8 +39,8 @@ export class SpellsController {
     summary: "Get all spells",
     description: "This endpoint returns all homebrewed spells in the database.",
   })
-  @Get()
   @ApiResponse200({ isArray: true })
+  @Get()
   findAll() {
     return this.spellsService.findAll();
   }
@@ -50,18 +50,19 @@ export class SpellsController {
     description:
       "This endpoint returns a single spell, referenced by its slug (slugs are used as IDs in the database).",
   })
-  @Get(":spellSlug")
   @ApiParam({
     name: "spellSlug",
     description: "The slug of the spell to return",
     example: "fireball",
     enum: SPELL_DATA.map(({ name }) => slugify(name)),
   })
-  @ApiMethodDecoratorsForArrays()
+  @ApiResponse200()
+  @ApiResponse404()
+  @Get(":spellSlug")
   async findOne(@Param("spellSlug") spellSlug: string) {
     return returnOrThrowIfNoContent(
       await this.spellsService.findOne(spellSlug),
-      `No spell was found for slug "${spellSlug}"`
+      `No spell was found for slug '${spellSlug}'`
     );
   }
 
@@ -70,18 +71,18 @@ export class SpellsController {
     description:
       "This endpoint returns all spells from a given source, referenced by the source's slug (slugs are used as IDs in the database).",
   })
-  @Get("source/:sourceSlug")
   @ApiParam({
     name: "sourceSlug",
     description: "The slug of the source to look for",
     example: "arcane",
     enum: SOURCES.map(slugify),
   })
-  @ApiMethodDecoratorsForArrays()
+  @ApiMethodDecoratorsForArrayData()
+  @Get("source/:sourceSlug")
   async findBySource(@Param("sourceSlug") sourceSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
       await this.spellsService.findBySource(sourceSlug),
-      `No spell was found for source with slug "${sourceSlug}"`
+      `No spell was found for source with slug '${sourceSlug}'`
     );
   }
 
@@ -90,18 +91,18 @@ export class SpellsController {
     description:
       "This endpoint returns all spells from a given school, referenced by the school's slug (slugs are used as IDs in the database).",
   })
-  @Get("school/:schoolSlug")
   @ApiParam({
     name: "schoolSlug",
     description: "The slug of the school to look for",
     example: "abjuration",
     enum: SCHOOLS.map(slugify),
   })
-  @ApiMethodDecoratorsForArrays()
+  @ApiMethodDecoratorsForArrayData()
+  @Get("school/:schoolSlug")
   async findBySchool(@Param("schoolSlug") schoolSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
       await this.spellsService.findBySchool(schoolSlug),
-      `No spell was found for school with slug "${schoolSlug}"`
+      `No spell was found for school with slug '${schoolSlug}'`
     );
   }
 
@@ -110,18 +111,18 @@ export class SpellsController {
     description:
       "This endpoint returns all spells from a given group, referenced by the group's slug (slugs are used as IDs in the database).",
   })
-  @Get("group/:groupSlug")
   @ApiParam({
     name: "groupSlug",
     description: "The slug of the group to look for",
     example: "elemental-torrents",
     enum: GROUPS.map(slugify),
   })
-  @ApiMethodDecoratorsForArrays()
+  @ApiMethodDecoratorsForArrayData()
+  @Get("group/:groupSlug")
   async findByGroup(@Param("groupSlug") groupSlug: string) {
     return returnOrThrowIfNoContent<Spell[] | SpellSimplified[]>(
       await this.spellsService.findByGroup(groupSlug),
-      `No spell was found for group with slug "${groupSlug}"`
+      `No spell was found for group with slug '${groupSlug}'`
     );
   }
 
@@ -153,6 +154,6 @@ function ApiResponse404(apiResponseArgs?: ApiResponseMetadata) {
 }
 
 /** Contains `ApiResponse200({ isArray: true })` and `ApiResponse404()` */
-function ApiMethodDecoratorsForArrays() {
+function ApiMethodDecoratorsForArrayData() {
   return applyDecorators(ApiResponse200({ isArray: true }), ApiResponse404());
 }

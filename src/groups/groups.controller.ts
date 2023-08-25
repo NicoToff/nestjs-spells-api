@@ -52,8 +52,8 @@ export class GroupsController {
   }
 
   @ApiPostOperationResponse("group", Group)
-  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
+  @PostGuard()
   async create(@Body() createGroupDto: CreateGroupDto) {
     return this.groupsService.create(createGroupDto);
   }

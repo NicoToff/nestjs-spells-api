@@ -52,8 +52,8 @@ export class SchoolsController {
   }
 
   @ApiPostOperationResponse("school", School)
-  @PostGuard()
   @UsePipes(new ValidationPipe({ transform: true }))
+  @PostGuard()
   create(@Body() createSchoolDto: CreateSchoolDto) {
     return this.schoolsService.create(createSchoolDto);
   }
