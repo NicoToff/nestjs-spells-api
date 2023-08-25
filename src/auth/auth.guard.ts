@@ -14,14 +14,26 @@ export class AuthGuard implements CanActivate {
   async canActivate(ctx: ExecutionContext) {
     const apiKey = this.extractKey(ctx);
 
-    if (!apiKey || Array.isArray(apiKey)) {
+    if (!apiKey || Array.isArray(apiKey) || !this.validateKey(apiKey)) {
       throw new UnauthorizedException();
     }
 
-    return await this.apiKeyService.apiKeyIsValid(apiKey);
+    const isAuthed = await this.apiKeyService.apiKeyExistsInDb(apiKey);
+
+    if (!isAuthed) {
+      throw new UnauthorizedException();
+    }
+
+    return true;
   }
 
   private extractKey(ctx: ExecutionContext) {
     return ctx.switchToHttp().getRequest<Request>().headers["api-key"];
+  }
+
+  private validateKey(key: string) {
+    const regexExp =
+      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+    return regexExp.test(key);
   }
 }

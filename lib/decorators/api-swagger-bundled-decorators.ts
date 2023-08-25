@@ -4,6 +4,7 @@ import {
   ApiParam,
   ApiResponse,
   ApiResponseMetadata,
+  ApiHeader,
 } from "@nestjs/swagger";
 
 export function ApiPostOperationResponse(
@@ -19,6 +20,15 @@ export function ApiPostOperationResponse(
       status: 201,
       description: `The newly created (or updated) ${entity}`,
       type,
+    }),
+    ApiHeader({
+      name: "api-key",
+      description: `The API key to use to create or update the ${entity}`,
+      required: true,
+    }),
+    ApiResponse({
+      status: 401,
+      description: `The API key is missing or invalid`,
     })
   );
 }

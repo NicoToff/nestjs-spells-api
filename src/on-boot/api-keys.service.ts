@@ -11,7 +11,7 @@ export class ApiKeyService implements OnModuleInit {
     readonly apiKeyRepository: Repository<ApiKey>
   ) {}
 
-  async apiKeyIsValid(apiKey: string) {
+  async apiKeyExistsInDb(apiKey: string) {
     const apiKeyMaybe = await this.apiKeyRepository.findOne({
       where: { apiKey },
     });
