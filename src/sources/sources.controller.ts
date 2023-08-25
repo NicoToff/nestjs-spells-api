@@ -9,6 +9,7 @@ import {
 import { ApiTags } from "@nestjs/swagger";
 
 import { Source } from "./entities/source.entity";
+import { SOURCES } from "./entities/source.type";
 import { SourcesService } from "./sources.service";
 import { CreateSourceDto } from "./entities/source.dto";
 
@@ -20,6 +21,7 @@ import {
   ApiPostOperationResponse,
 } from "../../lib/decorators/api-swagger-bundled-decorators";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
+import { slugify } from "../../lib/slugify";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller(RoutePathPrefixEnum.sources)
@@ -39,6 +41,7 @@ export class SourcesController {
     entity: "spell source",
     type: Source,
     paramExample: "arcane",
+    enum: SOURCES.map(slugify),
   })
   @Get(":slug")
   async findOne(@Param("slug") slug: string) {

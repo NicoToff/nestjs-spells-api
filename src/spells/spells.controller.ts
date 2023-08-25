@@ -19,10 +19,16 @@ import { SpellsService, type SpellSimplified } from "./spells.service";
 import { Spell } from "./entities/spell.entity";
 import { CreateSpellDto } from "./entities/create-spell.dto";
 
+import { SPELL_DATA } from "./data/spell-data";
+import { SOURCES } from "../sources/entities/source.type";
+import { SCHOOLS } from "../schools/entities/school.type";
+import { GROUPS } from "../groups/entities/group.type";
+
 import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
 import { ApiPostOperationResponse } from "../../lib/decorators/api-swagger-bundled-decorators";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
+import { slugify } from "../../lib/slugify";
 
 @ApiTags(ApiTagsEnum.Spells)
 @Controller(RoutePathPrefixEnum.spells)
@@ -49,6 +55,7 @@ export class SpellsController {
     name: "spellSlug",
     description: "The slug of the spell to return",
     example: "fireball",
+    enum: SPELL_DATA.map(({ name }) => slugify(name)),
   })
   @ApiMethodDecoratorsForArrays()
   async findOne(@Param("spellSlug") spellSlug: string) {
@@ -68,6 +75,7 @@ export class SpellsController {
     name: "sourceSlug",
     description: "The slug of the source to look for",
     example: "arcane",
+    enum: SOURCES.map(slugify),
   })
   @ApiMethodDecoratorsForArrays()
   async findBySource(@Param("sourceSlug") sourceSlug: string) {
@@ -87,6 +95,7 @@ export class SpellsController {
     name: "schoolSlug",
     description: "The slug of the school to look for",
     example: "abjuration",
+    enum: SCHOOLS.map(slugify),
   })
   @ApiMethodDecoratorsForArrays()
   async findBySchool(@Param("schoolSlug") schoolSlug: string) {
@@ -106,6 +115,7 @@ export class SpellsController {
     name: "groupSlug",
     description: "The slug of the group to look for",
     example: "elemental-torrents",
+    enum: GROUPS.map(slugify),
   })
   @ApiMethodDecoratorsForArrays()
   async findByGroup(@Param("groupSlug") groupSlug: string) {

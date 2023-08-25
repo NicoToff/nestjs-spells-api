@@ -58,11 +58,13 @@ export type ApiGetBySlugOperationBundleArgs = {
   entity: string;
   type: ApiResponseMetadata["type"];
   paramExample: string;
+  enum?: string[];
 };
 export function ApiGetBySlugOperationBundle({
   entity,
   type,
   paramExample: example,
+  enum: enumValues,
 }: ApiGetBySlugOperationBundleArgs) {
   return applyDecorators(
     ApiOperation({
@@ -73,6 +75,7 @@ export function ApiGetBySlugOperationBundle({
       name: "slug",
       description: `The slug of the ${entity} to return`,
       example,
+      enum: enumValues,
     }),
     ApiResponse({
       status: 200,

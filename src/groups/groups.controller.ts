@@ -9,6 +9,7 @@ import {
 import { ApiTags } from "@nestjs/swagger";
 
 import { Group } from "./entities/group.entity";
+import { GROUPS } from "./entities/group.type";
 import { GroupsService } from "./groups.service";
 import { CreateGroupDto } from "./entities/group.dto";
 
@@ -20,6 +21,7 @@ import {
   ApiPostOperationResponse,
 } from "../../lib/decorators/api-swagger-bundled-decorators";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
+import { slugify } from "../../lib/slugify";
 
 @ApiTags(ApiTagsEnum.SpellRelationDetails)
 @Controller(RoutePathPrefixEnum.groups)
@@ -39,6 +41,7 @@ export class GroupsController {
     entity: "spell group",
     type: Group,
     paramExample: "elemental-torrents",
+    enum: GROUPS.map(slugify),
   })
   @Get(":slug")
   async findOne(@Param("slug") slug: string) {
