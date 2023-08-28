@@ -37,38 +37,20 @@ You are going to need some API keys to use POST routes and populate your databas
 A dev-script convieniently creates a `.env` file for you with random API keys:
 
 ```bash
-pnpm keygen
+pnpm keys:gen --create-env
 ```
 
-In local environment, these keys are automatically pulled from the `.env` file directly.
+Then, in local dev environment, these keys are automatically pulled from the `.env` file directly.
 
 ### Docker
 
-The project contains a working Dockerfile. Provided [you have Docker installed](https://docs.docker.com/get-docker/), you can build and run the image with this convenience script:
-
-```bash
-  pnpm docker:build
-```
-
-The script rebuilds the image, destroys the previous container and spawns a new one.
-
-To just start the existing container, run:
-
-```bash
-  docker start nestjs-slim
-```
-
-<details>
-
-<summary>Docker manually</summary>
-
-If you want to do it manually, you can build and run the image with:
+The project contains a working Dockerfile. Provided [you have Docker installed](https://docs.docker.com/get-docker/), as well as [docker-compose](https://docs.docker.com/compose/install/), you can build and run the image with the following command:
 
 ```bash
 docker-compose up -d --build
 ```
 
-</details>
+`docker-compose` is needed to set up ENV variables for the container. 
 
 ### Fly.io
 
@@ -80,4 +62,25 @@ pnpm depl
 
 This command will automically set secrets to your Fly.io instance.
 
-Whichever hosting provider you choose, you'll need to provide API keys as ENV variables. 
+If you only wish to create and push new API keys, run:
+
+```bash
+pnpm keys:gen && pnpm keys:sync
+```
+
+Whichever hosting provider you choose, you'll need to provide API keys as ENV variables.
+
+#### Fly.io FAQ
+
+You might run into this error: 
+```
+Error: failed to update VM <id>: You have reached the maximum number of machines for this app.
+```
+
+Fly.io has a free tier that allows you to run 3 VMs at a time, but they also automatically provide redundancy when deploying your app. This means you end up with 2 machines for a single deployment, plus the auto-created "Free builder" => Max limit is indeed reached.
+
+You can either upgrade your plan, or simply limit the number of VMs to 1 for all your apps by running:
+
+```bash
+fly scale count 1
+```

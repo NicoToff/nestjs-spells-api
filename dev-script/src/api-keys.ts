@@ -7,8 +7,8 @@ export async function generateApiKeys(
   apiKeyLineStartsWith = "API_KEYS="
 ) {
   const args = process.argv.slice(2);
-  const nbrFromArgs = Number(args.find((arg) => arg !== "--create")) || 5;
-  const createEnv = args.includes("--create");
+  const nbrFromArgs = Number(args.find((arg) => arg !== "--create-env")) || 5;
+  const createEnv = args.includes("--create-env");
   const nbrOfKeys = range(nbrFromArgs, 1, 10000);
 
   apiKeyLineStartsWith = apiKeyLineStartsWith.endsWith("=")
@@ -25,7 +25,7 @@ export async function generateApiKeys(
       throw new Error(
         `${e.message}
             No .env file was found, is this normal?
-            If you wish to create a new .env file, pass the --create option to this script.`
+            If you wish to create a new .env file, pass the '--create-env' option to this script.`
       );
     });
   } else {

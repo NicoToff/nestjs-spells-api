@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "depl": "ts-node dev-script/api-keys-send.ts && flyctl deploy",
+    "depl": "pnpm keys:sync && flyctl deploy",
     "start:dev": "nest start --watch",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -22,7 +22,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "ts-node dev-script/seed.ts",
     "seed:prod": "ts-node dev-script/seed.ts prod",
-    "keygen": "ts-node dev-script/api-keys-generate.ts"
+    "keys:gen": "ts-node dev-script/api-keys-generate.ts",
+    "keys:sync": "ts-node dev-script/api-keys-send.ts"
   },
   "dependencies": {
     "@fastify/static": "^6.10.2",
