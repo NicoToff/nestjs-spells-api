@@ -9,13 +9,18 @@ import { School } from "../schools/entities/school.entity";
 
 import { Spell } from "./entities/spell.entity";
 import { CreateSpellDto } from "./entities/create-spell.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Spell as SpellMongo } from "./schemas/spell.schema";
+import { FilterQuery, Model } from "mongoose";
+import { FilterSpellDto } from "./schemas/filter-spell.dto";
 
 @Injectable()
 export class SpellsService {
   constructor(
     @InjectRepository(Spell)
     private spellsRepository: Repository<Spell>,
-    private allReposService: AllReposService
+    private allReposService: AllReposService,
+    @InjectModel(SpellMongo.name) private spellModel: Model<SpellMongo>
   ) {}
 
   private relations = Spell.spellRelationColumnNames;
@@ -103,6 +108,52 @@ export class SpellsService {
       sources: spell.sources.map((source) => source.name),
     };
   }
+
+  mongoFindAll({
+    name,
+    level,
+    school,
+    group,
+    sources,
+    concentration,
+    ritual,
+  }: FilterSpellDto) {
+    console.log({ name, level, school, group, sources, concentration, ritual });
+    const filterConditions = {
+      ...str("name", name),
+      ...str("school", school),
+      ...str("group", group),
+      ...(sources && sources.length
+        ? {
+            sources: {
+              $elemMatch: { $in: sources.map((s) => new RegExp(s, "i")) },
+            },
+          }
+        : {}),
+      ...(level ? { level } : {}),
+      ...bool("concentration", concentration),
+      ...bool("ritual", ritual),
+    };
+
+    // const filter: FilterQuery<SpellMongo> = Object.fromEntries(
+    //   Object.entries(filterConditions).filter(([, value]) => !isEmpty(value))
+    // );
+
+    console.log(filterConditions);
+    return this.spellModel.find(filterConditions).exec();
+  }
 }
 
 export type SpellSimplified = ReturnType<SpellsService["simplifyRelations"]>;
+
+function str(fieldName: string, fieldValue: string | undefined) {
+  if (fieldValue == null) return {};
+  return { [fieldName]: { $regex: new RegExp(fieldValue, "i") } };
+}
+
+function bool(fieldName: string, fieldValue: boolean | undefined) {
+  if (fieldValue == null) return {};
+  return fieldValue
+    ? { [fieldName]: true }
+    : { $or: [{ [fieldName]: false }, { [fieldName]: { $exists: false } }] };
+}

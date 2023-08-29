@@ -6,6 +6,7 @@ import {
   applyDecorators,
   UsePipes,
   ValidationPipe,
+  Query,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -13,11 +14,13 @@ import {
   ApiOperation,
   ApiResponse,
   ApiResponseMetadata,
+  ApiQuery,
 } from "@nestjs/swagger";
 import { SpellsService, type SpellSimplified } from "./spells.service";
 
 import { Spell } from "./entities/spell.entity";
 import { CreateSpellDto } from "./entities/create-spell.dto";
+import { Spell as SpellMongo } from "./schemas/spell.schema";
 
 import { SPELL_DATA } from "./data/spell-data";
 import { SOURCES } from "../sources/entities/source.type";
@@ -29,6 +32,7 @@ import { ApiPostOperationResponse } from "../../lib/decorators/api-swagger-bundl
 import { PostGuard } from "../../lib/decorators/post-with-guard";
 import { returnOrThrowIfNoContent } from "../../lib/returnOrThrow";
 import { slugify } from "../../lib/slugify";
+import { FilterSpellDto } from "./schemas/filter-spell.dto";
 
 @ApiTags(ApiTagsEnum.Spells)
 @Controller(RoutePathPrefixEnum.spells)
@@ -39,10 +43,28 @@ export class SpellsController {
     summary: "Get all spells",
     description: "This endpoint returns all homebrewed spells in the database.",
   })
-  @ApiResponse200({ isArray: true })
+  @ApiResponse({
+    status: 200,
+    description: "The requested spell(s)",
+    isArray: true,
+    type: SpellMongo,
+  })
+  @ApiQuery({
+    name: "name",
+    description: "The name of the spell to look for",
+    required: false,
+    example: "fire",
+  })
   @Get()
-  findAll() {
-    return this.spellsService.findAll();
+  @UsePipes(
+    new ValidationPipe({
+      forbidUnknownValues: true,
+      transform: true,
+      whitelist: true,
+    })
+  )
+  mongoFindAll(@Query() filter: FilterSpellDto) {
+    return this.spellsService.mongoFindAll(filter);
   }
 
   @ApiOperation({
