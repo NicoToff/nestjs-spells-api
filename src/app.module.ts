@@ -1,16 +1,13 @@
 import { join } from "path";
 
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
+import { MongooseModule } from "@nestjs/mongoose";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { GroupsModule } from "./groups/groups.module";
-import { SchoolsModule } from "./schools/schools.module";
-import { SourcesModule } from "./sources/sources.module";
 import { SpellsModule } from "./spells/spells.module";
 import { ApiKeyModule } from "./on-boot/api-keys.module";
 import { AuthGuardModule } from "./auth/auth.module";
-import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
   // NOTE : Imports are resolved in appearing order
@@ -27,9 +24,6 @@ import { MongooseModule } from "@nestjs/mongoose";
     }),
     ApiKeyModule,
     AuthGuardModule,
-    GroupsModule,
-    SchoolsModule,
-    SourcesModule,
     SpellsModule,
   ],
 })
