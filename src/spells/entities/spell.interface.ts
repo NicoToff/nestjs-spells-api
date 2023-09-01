@@ -1,4 +1,4 @@
-import { SpellLevel } from "./spell.type";
+import { SpellLevel } from "../../types/level.type";
 
 export interface ISpellBase {
   name: string;
@@ -7,11 +7,12 @@ export interface ISpellBase {
   range: string;
   area?: string;
   duration: string;
-  components: string;
+  components: string[];
+  material?: string;
   concentration?: boolean;
   ritual?: boolean;
   atHigherLevels?: string;
   cantripUpgrade?: string;
   flavor?: string;
-  description: string;
+  description: string[];
 }

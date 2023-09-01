@@ -6,18 +6,21 @@ import {
   ArrayNotEmpty,
   IsOptional,
   IsBoolean,
+  IsString,
 } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 import { ISpellBase } from "./spell.interface";
-import { SPELL_LEVELS, SpellLevel } from "./spell.type";
+import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 
-import { SCHOOLS, SchoolName } from "../../schools/entities/school.type";
-import { GROUPS, GroupName } from "../../groups/entities/group.type";
-import { SOURCES, SourceName } from "../../sources/entities/source.type";
+import { SCHOOLS, SchoolName } from "../../types/school.type";
+import { GROUPS, GroupName } from "../../types/group.type";
+import { SOURCES, SourceName } from "../../types/source.type";
+import { COMPONENTS, ComponentName } from "../../types/component.type";
 
 export class CreateSpellDto implements ISpellBase {
   @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   name: string;
 
@@ -25,29 +28,46 @@ export class CreateSpellDto implements ISpellBase {
   @IsIn(SPELL_LEVELS, {
     message: `Level must be one of the following: ${SPELL_LEVELS.join(", ")}`,
   })
-  @IsNotEmpty()
   level: SpellLevel;
 
   @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   castingTime: string;
 
   @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   range: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsString()
   @IsNotEmpty()
   area?: string;
 
   @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   duration: string;
 
   @ApiProperty()
+  @IsArray()
+  @ArrayUnique()
+  @ArrayNotEmpty()
+  @IsIn(COMPONENTS, {
+    each: true,
+    message: `Components must be one or more of the following: ${COMPONENTS.join(
+      ", "
+    )}`,
+  })
+  components: ComponentName[];
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
   @IsNotEmpty()
-  components: string;
+  material?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -61,25 +81,28 @@ export class CreateSpellDto implements ISpellBase {
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsString()
   @IsNotEmpty()
   flavor?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  description: string;
+  @IsArray()
+  @ArrayNotEmpty()
+  description: string[];
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsString()
   @IsNotEmpty()
   atHigherLevels?: string;
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsString()
   @IsNotEmpty()
   cantripUpgrade?: string;
 
   @ApiProperty({ enum: SCHOOLS })
-  @IsNotEmpty()
   @IsIn(SCHOOLS, {
     message: `School must be one of the following: ${SCHOOLS.join(", ")}`,
   })
@@ -93,9 +116,7 @@ export class CreateSpellDto implements ISpellBase {
   group?: GroupName;
 
   @ApiProperty({ enum: SOURCES, isArray: true })
-  @IsArray({
-    message: "Sources must be an array of strings",
-  })
+  @IsArray()
   @ArrayUnique()
   @ArrayNotEmpty()
   @IsIn(SOURCES, {

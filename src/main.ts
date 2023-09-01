@@ -13,11 +13,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-    })
-  );
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
     .setTitle("D&D 5e NicoToff API")
