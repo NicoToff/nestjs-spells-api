@@ -47,11 +47,13 @@ export async function sendApiKeys(
   dotEnvPath: string,
   apiKeyLineStartsWith = "API_KEYS="
 ) {
-  console.log("Setting API keys on hosting provider...");
+  console.log("Retrieving API keys locally...");
 
   const API_KEYS = await getLineFromEnvFile(dotEnvPath, apiKeyLineStartsWith);
 
   if (!API_KEYS) throw new Error("API_KEYS not found in .env file");
+
+  console.log("Setting API keys on hosting provider...");
 
   const fly = spawn("fly", ["secrets", "set", API_KEYS], {
     stdio: "inherit",
