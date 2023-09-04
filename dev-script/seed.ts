@@ -1,5 +1,6 @@
 import { SPELL_DATA } from "../src/spells/data/spell-data";
 import {
+  API_KEY_HEADER,
   RoutePathPrefixEnum,
   type RoutePathPrefixType,
 } from "../lib/constants";
@@ -20,14 +21,17 @@ const post = async (
   apiKey?: string
 ) => {
   const body = JSON.stringify(data);
+  const headers = {
+    "Content-Type": "application/json",
+    ...(apiKey ? { [API_KEY_HEADER]: apiKey } : {}),
+  };
+
   const res = await fetch(`${basePath}/${href}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(apiKey ? { "api-key": apiKey } : {}),
-    },
+    headers,
     body,
   });
+
   return res.json();
 };
 

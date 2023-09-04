@@ -4,8 +4,12 @@ import {
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
-import { Request } from "express";
+
 import { ApiKeyService } from "../on-boot/api-keys.service";
+import { validateUUID } from "../../lib/validate-uuid";
+
+import type { Request } from "express";
+import { API_KEY_HEADER } from "lib/constants";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,7 +18,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(ctx: ExecutionContext) {
     const apiKey = this.extractKey(ctx);
 
-    if (!apiKey || Array.isArray(apiKey) || !this.validateKey(apiKey)) {
+    if (!apiKey || Array.isArray(apiKey) || !validateUUID(apiKey)) {
       throw new UnauthorizedException();
     }
 
@@ -28,12 +32,6 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractKey(ctx: ExecutionContext) {
-    return ctx.switchToHttp().getRequest<Request>().headers["api-key"];
-  }
-
-  private validateKey(key: string) {
-    const regexExp =
-      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-    return regexExp.test(key);
+    return ctx.switchToHttp().getRequest<Request>().headers[API_KEY_HEADER];
   }
 }

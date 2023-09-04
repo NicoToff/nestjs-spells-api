@@ -23,7 +23,11 @@ import { FilterSpellDto } from "./schemas/filter-spell.dto";
 
 import { CreateSpellDto } from "./entities/create-spell.dto";
 
-import { ApiTagsEnum, RoutePathPrefixEnum } from "../../lib/constants";
+import {
+  API_KEY_HEADER,
+  ApiTagsEnum,
+  RoutePathPrefixEnum,
+} from "../../lib/constants";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
 
 import { COMPONENTS } from "../types/component.type";
@@ -122,7 +126,7 @@ export class SpellsController {
     type: Spell,
   })
   @ApiHeader({
-    name: "api-key",
+    name: API_KEY_HEADER,
     description: `A valid API key provided by this API's maintainer`,
     required: true,
   })
