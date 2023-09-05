@@ -6,13 +6,13 @@ import { ISpellBase } from "../entities/spell.interface";
 import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 
 import { SCHOOLS, SchoolName } from "../../types/school.type";
-import { GROUPS, GroupName } from "../../types/group.type";
+import { GROUPS } from "../../types/group.type";
 import { SOURCES, SourceName } from "../../types/source.type";
 import { COMPONENTS, ComponentName } from "../../types/component.type";
 
 @Schema({ versionKey: false })
 export class Spell implements ISpellBase {
-  @ApiProperty({ uniqueItems: true })
+  @ApiProperty()
   @Prop({ required: true, unique: true })
   name: string;
 
@@ -74,7 +74,7 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ enum: GROUPS, required: false })
   @Prop()
-  group?: GroupName;
+  group?: string;
 
   @ApiProperty({ enum: SOURCES, isArray: true })
   @Prop({ required: true })

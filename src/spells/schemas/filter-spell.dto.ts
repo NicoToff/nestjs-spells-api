@@ -4,44 +4,45 @@ import { Transform } from "class-transformer";
 
 import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 import { COMPONENTS, ComponentName } from "../../types/component.type";
-import { SCHOOLS, SchoolName } from "../../types/school.type";
-import { GROUPS, GroupName } from "../../types/group.type";
+import { SchoolName } from "../../types/school.type";
+import { GroupName } from "../../types/group.type";
 import { SourceName } from "../../types/source.type";
 
 export class FilterSpellDto {
   @IsOptional()
-  @Transform(({ value }) => validateRegExpValue(value))
+  @Transform(toSelfOrThrow)
   name?: string;
 
   @IsOptional()
+  @Transform(toNumberOrThrow)
   @IsIn(SPELL_LEVELS)
   level?: SpellLevel;
 
   @IsOptional()
-  @IsIn(SCHOOLS)
+  @Transform(toSelfOrThrow)
   school?: SchoolName;
 
   @IsOptional()
-  @Transform(toStringArray)
+  @Transform(toStringArrayOrThrow)
   @IsIn(COMPONENTS, { each: true })
   components?: ComponentName[];
 
   @IsOptional()
-  @IsIn(GROUPS)
+  @Transform(toSelfOrThrow)
   group?: GroupName;
 
   @IsOptional()
-  @Transform(toStringArray)
+  @Transform(toStringArrayOrThrow)
   @IsString({ each: true })
   sources?: SourceName[];
 
   @IsOptional()
-  @Transform(toBoolean)
+  @Transform(toBooleanOrThrow)
   @IsBoolean()
   concentration?: boolean;
 
   @IsOptional()
-  @Transform(toBoolean)
+  @Transform(toBooleanOrThrow)
   @IsBoolean()
   ritual?: boolean;
 }
@@ -60,7 +61,13 @@ function createRegExpValidator(regExp: RegExp) {
 
 const validateRegExpValue = createRegExpValidator(onlySafeChars);
 
-function toBoolean({ value }: { value: unknown }) {
+function toSelfOrThrow({ value }: { value: unknown }) {
+  if (typeof value === "string") {
+    return validateRegExpValue(value);
+  }
+}
+
+function toBooleanOrThrow({ value }: { value: unknown }) {
   console.log(`toBoolean:`, typeof value);
   if (typeof value === "string") {
     if (value === "true" || value === "") return true;
@@ -69,7 +76,16 @@ function toBoolean({ value }: { value: unknown }) {
   }
 }
 
-function toStringArray({ value }: { value: unknown }) {
+function toNumberOrThrow({ value }: { value: unknown }) {
+  if (typeof value === "string") {
+    const number = Number(value);
+    if (isNaN(number))
+      throw new BadRequestException(`Invalid number: ${value}`);
+    return number;
+  }
+}
+
+function toStringArrayOrThrow({ value }: { value: unknown }) {
   if (typeof value === "string") {
     const splitValues = value.split(",").filter(Boolean);
     splitValues.forEach(validateRegExpValue);

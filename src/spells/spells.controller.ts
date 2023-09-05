@@ -57,6 +57,7 @@ export class SpellsController {
     description: "Strings of characters that the spell name must contain",
     required: false,
     example: "fire",
+    type: String,
   })
   @ApiQuery({
     name: "level",
@@ -110,8 +111,8 @@ export class SpellsController {
       whitelist: true,
     })
   )
-  mongoFindAll(@Query() filter: FilterSpellDto) {
-    return this.spellsService.mongoFindAll(filter);
+  findAll(@Query() filter: FilterSpellDto) {
+    return this.spellsService.findAll(filter);
   }
 
   @ApiOperation({

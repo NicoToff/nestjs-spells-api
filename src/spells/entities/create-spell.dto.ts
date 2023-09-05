@@ -51,7 +51,7 @@ export class CreateSpellDto implements ISpellBase {
   @IsNotEmpty()
   duration: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: COMPONENTS, isArray: true })
   @IsArray()
   @ArrayUnique()
   @ArrayNotEmpty()
@@ -110,10 +110,7 @@ export class CreateSpellDto implements ISpellBase {
 
   @ApiProperty({ enum: GROUPS, required: false })
   @IsOptional()
-  @IsIn(GROUPS, {
-    message: `Group must be one of the following: ${GROUPS.join(", ")}`,
-  })
-  group?: GroupName;
+  group?: GroupName | (string & {});
 
   @ApiProperty({ enum: SOURCES, isArray: true })
   @IsArray()

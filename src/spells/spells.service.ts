@@ -10,7 +10,7 @@ import { FilterSpellDto } from "./schemas/filter-spell.dto";
 export class SpellsService {
   constructor(@InjectModel(Spell.name) private spellModel: Model<Spell>) {}
 
-  mongoFindAll({
+  findAll({
     name,
     level,
     school,
@@ -40,7 +40,7 @@ export class SpellsService {
     );
     const filterConditions = {
       ...strRegExpFilter("name", name),
-      ...(level ? { level } : {}),
+      ...(level != null ? { level } : {}),
       ...strRegExpFilter("school", school),
       ...strArrayRegExpFilter("components", components),
       ...strRegExpFilter("group", group),
