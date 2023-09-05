@@ -8,6 +8,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { SpellsModule } from "./spells/spells.module";
 import { ApiKeyModule } from "./on-boot/api-keys.module";
 import { AuthGuardModule } from "./auth/auth.module";
+import { AppController } from "./app.controller";
 
 @Module({
   // NOTE : Imports are resolved in appearing order
@@ -26,5 +27,6 @@ import { AuthGuardModule } from "./auth/auth.module";
     AuthGuardModule,
     SpellsModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

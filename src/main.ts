@@ -28,7 +28,7 @@ async function bootstrap() {
     .setVersion("0.0.3")
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("/", app, document);
+  SwaggerModule.setup("api", app, document);
 
   await app.listen(8000, "0.0.0.0", (err, address) => {
     if (err) Logger.error(err, "AppMain");
