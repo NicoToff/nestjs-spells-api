@@ -24,7 +24,7 @@ export class FilterSpellDto {
 
   @IsOptional()
   @Transform(toStringArrayOrThrow)
-  @IsIn(COMPONENTS, { each: true })
+  @IsIn(COMPONENTS.map((c) => c.toLowerCase()), { each: true })
   components?: ComponentName[];
 
   @IsOptional()
@@ -89,6 +89,6 @@ function toStringArrayOrThrow({ value }: { value: unknown }) {
   if (typeof value === "string") {
     const splitValues = value.split(",").filter(Boolean);
     splitValues.forEach(validateRegExpValue);
-    return splitValues;
+    return splitValues.map((v) => v.toLowerCase());
   }
 }
