@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable /*, Logger*/ } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
@@ -20,24 +20,24 @@ export class SpellsService {
     concentration,
     ritual,
   }: FilterSpellDto) {
-    Logger.debug(
-      `
-      Received FilterSpellDto: ${JSON.stringify(
-        {
-          name,
-          level,
-          school,
-          components,
-          group,
-          sources,
-          concentration,
-          ritual,
-        },
-        null,
-        2
-      )}`,
-      "SpellsService"
-    );
+    // Logger.debug(
+    //   `
+    //   Received FilterSpellDto: ${JSON.stringify(
+    //     {
+    //       name,
+    //       level,
+    //       school,
+    //       components,
+    //       group,
+    //       sources,
+    //       concentration,
+    //       ritual,
+    //     },
+    //     null,
+    //     2
+    //   )}`,
+    //   "SpellsService"
+    // );
     const filterConditions = {
       ...strRegExpFilter("name", name),
       ...(level != null ? { level } : {}),
@@ -49,7 +49,7 @@ export class SpellsService {
       ...boolFilter("ritual", ritual),
     };
 
-    console.log(`filterConditions:`, filterConditions);
+    // console.log(`filterConditions:`, filterConditions);
 
     return this.spellModel.find<Spell>(filterConditions, "-_id").exec();
   }
