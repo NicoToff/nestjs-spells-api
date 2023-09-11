@@ -1,13 +1,19 @@
-import type { SpellLevel, DamageType } from "dnd-home-utils";
+import type {
+  SpellLevel,
+  DamageType,
+  ComponentName,
+  SchoolName,
+} from "dnd-home-utils";
 
 export interface ISpellBase {
   name: string;
   level: SpellLevel;
+  school: SchoolName;
   castingTime: string;
   range: string;
   area?: string;
   duration: string;
-  components: string[];
+  components: ComponentName[];
   material?: string;
   concentration?: boolean;
   ritual?: boolean;

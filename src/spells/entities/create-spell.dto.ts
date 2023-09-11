@@ -14,17 +14,20 @@ import { ISpellBase } from "./spell.interface";
 
 import {
   SPELL_LEVELS,
-  type SpellLevel,
   SCHOOLS,
-  type SchoolName,
   GROUPS,
-  type GroupName,
   SOURCES,
-  type SourceName,
   COMPONENTS,
-  type ComponentName,
   DAMAGE_TYPES,
-  type DamageType,
+} from "dnd-home-utils";
+
+import type {
+  ComponentName,
+  SpellLevel,
+  SchoolName,
+  GroupName,
+  SourceName,
+  DamageType,
 } from "dnd-home-utils";
 
 export class CreateSpellDto implements ISpellBase {

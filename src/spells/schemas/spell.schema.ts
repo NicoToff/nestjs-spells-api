@@ -6,16 +6,19 @@ import { ISpellBase } from "../entities/spell.interface";
 
 import {
   SPELL_LEVELS,
-  type SpellLevel,
   SCHOOLS,
-  type SchoolName,
   GROUPS,
   SOURCES,
-  type SourceName,
   COMPONENTS,
-  type ComponentName,
   DAMAGE_TYPES,
-  type DamageType,
+} from "dnd-home-utils";
+
+import type {
+  SpellLevel,
+  SchoolName,
+  SourceName,
+  ComponentName,
+  DamageType,
 } from "dnd-home-utils";
 
 @Schema({ versionKey: false })
