@@ -9,6 +9,7 @@ import { SCHOOLS, SchoolName } from "../../types/school.type";
 import { GROUPS } from "../../types/group.type";
 import { SOURCES, SourceName } from "../../types/source.type";
 import { COMPONENTS, ComponentName } from "../../types/component.type";
+import { DAMAGE_TYPES, DamageType } from "../../types/damage-type.type";
 
 @Schema({ versionKey: false })
 export class Spell implements ISpellBase {
@@ -59,6 +60,10 @@ export class Spell implements ISpellBase {
   @ApiProperty({ isArray: true, type: String })
   @Prop({ required: true })
   description: string[];
+
+  @ApiProperty({ enum: DAMAGE_TYPES, isArray: true })
+  @Prop({ required: false })
+  damageTypes?: DamageType[];
 
   @ApiProperty({ required: false })
   @Prop()

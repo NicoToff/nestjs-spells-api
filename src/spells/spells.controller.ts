@@ -35,6 +35,7 @@ import { GROUPS } from "../types/group.type";
 import { SCHOOLS } from "../types/school.type";
 import { SOURCES } from "../types/source.type";
 import { SPELL_LEVELS } from "../types/level.type";
+import { DAMAGE_TYPES } from "../types/damage-type.type";
 
 @ApiTags(ApiTagsEnum.Spells)
 @Controller(RoutePathPrefixEnum.spells)
@@ -102,6 +103,13 @@ export class SpellsController {
     description: "Whether the spell can be cast as a ritual",
     required: false,
     enum: ["true", "false"],
+  })
+  @ApiQuery({
+    name: "damageTypes",
+    description: "The damage types of the spell",
+    required: false,
+    enum: DAMAGE_TYPES,
+    isArray: true,
   })
   @Get()
   @UsePipes(

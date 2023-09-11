@@ -2,15 +2,16 @@ import { BadRequestException } from "@nestjs/common";
 import { IsOptional, IsString, IsBoolean, IsIn } from "class-validator";
 import { Transform } from "class-transformer";
 
-import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
-import { COMPONENTS, ComponentName } from "../../types/component.type";
-import { SchoolName } from "../../types/school.type";
-import { GroupName } from "../../types/group.type";
-import { SourceName } from "../../types/source.type";
+import { SPELL_LEVELS, type SpellLevel } from "../../types/level.type";
+import { COMPONENTS, type ComponentName } from "../../types/component.type";
+import type { SchoolName } from "../../types/school.type";
+import type { GroupName } from "../../types/group.type";
+import type { SourceName } from "../../types/source.type";
+import type { DamageType } from "../../types/damage-type.type";
 
 export class FilterSpellDto {
   @IsOptional()
-  @Transform(toSelfOrThrow)
+  @Transform(toValidSelfOrThrow)
   name?: string;
 
   @IsOptional()
@@ -19,20 +20,20 @@ export class FilterSpellDto {
   level?: SpellLevel;
 
   @IsOptional()
-  @Transform(toSelfOrThrow)
+  @Transform(toValidSelfOrThrow)
   school?: SchoolName;
 
   @IsOptional()
-  @Transform(toStringArrayOrThrow)
+  @Transform(toValidStringArrayOrThrow)
   @IsIn(COMPONENTS.map((c) => c.toLowerCase()), { each: true })
   components?: ComponentName[];
 
   @IsOptional()
-  @Transform(toSelfOrThrow)
+  @Transform(toValidSelfOrThrow)
   group?: GroupName;
 
   @IsOptional()
-  @Transform(toStringArrayOrThrow)
+  @Transform(toValidStringArrayOrThrow)
   @IsString({ each: true })
   sources?: SourceName[];
 
@@ -45,9 +46,14 @@ export class FilterSpellDto {
   @Transform(toBooleanOrThrow)
   @IsBoolean()
   ritual?: boolean;
+
+  @IsOptional()
+  @Transform(toValidStringArrayOrThrow)
+  @IsString({ each: true })
+  damageTypes?: DamageType[];
 }
 
-const onlySafeChars = /[A-Za-zÀ-ÿ'"`\s]/;
+const onlySafeChars = /[A-Za-z0-9À-ÿ'"`\s+]/;
 
 function createRegExpValidator(regExp: RegExp) {
   return (value: unknown) => {
@@ -61,14 +67,13 @@ function createRegExpValidator(regExp: RegExp) {
 
 const validateRegExpValue = createRegExpValidator(onlySafeChars);
 
-function toSelfOrThrow({ value }: { value: unknown }) {
+function toValidSelfOrThrow({ value }: { value: unknown }) {
   if (typeof value === "string") {
     return validateRegExpValue(value);
   }
 }
 
 function toBooleanOrThrow({ value }: { value: unknown }) {
-  console.log(`toBoolean:`, typeof value);
   if (typeof value === "string") {
     if (value === "true" || value === "") return true;
     if (value === "false") return false;
@@ -85,10 +90,11 @@ function toNumberOrThrow({ value }: { value: unknown }) {
   }
 }
 
-function toStringArrayOrThrow({ value }: { value: unknown }) {
-  if (typeof value === "string") {
-    const splitValues = value.split(",").filter(Boolean);
-    splitValues.forEach(validateRegExpValue);
-    return splitValues.map((v) => v.toLowerCase());
+function toValidStringArrayOrThrow({ value }: { value: unknown }) {
+  if (Array.isArray(value)) {
+    value.forEach(validateRegExpValue);
+    return value.map((v) => v.toLowerCase());
+  } else if (typeof value === "string") {
+    return [validateRegExpValue(value)];
   }
 }

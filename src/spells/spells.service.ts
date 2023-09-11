@@ -17,6 +17,7 @@ export class SpellsService {
     components,
     group,
     sources,
+    damageTypes,
     concentration,
     ritual,
   }: FilterSpellDto) {
@@ -30,6 +31,7 @@ export class SpellsService {
     //       components,
     //       group,
     //       sources,
+    //       damageTypes,
     //       concentration,
     //       ritual,
     //     },
@@ -45,6 +47,7 @@ export class SpellsService {
       ...strArrayRegExpFilter("components", components),
       ...strRegExpFilter("group", group),
       ...strArrayRegExpFilter("sources", sources),
+      ...strArrayRegExpFilter("damageTypes", damageTypes),
       ...boolFilter("concentration", concentration),
       ...boolFilter("ritual", ritual),
     };
@@ -65,7 +68,7 @@ export class SpellsService {
 }
 
 function strRegExpFilter(
-  fieldName: keyof CreateSpellDto,
+  fieldName: keyof FilterSpellDto,
   fieldValue: string | undefined,
   { flags = "i" }: { flags?: string } = {}
 ) {
@@ -73,8 +76,24 @@ function strRegExpFilter(
   return { [fieldName]: { $regex: new RegExp(fieldValue, flags) } };
 }
 
+// function strRegExpSearchFilter(
+//   fieldName: keyof FilterSpellDto,
+//   fieldValue: string | undefined
+// ) {
+//   if (fieldValue == null) return {};
+//   return {
+//     [fieldName]: {
+//       $search: {
+//         text: {
+//           query: fieldValue,
+//         },
+//       },
+//     },
+//   };
+// }
+
 function strArrayRegExpFilter(
-  fieldName: keyof CreateSpellDto,
+  fieldName: keyof FilterSpellDto,
   fieldValues: string[] | undefined,
   { flags = "i" }: { flags?: string } = {}
 ) {
@@ -87,7 +106,7 @@ function strArrayRegExpFilter(
 }
 
 function boolFilter(
-  fieldName: keyof CreateSpellDto,
+  fieldName: keyof FilterSpellDto,
   fieldValue: boolean | undefined
 ) {
   if (fieldValue == null) return {};

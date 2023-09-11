@@ -1,4 +1,5 @@
-import { SpellLevel } from "../../types/level.type";
+import type { SpellLevel } from "../../types/level.type";
+import type { DamageType } from "../../types/damage-type.type";
 
 export interface ISpellBase {
   name: string;
@@ -15,4 +16,5 @@ export interface ISpellBase {
   cantripUpgrade?: string;
   flavor?: string;
   description: string[];
+  damageTypes?: DamageType[];
 }

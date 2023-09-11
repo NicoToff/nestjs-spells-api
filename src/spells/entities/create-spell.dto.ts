@@ -13,10 +13,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ISpellBase } from "./spell.interface";
 import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 
-import { SCHOOLS, SchoolName } from "../../types/school.type";
-import { GROUPS, GroupName } from "../../types/group.type";
-import { SOURCES, SourceName } from "../../types/source.type";
-import { COMPONENTS, ComponentName } from "../../types/component.type";
+import { SCHOOLS, type SchoolName } from "../../types/school.type";
+import { GROUPS, type GroupName } from "../../types/group.type";
+import { SOURCES, type SourceName } from "../../types/source.type";
+import { COMPONENTS, type ComponentName } from "../../types/component.type";
+import { DAMAGE_TYPES, type DamageType } from "../../types/damage-type.type";
 
 export class CreateSpellDto implements ISpellBase {
   @ApiProperty()
@@ -110,7 +111,7 @@ export class CreateSpellDto implements ISpellBase {
 
   @ApiProperty({ enum: GROUPS, required: false })
   @IsOptional()
-  group?: GroupName | (string & {});
+  group?: GroupName;
 
   @ApiProperty({ enum: SOURCES, isArray: true })
   @IsArray()
@@ -123,4 +124,16 @@ export class CreateSpellDto implements ISpellBase {
     )}`,
   })
   sources: SourceName[];
+
+  @ApiProperty({ required: false, isArray: true, enum: DAMAGE_TYPES })
+  @IsOptional()
+  @ArrayUnique()
+  @ArrayNotEmpty()
+  @IsIn(DAMAGE_TYPES, {
+    each: true,
+    message: `Damage types must be one or more of the following: ${DAMAGE_TYPES.join(
+      ", "
+    )}`,
+  })
+  damageTypes?: DamageType[];
 }
