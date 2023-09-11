@@ -3,13 +3,20 @@ import { ApiProperty } from "@nestjs/swagger";
 import { HydratedDocument } from "mongoose";
 
 import { ISpellBase } from "../entities/spell.interface";
-import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 
-import { SCHOOLS, SchoolName } from "../../types/school.type";
-import { GROUPS } from "../../types/group.type";
-import { SOURCES, SourceName } from "../../types/source.type";
-import { COMPONENTS, ComponentName } from "../../types/component.type";
-import { DAMAGE_TYPES, DamageType } from "../../types/damage-type.type";
+import {
+  SPELL_LEVELS,
+  type SpellLevel,
+  SCHOOLS,
+  type SchoolName,
+  GROUPS,
+  SOURCES,
+  type SourceName,
+  COMPONENTS,
+  type ComponentName,
+  DAMAGE_TYPES,
+  type DamageType,
+} from "dnd-home-utils";
 
 @Schema({ versionKey: false })
 export class Spell implements ISpellBase {

@@ -1,5 +1,4 @@
-import type { SpellLevel } from "../../types/level.type";
-import type { DamageType } from "../../types/damage-type.type";
+import type { SpellLevel, DamageType } from "dnd-home-utils";
 
 export interface ISpellBase {
   name: string;

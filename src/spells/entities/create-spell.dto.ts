@@ -11,13 +11,21 @@ import {
 import { ApiProperty } from "@nestjs/swagger";
 
 import { ISpellBase } from "./spell.interface";
-import { SPELL_LEVELS, SpellLevel } from "../../types/level.type";
 
-import { SCHOOLS, type SchoolName } from "../../types/school.type";
-import { GROUPS, type GroupName } from "../../types/group.type";
-import { SOURCES, type SourceName } from "../../types/source.type";
-import { COMPONENTS, type ComponentName } from "../../types/component.type";
-import { DAMAGE_TYPES, type DamageType } from "../../types/damage-type.type";
+import {
+  SPELL_LEVELS,
+  type SpellLevel,
+  SCHOOLS,
+  type SchoolName,
+  GROUPS,
+  type GroupName,
+  SOURCES,
+  type SourceName,
+  COMPONENTS,
+  type ComponentName,
+  DAMAGE_TYPES,
+  type DamageType,
+} from "dnd-home-utils";
 
 export class CreateSpellDto implements ISpellBase {
   @ApiProperty()

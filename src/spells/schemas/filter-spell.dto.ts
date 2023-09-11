@@ -1,13 +1,16 @@
 import { BadRequestException } from "@nestjs/common";
 import { IsOptional, IsString, IsBoolean, IsIn } from "class-validator";
 import { Transform } from "class-transformer";
+import { SPELL_LEVELS, COMPONENTS } from "dnd-home-utils";
 
-import { SPELL_LEVELS, type SpellLevel } from "../../types/level.type";
-import { COMPONENTS, type ComponentName } from "../../types/component.type";
-import type { SchoolName } from "../../types/school.type";
-import type { GroupName } from "../../types/group.type";
-import type { SourceName } from "../../types/source.type";
-import type { DamageType } from "../../types/damage-type.type";
+import type {
+  SpellLevel,
+  ComponentName,
+  SchoolName,
+  GroupName,
+  SourceName,
+  DamageType,
+} from "dnd-home-utils";
 
 export class FilterSpellDto {
   @IsOptional()

@@ -30,12 +30,14 @@ import {
 } from "../../lib/constants";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
 
-import { COMPONENTS } from "../types/component.type";
-import { GROUPS } from "../types/group.type";
-import { SCHOOLS } from "../types/school.type";
-import { SOURCES } from "../types/source.type";
-import { SPELL_LEVELS } from "../types/level.type";
-import { DAMAGE_TYPES } from "../types/damage-type.type";
+import {
+  COMPONENTS,
+  GROUPS,
+  SCHOOLS,
+  SOURCES,
+  SPELL_LEVELS,
+  DAMAGE_TYPES,
+} from "dnd-home-utils";
 
 @ApiTags(ApiTagsEnum.Spells)
 @Controller(RoutePathPrefixEnum.spells)
