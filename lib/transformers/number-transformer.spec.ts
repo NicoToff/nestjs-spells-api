@@ -21,6 +21,10 @@ describe("createNumberTransformer", () => {
     expect(() => transform("6")).toThrow();
     expect(() => transform("6.5")).toThrow();
   });
+  it("should throw for an empty string", () => {
+    const transform = createNumberTransformer();
+    expect(() => transform("")).toThrow();
+  });
   it("shouldn't throw if value is a string and throwIfString is false", () => {
     const transform = createNumberTransformer({ throwIfNotNumber: false });
     expect(() => transform("6")).not.toThrow();
