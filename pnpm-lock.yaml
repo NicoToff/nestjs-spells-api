@@ -45,8 +45,8 @@ dependencies:
     specifier: ^0.14.0
     version: 0.14.0
   dnd-home-utils:
-    specifier: ^0.0.3
-    version: 0.0.3
+    specifier: ^0.1.0
+    version: 0.1.0
   mongoose:
     specifier: ^7.5.0
     version: 7.5.0
@@ -2779,8 +2779,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /dnd-home-utils@0.0.3:
-    resolution: {integrity: sha512-Rwq4bPBjQCW3fkIcTFlSbiNeKxkQx8WkjpYVLltFeyREZwqp6Cr3tgCg2kRXEnjT6+TZUJUoYPEJoifEvQkQjA==}
+  /dnd-home-utils@0.1.0:
+    resolution: {integrity: sha512-Ukr5iqAaqEwE/HEAuw/P3uNjYrV6obj5i3y3S9ajH7glduUJkthvYdeSHNTK5Z21Oa5kfZQO7l5ZBrEY4rA7qQ==}
     dev: false
 
   /doctrine@3.0.0:
