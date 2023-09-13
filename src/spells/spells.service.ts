@@ -41,8 +41,8 @@ export class SpellsService {
     //   "SpellsService"
     // );
     const filterConditions = {
-      ...strRegExpFilter("name", name),
-      ...(level != null ? { level } : {}),
+      ...strSearchTextFilter("name", name),
+      ...numArrayFilter("level", level),
       ...strRegExpFilter("school", school),
       ...strArrayRegExpFilter("components", components),
       ...strRegExpFilter("group", group),
@@ -52,7 +52,7 @@ export class SpellsService {
       ...boolFilter("ritual", ritual),
     };
 
-    // console.log(`filterConditions:`, filterConditions);
+    console.log(`filterConditions:`, filterConditions);
 
     return this.spellModel.find<Spell>(filterConditions, "-_id").exec();
   }
@@ -74,6 +74,20 @@ function strRegExpFilter(
 ) {
   if (fieldValue == null) return {};
   return { [fieldName]: { $regex: new RegExp(fieldValue, flags) } };
+}
+
+function strSearchTextFilter(
+  fieldName: keyof FilterSpellDto,
+  fieldValue: string | undefined,
+  { flags = "i" }: { flags?: string } = {}
+) {
+  if (fieldValue == null) return {};
+  const valArr = fieldValue.split(" ").filter(Boolean);
+  console.log("🚀 ~ file: spells.service.ts:86 ~ valArr:", valArr);
+  const regExps = valArr.map((v) => new RegExp(v, flags));
+  console.log("🚀 ~ file: spells.service.ts:86 ~ regExps:", regExps);
+  const conditions = regExps.map((r) => ({ [fieldName]: { $regex: r } }));
+  return { $and: conditions };
 }
 
 // function strRegExpSearchFilter(
@@ -122,4 +136,12 @@ function boolFilter(
           },
         ],
       };
+}
+
+function numArrayFilter(
+  fieldName: keyof FilterSpellDto,
+  fieldValues: number[] | undefined
+) {
+  if (fieldValues == null || !fieldValues.length) return {};
+  return { [fieldName]: { $in: fieldValues } };
 }

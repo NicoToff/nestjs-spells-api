@@ -24,7 +24,7 @@ import type {
 @Schema({ versionKey: false })
 export class Spell implements ISpellBase {
   @ApiProperty()
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, trim: true })
   name: string;
 
   @ApiProperty({ enum: SPELL_LEVELS })

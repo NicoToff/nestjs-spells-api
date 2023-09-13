@@ -1,4 +1,3 @@
-import { BadRequestException } from "@nestjs/common";
 import { IsOptional, IsString, IsBoolean, IsIn } from "class-validator";
 import { Transform } from "class-transformer";
 import { SPELL_LEVELS, COMPONENTS } from "dnd-home-utils";
@@ -12,92 +11,78 @@ import type {
   DamageType,
 } from "dnd-home-utils";
 
+import { arrayify } from "../../../lib/arrayify";
+import { createStringValidator } from "../../../lib/validators/string-validator-with-regexp";
+import { createNumberTransformer } from "../../../lib/transformers/number-transformer";
+import { createBooleanTransformer } from "../../../lib/transformers/boolean-transformer";
+import { safeContentForRegExp } from "../../../lib/constants";
+
 export class FilterSpellDto {
   @IsOptional()
-  @Transform(toValidSelfOrThrow)
+  @Transform(toSelf)
   name?: string;
 
   @IsOptional()
-  @Transform(toNumberOrThrow)
-  @IsIn(SPELL_LEVELS)
-  level?: SpellLevel;
+  @Transform(toNumberArray)
+  @IsIn(SPELL_LEVELS, { each: true })
+  level?: SpellLevel[];
 
   @IsOptional()
-  @Transform(toValidSelfOrThrow)
+  @Transform(toSelf)
   school?: SchoolName;
 
   @IsOptional()
-  @Transform(toValidStringArrayOrThrow)
-  @IsIn(COMPONENTS.map((c) => c.toLowerCase()), { each: true })
+  @Transform(toStringArray)
+  @IsIn(COMPONENTS, { each: true })
   components?: ComponentName[];
 
   @IsOptional()
-  @Transform(toValidSelfOrThrow)
+  @Transform(toSelf)
   group?: GroupName;
 
   @IsOptional()
-  @Transform(toValidStringArrayOrThrow)
+  @Transform(toStringArray)
   @IsString({ each: true })
   sources?: SourceName[];
 
   @IsOptional()
-  @Transform(toBooleanOrThrow)
+  @Transform(toBoolean)
   @IsBoolean()
   concentration?: boolean;
 
   @IsOptional()
-  @Transform(toBooleanOrThrow)
+  @Transform(toBoolean)
   @IsBoolean()
   ritual?: boolean;
 
   @IsOptional()
-  @Transform(toValidStringArrayOrThrow)
+  @Transform(toStringArray)
   @IsString({ each: true })
   damageTypes?: DamageType[];
 }
 
-const onlySafeChars = /[A-Za-z0-9À-ÿ'"`\s+]/;
+const validateStringForRegExp = createStringValidator(safeContentForRegExp);
 
-function createRegExpValidator(regExp: RegExp) {
-  return (value: unknown) => {
-    if (typeof value !== "string")
-      throw new BadRequestException(`Invalid type: ${typeof value}`);
-    if (!regExp.test(value))
-      throw new BadRequestException(`Invalid chars in name: ${value}`);
-    return value;
-  };
+const toNumberOrThrow = createNumberTransformer({
+  min: 0,
+  max: 9,
+  requireInt: true,
+});
+
+const toBooleanOrThrow = createBooleanTransformer();
+
+function toSelf({ value }: { value: unknown }): string {
+  return validateStringForRegExp(value);
 }
 
-const validateRegExpValue = createRegExpValidator(onlySafeChars);
-
-function toValidSelfOrThrow({ value }: { value: unknown }) {
-  if (typeof value === "string") {
-    return validateRegExpValue(value);
-  }
+function toBoolean({ value }: { value: unknown }): boolean {
+  return toBooleanOrThrow(value);
 }
 
-function toBooleanOrThrow({ value }: { value: unknown }) {
-  if (typeof value === "string") {
-    if (value === "true" || value === "") return true;
-    if (value === "false") return false;
-    throw new BadRequestException(`Invalid boolean: ${value}`);
-  }
+function toNumberArray({ value }: { value: unknown }): number[] {
+  return arrayify(value).map(toNumberOrThrow);
 }
 
-function toNumberOrThrow({ value }: { value: unknown }) {
-  if (typeof value === "string") {
-    const number = Number(value);
-    if (isNaN(number))
-      throw new BadRequestException(`Invalid number: ${value}`);
-    return number;
-  }
-}
-
-function toValidStringArrayOrThrow({ value }: { value: unknown }) {
-  if (Array.isArray(value)) {
-    value.forEach(validateRegExpValue);
-    return value.map((v) => v.toLowerCase());
-  } else if (typeof value === "string") {
-    return [validateRegExpValue(value)];
-  }
+function toStringArray({ value }: { value: unknown }): string[] {
+  return arrayify(value).map(validateStringForRegExp);
 }
