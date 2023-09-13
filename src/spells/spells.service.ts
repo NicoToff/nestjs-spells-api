@@ -42,8 +42,8 @@ export class SpellsService {
     // );
     const filterConditions = {
       ...strSearchTextFilter("name", name),
-      ...numArrayFilter("level", level),
-      ...strRegExpFilter("school", school),
+      ...findIfMatchInArray("level", level),
+      ...findIfMatchInArray("school", school),
       ...strArrayRegExpFilter("components", components),
       ...strRegExpFilter("group", group),
       ...strArrayRegExpFilter("sources", sources),
@@ -83,28 +83,10 @@ function strSearchTextFilter(
 ) {
   if (fieldValue == null) return {};
   const valArr = fieldValue.split(" ").filter(Boolean);
-  console.log("🚀 ~ file: spells.service.ts:86 ~ valArr:", valArr);
   const regExps = valArr.map((v) => new RegExp(v, flags));
-  console.log("🚀 ~ file: spells.service.ts:86 ~ regExps:", regExps);
   const conditions = regExps.map((r) => ({ [fieldName]: { $regex: r } }));
   return { $and: conditions };
 }
-
-// function strRegExpSearchFilter(
-//   fieldName: keyof FilterSpellDto,
-//   fieldValue: string | undefined
-// ) {
-//   if (fieldValue == null) return {};
-//   return {
-//     [fieldName]: {
-//       $search: {
-//         text: {
-//           query: fieldValue,
-//         },
-//       },
-//     },
-//   };
-// }
 
 function strArrayRegExpFilter(
   fieldName: keyof FilterSpellDto,
@@ -138,9 +120,9 @@ function boolFilter(
       };
 }
 
-function numArrayFilter(
+function findIfMatchInArray<T extends number | string>(
   fieldName: keyof FilterSpellDto,
-  fieldValues: number[] | undefined
+  fieldValues: T[] | undefined
 ) {
   if (fieldValues == null || !fieldValues.length) return {};
   return { [fieldName]: { $in: fieldValues } };

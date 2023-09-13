@@ -28,8 +28,8 @@ export class FilterSpellDto {
   level?: SpellLevel[];
 
   @IsOptional()
-  @Transform(toSelf)
-  school?: SchoolName;
+  @Transform(toStringArray)
+  school?: SchoolName[];
 
   @IsOptional()
   @Transform(toStringArray)
