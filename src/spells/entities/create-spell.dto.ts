@@ -122,7 +122,7 @@ export class CreateSpellDto implements ISpellBase {
 
   @ApiProperty({ enum: GROUPS, required: false })
   @IsOptional()
-  group?: GroupName;
+  group?: GroupName | (string & {});
 
   @ApiProperty({ enum: SOURCES, isArray: true })
   @IsArray()
