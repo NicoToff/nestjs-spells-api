@@ -2,28 +2,6 @@ import { CreateSpellDto } from "../entities/create-spell.dto";
 
 export const SPELL_DATA: CreateSpellDto[] = [
   {
-    name: "Wind Whisper",
-    level: 0,
-    school: "divination",
-    castingTime: "1 minute",
-    range: "Self",
-    area: "Up to 4-mile radius",
-    concentration: true,
-    duration: "Until dispelled",
-    components: ["v", "s"],
-    flavor:
-      "You enter a trance and listen to primal energy transmitted through the wind.",
-    description: [
-      "You are uncounscious for the duration, except you can take an action to end the spell.",
-      "While in the trance, you can receive and broadcast emotions to and from creatures using this spell or similar magic. Nature itself sends primal energy that you can perceive with this spell.",
-      "This spell doesn't allow you to know the location of the creatures you communicate with.",
-      "The communication isn't instantaneous. It takes a round for an emotion to travel 1 mile (i.e. it takes a minute to travel 10 miles).",
-    ],
-    sources: ["primal"],
-    cantripUpgrade:
-      "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 11th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
-  },
-  {
     name: "Acid Splash",
     level: 0,
     school: "conjuration",
@@ -41,6 +19,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
     // defense: "dex",
     sources: ["arcane"],
+    group: "Elemental Rudiment",
   },
   {
     name: "Blade Ward",
@@ -77,6 +56,86 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["arcane"],
   },
   {
+    name: "Mending",
+    level: 0,
+    school: "transmutation",
+    castingTime: "1 minute",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "two lodestones",
+    flavor:
+      "As chips of wood appear out of thin air, the shallow dent in your cart repairs before everyone's eyes.",
+    description: [
+      "Repair a break or tear in a nonmagical nonliving object on a surface of up to 1 foot in width and height.",
+    ],
+    cantripUpgrade:
+      "The width and height of the surface increases to 2 feet when you reach 5th level, 5 feet at 11th level, and 20 feet at 17th level.",
+    sources: ["arcane"],
+  },
+  {
+    name: "Predict Weather",
+    level: 0,
+    school: "transmutation",
+    castingTime: "1 action",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "Smell the air, feel the wind, and read the clouds...",
+    description: [
+      "You get a vision of the weather of the location you are in for the next 24 hours.",
+    ],
+    cantripUpgrade:
+      "The location of the weather forecast increases up to 5 miles when you reach 5th level, 10 miles at 11th level, and 100 miles at 17th level.",
+    sources: ["primal"],
+    group: "Nature Craft",
+  },
+  {
+    name: "Prestidigitation",
+    level: 0,
+    school: "transmutation",
+    castingTime: "1 action",
+    range: "30 feet",
+    duration: "See description",
+    components: ["v", "s"],
+    flavor: "Magic can be powerful, but it can also amuse.",
+    description: [
+      "You create one of the following magical effects within range:",
+      "- You instantly clean or soil an object no larger than 1 cubic foot.",
+      "- You instantly light or snuff out a candle, a torch, or a small campfire.",
+      "- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.",
+      "- Until the end of your next turn, you create an harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, an odd odor, falling leaves, or similar phenomenon.",
+      "- You chill or warm, a 5-foot cube area for 1 hour.",
+      "- You flavor up 1 cubic foot of nonliving material for 1 hour.",
+      "- You make a small mark appear on an object or surface for 1 hour.",
+      "If you cast this spell multiple times, you can have up to five of its non-instantaneous effects active at a time. You can dismiss any effect as an action.",
+    ],
+    cantripUpgrade:
+      "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 11th level, and there is no limit starting at 17th level.",
+
+    sources: ["arcane", "primal"],
+  },
+  {
+    name: "Fire Bolt",
+    level: 0,
+    school: "evocation",
+    castingTime: "1 action",
+    range: "120 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You hurl a searing mote of magical fire at your foe.",
+    description: [
+      "On a hit, the creature takes 1d10 fire damage.",
+      "A flammable object hit by this spell ignites if it isn't being worn or carried.",
+    ],
+    damageTypes: ["fire"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+    // defense: "ac",
+    sources: ["arcane"],
+    group: "Elemental Rudiment",
+  },
+  {
     name: "Ray of Frost",
     level: 0,
     school: "evocation",
@@ -93,6 +152,89 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
     // defense: "ac",
     sources: ["arcane"],
+    group: "Elemental Rudiment",
+  },
+  {
+    name: "Shocking Grasp",
+    level: 0,
+    school: "evocation",
+    castingTime: "1 action",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v"],
+    flavor:
+      "Lightning springs from your hand to deliver a shock to a creature.",
+    description: [
+      "You have advantage on the attack roll if the target is wearing armor made of metal.",
+      "On a hit, the creature takes 1d8 lightning damage, and it can't take reactions until the start of its next turn.",
+    ],
+    damageTypes: ["lightning"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+    // defense: "ac",
+    sources: ["arcane"],
+    group: "Elemental Rudiment",
+  },
+  {
+    name: "Vicious Mockery",
+    level: 0,
+    school: "enchantment",
+    castingTime: "1 action",
+    range: "60 feet",
+    duration: "Instantaneous",
+    components: ["v"],
+    flavor: "You unleash a string of insults laced with subtle enchantments.",
+    description: [
+      "On a hit, the creature takes 1d6 psychic damage, and it has disadvantage on the next attack roll it makes before the end of its next turn.",
+    ],
+    damageTypes: ["psychic"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+    // defense: "wis",
+    sources: ["bard"],
+  },
+  {
+    name: "Wind Whisper",
+    level: 0,
+    school: "divination",
+    castingTime: "1 minute",
+    range: "Self",
+    area: "Up to 4-mile radius",
+    concentration: true,
+    duration: "Until dispelled",
+    components: ["v", "s"],
+    flavor:
+      "You enter a trance and listen to primal energy transmitted through the wind.",
+    description: [
+      "You are uncounscious for the duration, except you can take an action to end the spell.",
+      "While in the trance, you can receive and broadcast emotions to and from creatures using this spell or similar magic. Nature itself sends primal energy that you can perceive with this spell.",
+      "This spell doesn't allow you to know the location of the creatures you communicate with.",
+      "The communication isn't instantaneous. It takes a round for an emotion to travel 1 mile (i.e. it takes a minute to travel 10 miles).",
+    ],
+    sources: ["primal"],
+    cantripUpgrade:
+      "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 11th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
+  },
+  {
+    name: "Detect Magic",
+    level: 1,
+    school: "divination",
+    castingTime: "1 action",
+    range: "Self",
+    area: "30-foot radius sphere",
+    concentration: true,
+    ritual: true,
+    duration: "10 minutes",
+    components: ["v", "s"],
+    flavor: "Your senses awaken to the mystical tapestry that surrounds you.",
+    description: [
+      "You see a faint aura around any visible creature or object that bears magic.",
+      "As an action, you can learn the school of magic of an aura, if it has one.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, the radius of the sphere increases by 15 feet for each slot level above 1st.",
+    group: "Sense the Unseen",
+    sources: ["arcane", "divine", "primal"],
   },
   {
     name: "Fireball",
@@ -114,7 +256,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "When you cast this spell using a spell slot of 4th level or higher, the radius of the sphere increases by 5 feet for each slot level above 3rd (to a maximum of 30 feet at 6th level) and the damage increases by 1d6 for each slot level above 3rd (to a maximum of 11d6 at 6th level).",
     // defense: "dex",
     sources: ["arcane"],
-    group: "Elemental Torrents",
+    group: "Elemental Torrent",
   },
   {
     name: "Lightning Bolt",
@@ -135,7 +277,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "When you cast this spell using a spell slot of 4th level or higher, you can evoke an additional line for each slot level above 3rd (to a maximum of four at 6th level) to increase the area of effect of this spell. The damage also increases to 6d12 for a 4th-level slot and 7d12 for a 6th-level slot.",
     // defense: "dex",
     sources: ["arcane"],
-    group: "Elemental Torrents",
+    group: "Elemental Torrent",
   },
   {
     name: "Frozen Cube",
@@ -157,7 +299,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "When you cast this spell using a spell slot of 4th level or higher, the width of the cube increases by 5 feet for each slot level above 3rd (to a maximum of 40 feet at 6th level) and the damage increases by 2d4 for each slot level above 3rd (to a maximum of 18d4 at 6th level).",
     // defense: "con",
     sources: ["arcane"],
-    group: "Elemental Torrents",
+    group: "Elemental Torrent",
   },
 ];
 
