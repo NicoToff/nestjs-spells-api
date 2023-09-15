@@ -50,11 +50,12 @@ export class SpellsService {
       ...strArrayRegExpFilter("damageTypes", damageTypes),
       ...boolFilter("concentration", concentration),
       ...boolFilter("ritual", ritual),
+      ...boolFilter("isPrivate", false),
     };
 
-    console.log(`filterConditions:`, filterConditions);
-
-    return this.spellModel.find<Spell>(filterConditions, "-_id").exec();
+    return this.spellModel
+      .find<Spell>(filterConditions, "-_id -isPrivate")
+      .exec();
   }
 
   async seedBulk(createSpellDtos: CreateSpellDto[]) {
@@ -68,7 +69,7 @@ export class SpellsService {
 }
 
 function strRegExpFilter(
-  fieldName: keyof FilterSpellDto,
+  fieldName: keyof Spell,
   fieldValue: string | undefined,
   { flags = "i" }: { flags?: string } = {}
 ) {
@@ -77,7 +78,7 @@ function strRegExpFilter(
 }
 
 function strSearchTextFilter(
-  fieldName: keyof FilterSpellDto,
+  fieldName: keyof Spell,
   fieldValue: string | undefined,
   { flags = "i" }: { flags?: string } = {}
 ) {
@@ -89,7 +90,7 @@ function strSearchTextFilter(
 }
 
 function strArrayRegExpFilter(
-  fieldName: keyof FilterSpellDto,
+  fieldName: keyof Spell,
   fieldValues: string[] | undefined,
   { flags = "i" }: { flags?: string } = {}
 ) {
@@ -101,10 +102,7 @@ function strArrayRegExpFilter(
   };
 }
 
-function boolFilter(
-  fieldName: keyof FilterSpellDto,
-  fieldValue: boolean | undefined
-) {
+function boolFilter(fieldName: keyof Spell, fieldValue: boolean | undefined) {
   if (fieldValue == null) return {};
   return fieldValue
     ? { [fieldName]: true }
@@ -121,7 +119,7 @@ function boolFilter(
 }
 
 function findIfMatchInArray<T extends number | string>(
-  fieldName: keyof FilterSpellDto,
+  fieldName: keyof Spell,
   fieldValues: T[] | undefined
 ) {
   if (fieldValues == null || !fieldValues.length) return {};

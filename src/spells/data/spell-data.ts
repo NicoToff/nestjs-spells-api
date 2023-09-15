@@ -257,6 +257,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     // defense: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
+    isPrivate: true,
   },
   {
     name: "Lightning Bolt",

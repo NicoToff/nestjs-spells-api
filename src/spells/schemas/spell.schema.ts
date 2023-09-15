@@ -94,6 +94,10 @@ export class Spell implements ISpellBase {
   @ApiProperty({ enum: SOURCES, isArray: true })
   @Prop({ required: true })
   sources: SourceName[];
+
+  // Hidden field from API
+  @Prop({ required: false, default: false })
+  isPrivate?: boolean;
 }
 
 export type SpellDocument = HydratedDocument<Spell>;

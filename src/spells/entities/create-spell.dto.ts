@@ -147,4 +147,9 @@ export class CreateSpellDto implements ISpellBase {
     )}`,
   })
   damageTypes?: DamageType[];
+
+  @ApiProperty({ required: false, default: false })
+  @IsOptional()
+  @IsBoolean()
+  isPrivate?: boolean;
 }
