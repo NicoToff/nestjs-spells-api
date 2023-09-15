@@ -42,6 +42,7 @@ export class SpellsService {
     // );
     const filterConditions = {
       ...strSearchTextFilter("name", name),
+      ...strSearchTextFilter("group", name),
       ...findIfMatchInArray("level", level),
       ...findIfMatchInArray("school", school),
       ...strArrayRegExpFilter("components", components),
@@ -83,7 +84,8 @@ function strSearchTextFilter(
   { flags = "i" }: { flags?: string } = {}
 ) {
   if (fieldValue == null) return {};
-  const valArr = fieldValue.split(" ").filter(Boolean);
+  const words = fieldValue.toLowerCase().split(" ");
+  const valArr = [...new Set(words.filter(Boolean))];
   const regExps = valArr.map((v) => new RegExp(v, flags));
   const conditions = regExps.map((r) => ({ [fieldName]: { $regex: r } }));
   return { $and: conditions };

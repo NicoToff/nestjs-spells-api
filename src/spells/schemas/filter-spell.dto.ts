@@ -16,6 +16,7 @@ import { createStringValidator } from "../../../lib/validators/string-validator-
 import { createNumberTransformer } from "../../../lib/transformers/number-transformer";
 import { createBooleanTransformer } from "../../../lib/transformers/boolean-transformer";
 import { safeContentForRegExp } from "../../../lib/constants";
+import { sliceFn } from "../../../lib/slice-fn";
 
 export class FilterSpellDto {
   @IsOptional()
@@ -61,7 +62,10 @@ export class FilterSpellDto {
   damageTypes?: DamageType[];
 }
 
-const validateStringForRegExp = createStringValidator(safeContentForRegExp);
+const validateStringForRegExpAndSlice = sliceFn(
+  createStringValidator(safeContentForRegExp),
+  50
+);
 
 const toNumberOrThrow = createNumberTransformer({
   min: 0,
@@ -72,7 +76,7 @@ const toNumberOrThrow = createNumberTransformer({
 const toBooleanOrThrow = createBooleanTransformer();
 
 function toSelf({ value }: { value: unknown }): string {
-  return validateStringForRegExp(value);
+  return validateStringForRegExpAndSlice(value);
 }
 
 function toBoolean({ value }: { value: unknown }): boolean {
@@ -84,5 +88,5 @@ function toNumberArray({ value }: { value: unknown }): number[] {
 }
 
 function toStringArray({ value }: { value: unknown }): string[] {
-  return arrayify(value).map(validateStringForRegExp);
+  return arrayify(value).map(validateStringForRegExpAndSlice);
 }
