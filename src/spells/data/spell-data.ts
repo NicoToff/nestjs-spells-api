@@ -47,7 +47,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
       "On a hit, the creature takes 1d8 necrotic damage, and it can't regain hit points until the end of your next turn.",
-      "If you hit an undead target, it also has disadvantage on attack rolls against you until then.",
+      "If you hit an undead creature, it also has disadvantage on attack rolls against you until then.",
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
@@ -165,7 +165,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
-      "You have advantage on the attack roll if the target is wearing armor made of metal.",
+      "You have advantage on the attack roll if the creature is made of metal, or wearing metal armor.",
       "On a hit, the creature takes 1d8 lightning damage, and it can't take reactions until the start of its next turn.",
     ],
     damageTypes: ["lightning"],
@@ -232,9 +232,118 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "As an action, you can learn the school of magic of an aura, if it has one.",
     ],
     atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the radius of the sphere increases by 15 feet for each slot level above 1st.",
+      "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
     group: "Sense the Unseen",
     sources: ["arcane", "divine", "primal"],
+  },
+  {
+    name: "Detect Poison and Disease",
+    level: 1,
+    school: "divination",
+    castingTime: "1 action",
+    range: "Self",
+    area: "30-foot radius sphere",
+    concentration: true,
+    ritual: true,
+    duration: "10 minutes",
+    components: ["v", "s", "m"],
+    material: "a yew leaf",
+    flavor: "The presence of illness becomes obvious in a timely manner.",
+    description: [
+      "You perceive poisons, poisonous creatures, or diseases and can recognize them instantaneously if you are familiar with them.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
+    group: "Sense the Unseen",
+    sources: ["divine", "primal"],
+  },
+  {
+    name: "Shield",
+    level: 1,
+    school: "abjuration",
+    castingTime: "1 reaction",
+    range: "Self",
+    duration: "Until the start of your next turn",
+    components: ["v", "s"],
+    flavor: "You raise a magical barrier to protect yourself.",
+    description: [
+      "You have +2 bonus to AC.",
+      "In addition, you take no damage from spells in the Magic Missile group.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 1st level, the bonus to AC increases by 1.",
+    sources: ["arcane"],
+    group: "Barrier",
+  },
+  {
+    name: "Absorb Elements",
+    level: 1,
+    school: "abjuration",
+    castingTime: "1 reaction",
+    range: "Self",
+    duration: "Until the start of your next turn",
+    components: ["s"],
+    flavor: "Your skin briefly becomes one with the elements.",
+    description: [
+      "You are Resistant against the elemental type of your choice: acid, cold, fire, lightning, or thunder.",
+    ],
+    sources: ["arcane", "primal"],
+    group: "Barrier",
+  },
+  {
+    name: "Goo",
+    level: 1,
+    school: "abjuration",
+    castingTime: "1 reaction",
+    range: "Self",
+    duration: "Until the start of your next turn",
+    components: ["v", "s"],
+    flavor:
+      "The air around you becomes thick and absorbs the impact of any attack.",
+    description: ["You have Absorb all damage 2"],
+    atHigherLevels:
+      "For each spell slot above 1st level, the Absorb all damage increases by 1.",
+    sources: ["arcane"],
+    group: "Barrier",
+  },
+  {
+    name: "Darts",
+    level: 1,
+    school: "evocation",
+    castingTime: "1 action",
+    range: "120 feet",
+    components: ["v", "s"],
+    duration: "Instantaneous",
+    flavor: "Darts of energy erupt from your palms and shoot without warning.",
+    description: [
+      "This spell always hits (don't roll against the Target).",
+      "You create three darts that deal 1d6+1 force damage each. They hit simultaneously and you can direct them to hit one creature or several.",
+    ],
+    damageTypes: ["force"],
+    atHigherLevels:
+      "For each spell slot above 1st level, the number of darts increases by 1.",
+    sources: ["arcane"],
+    group: "Magic Missiles",
+  },
+  {
+    name: "Arrow",
+    level: 1,
+    school: "evocation",
+    castingTime: "1 action",
+    range: "300 feet",
+    components: ["v", "s"],
+    duration: "Instantaneous",
+    flavor:
+      "You create an immense arrow of pure energy and shoot it with high precision.",
+    description: [
+      "This spell always hits (don't roll against the Target).",
+      "You create an arrow that deals 4d4+4 force damage.",
+    ],
+    damageTypes: ["force"],
+    atHigherLevels:
+      "For each spell slot above 1st level, the damage increases by 1d4+1.",
+    sources: ["arcane"],
+    group: "Magic Missiles",
   },
   {
     name: "Fireball",
@@ -253,7 +362,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["fire"],
     atHigherLevels:
-      "When you cast this spell using a spell slot of 4th level or higher, the radius of the sphere increases by 5 feet for each slot level above 3rd (to a maximum of 30 feet at 6th level) and the damage increases by 1d6 for each slot level above 3rd (to a maximum of 11d6 at 6th level).",
+      "For each spell slot above 3rd level, the damage increases by 1d6 and the radius of the sphere increases by 5 feet (to a maximum of 30 feet at 6th level).",
     // defense: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -275,7 +384,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["lightning"],
     atHigherLevels:
-      "When you cast this spell using a spell slot of 4th level or higher, you can evoke an additional line for each slot level above 3rd (to a maximum of four at 6th level) to increase the area of effect of this spell. The damage also increases to 6d12 for a 4th-level slot and 7d12 for a 6th-level slot.",
+      "For each spell slot above 3rd, you can evoke an additional line for each slot level above 3rd (to a maximum of four at 6th level) to increase the area of effect of this spell. The damage also increases to 6d12 for a 4th-level slot and 7d12 for a 6th-level slot.",
     // defense: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -293,11 +402,11 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "You create a cube of ice that explodes outward in a frigid blast.",
     description: [
       "On a hit, a creature takes 12d4 cold damage and has its speed halved until the end of your next turn.",
-      "On a miss, a target takes half as much damage and its speed isn't reduced.",
+      "On a miss, a creature takes half as much damage and its speed isn't reduced.",
     ],
     damageTypes: ["cold"],
     atHigherLevels:
-      "When you cast this spell using a spell slot of 4th level or higher, the width of the cube increases by 5 feet for each slot level above 3rd (to a maximum of 40 feet at 6th level) and the damage increases by 2d4 for each slot level above 3rd (to a maximum of 18d4 at 6th level).",
+      "For each spell slot above 3rd level, the damage increases by 2d4 and the width of the cube increases by 5 feet (to a maximum of 40 feet at 6th level).",
     // defense: "con",
     sources: ["arcane"],
     group: "Elemental Torrent",
