@@ -40,9 +40,10 @@ export class SpellsService {
     //   )}`,
     //   "SpellsService"
     // );
-    const filterConditions = {
-      ...strSearchTextFilter("name", name),
-      ...strSearchTextFilter("group", name),
+    const inNameOrGroup = [] as { $and: any }[];
+    strSearchTextFilter("name", name, inNameOrGroup);
+    strSearchTextFilter("group", name, inNameOrGroup);
+    const filterConditions: { [key: string]: any } = {
       ...findIfMatchInArray("level", level),
       ...findIfMatchInArray("school", school),
       ...strArrayRegExpFilter("components", components),
@@ -53,7 +54,10 @@ export class SpellsService {
       ...boolFilter("ritual", ritual),
       ...boolFilter("isPrivate", false),
     };
-
+    if (inNameOrGroup.length) {
+      filterConditions["$or"] = inNameOrGroup;
+    }
+    console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
     return this.spellModel
       .find<Spell>(filterConditions, "-_id -isPrivate")
       .exec();
@@ -81,6 +85,7 @@ function strRegExpFilter(
 function strSearchTextFilter(
   fieldName: keyof Spell,
   fieldValue: string | undefined,
+  arr: { $and: any }[],
   { flags = "i" }: { flags?: string } = {}
 ) {
   if (fieldValue == null) return {};
@@ -88,7 +93,8 @@ function strSearchTextFilter(
   const valArr = [...new Set(words.filter(Boolean))];
   const regExps = valArr.map((v) => new RegExp(v, flags));
   const conditions = regExps.map((r) => ({ [fieldName]: { $regex: r } }));
-  return { $and: conditions };
+  console.log("🚀 ~ file: spells.service.ts:91 ~ conditions:", conditions);
+  arr.push({ $and: conditions });
 }
 
 function strArrayRegExpFilter(
@@ -106,18 +112,7 @@ function strArrayRegExpFilter(
 
 function boolFilter(fieldName: keyof Spell, fieldValue: boolean | undefined) {
   if (fieldValue == null) return {};
-  return fieldValue
-    ? { [fieldName]: true }
-    : {
-        $or: [
-          { [fieldName]: false },
-          {
-            [fieldName]: {
-              $exists: false,
-            },
-          },
-        ],
-      };
+  return { [fieldName]: !!fieldValue };
 }
 
 function findIfMatchInArray<T extends number | string>(
