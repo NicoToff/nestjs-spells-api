@@ -1,5 +1,4 @@
 # NestJS Spell API
-
 <div style="text-align: center;" align="center">
   <img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" />
 </div>
@@ -54,7 +53,15 @@ docker-compose up -d --build
 
 ### Fly.io
 
-[My personal instance of this API](https://nestjs-spells-api.fly.dev/) is hosted on [Fly.io](https://fly.io/). If you wish to also deploy this app through them, you'll find a `fly.toml` file in the repo that you can tailor to your needs. You can deploy your own instance with the following command:
+[My personal instance of this API](https://nestjs-spells-api.fly.dev/) is hosted on [Fly.io](https://fly.io/). If you wish to also deploy this app through them, you'll find a `fly.toml` file in the repo that you can tailor to your needs.
+
+Authenticate to Fly.io with:
+
+```bash
+flyctl auth login
+```
+
+You can deploy your own instance with the following command:
 
 ```bash
 pnpm depl
