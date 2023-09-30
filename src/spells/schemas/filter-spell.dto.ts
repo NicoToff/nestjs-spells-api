@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsBoolean, IsIn } from "class-validator";
 import { Transform } from "class-transformer";
-import { SPELL_LEVELS, COMPONENTS } from "dnd-home-utils";
+import { SPELL_LEVELS, COMPONENTS, ABILITY_SCORES } from "dnd-home-utils";
 
 import type {
   SpellLevel,
@@ -9,6 +9,8 @@ import type {
   GroupName,
   SourceName,
   DamageType,
+  SpellTag,
+  AbilityScore,
 } from "dnd-home-utils";
 
 import { arrayify } from "../../../lib/arrayify";
@@ -60,6 +62,16 @@ export class FilterSpellDto {
   @Transform(toStringArray)
   @IsString({ each: true })
   damageTypes?: DamageType[];
+
+  @IsOptional()
+  @Transform(toStringArray)
+  @IsString({ each: true })
+  tags?: SpellTag[];
+
+  @IsOptional()
+  @Transform(toStringArray)
+  @IsIn(ABILITY_SCORES, { each: true })
+  savingThrow?: AbilityScore[];
 }
 
 const validateStringForRegExpAndSlice = sliceFn(

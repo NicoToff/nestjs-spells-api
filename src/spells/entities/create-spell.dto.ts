@@ -19,6 +19,8 @@ import {
   SOURCES,
   COMPONENTS,
   DAMAGE_TYPES,
+  ABILITY_SCORES,
+  SPELL_TAGS,
 } from "dnd-home-utils";
 
 import type {
@@ -28,6 +30,8 @@ import type {
   GroupName,
   SourceName,
   DamageType,
+  AbilityScore,
+  SpellTag,
 } from "dnd-home-utils";
 
 export class CreateSpellDto implements ISpellBase {
@@ -152,4 +156,25 @@ export class CreateSpellDto implements ISpellBase {
   @IsOptional()
   @IsBoolean()
   isPrivate?: boolean;
+
+  @ApiProperty({ required: false, enum: ABILITY_SCORES })
+  @IsOptional()
+  @IsIn(ABILITY_SCORES, {
+    message: `Saving throw must match one of the ability scores: ${ABILITY_SCORES.join(
+      ", "
+    )}`,
+  })
+  savingThrow?: AbilityScore;
+
+  @ApiProperty({ required: false, isArray: true, enum: SPELL_TAGS })
+  @IsOptional()
+  @ArrayUnique()
+  @ArrayNotEmpty()
+  @IsIn(SPELL_TAGS, {
+    each: true,
+    message: `Spell tags must be one or more of the following: ${SPELL_TAGS.join(
+      ", "
+    )}`,
+  })
+  tags?: SpellTag[];
 }

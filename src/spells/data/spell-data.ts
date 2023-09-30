@@ -9,17 +9,19 @@ export const SPELL_DATA: CreateSpellDto[] = [
     range: "60 feet",
     duration: "Instantaneous",
     components: ["v"],
-    flavor: "You hurl a bubble of acid.",
+    flavor:
+      "A bubble of acid materializes around your foe and bursts in a spray.",
     description: [
-      "You can choose two creatures as target for this spell if they are within 5 feet of each other.",
+      "Up to two creatures can be affected by this spell, provided they are within 5 feet of each other.",
       "On a hit, a creature takes 1d6 acid damage.",
     ],
     damageTypes: ["acid"],
     cantripUpgrade:
       "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-    // defense: "dex",
+    savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Rudiment",
+    tags: ["area"],
   },
   {
     name: "Blade Ward",
@@ -34,6 +36,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You are Resistant against bludgeoning, piercing, and slashing damage dealt by weapon attacks until the end of your next turn.",
     ],
     sources: ["arcane"],
+    tags: ["buff"],
   },
   {
     name: "Chill Touch",
@@ -52,8 +55,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["necrotic"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-    // defense: "ac",
     sources: ["arcane"],
+    tags: ["ranged", "debuff"],
   },
   {
     name: "Mending",
@@ -76,17 +79,17 @@ export const SPELL_DATA: CreateSpellDto[] = [
   {
     name: "Predict Weather",
     level: 0,
-    school: "transmutation",
+    school: "divination",
     castingTime: "1 action",
     range: "Self",
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "Smell the air, feel the wind, and read the clouds...",
     description: [
-      "You get a vision of the weather of the location you are in for the next 24 hours.",
+      "You get a vision of the weather within a 5-mile radius for the next 24 hours.",
     ],
     cantripUpgrade:
-      "The location of the weather forecast increases up to 5 miles when you reach 5th level, 10 miles at 11th level, and 100 miles at 17th level.",
+      "The location of the weather forecast increases to a 5 mile-radius when you reach 5th level, 10 mile-radius at 11th level, and 100 mile-radius at 17th level.",
     sources: ["primal"],
     group: "Nature Craft",
   },
@@ -112,7 +115,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     cantripUpgrade:
       "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 11th level, and there is no limit starting at 17th level.",
-
     sources: ["arcane", "primal"],
   },
   {
@@ -129,9 +131,9 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "A flammable object hit by this spell ignites if it isn't being worn or carried.",
     ],
     damageTypes: ["fire"],
+    tags: ["ranged"],
     cantripUpgrade:
       "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
-    // defense: "ac",
     sources: ["arcane"],
     group: "Elemental Rudiment",
   },
@@ -150,7 +152,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["cold"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-    // defense: "ac",
+    tags: ["ranged", "debuff"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
   },
@@ -171,7 +173,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["lightning"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-    // defense: "ac",
+    tags: ["melee"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
   },
@@ -190,8 +192,9 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["psychic"],
     cantripUpgrade:
       "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-    // defense: "wis",
+    savingThrow: "wis",
     sources: ["bard"],
+    tags: ["ranged", "debuff"],
   },
   {
     name: "Wind Whisper",
@@ -274,6 +277,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "For each spell slot above 1st level, the bonus to AC increases by 1.",
     sources: ["arcane"],
     group: "Barrier",
+    tags: ["buff"],
   },
   {
     name: "Absorb Elements",
@@ -289,6 +293,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     sources: ["arcane", "primal"],
     group: "Barrier",
+    tags: ["buff"],
   },
   {
     name: "Goo",
@@ -305,6 +310,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "For each spell slot above 1st level, the Absorb all damage increases by 1.",
     sources: ["arcane"],
     group: "Barrier",
+    tags: ["buff"],
   },
   {
     name: "Darts",
@@ -317,13 +323,15 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "Darts of energy erupt from your palms and shoot without warning.",
     description: [
       "This spell always hits (don't roll against the Target).",
-      "You create three darts that deal 1d6+1 force damage each. They hit simultaneously and you can direct them to hit one creature or several.",
+      "You create three darts that deal 1d4+1 force damage each.",
+      "The darts hit simultaneously and you can direct them to hit one creature or several.",
     ],
     damageTypes: ["force"],
     atHigherLevels:
-      "For each spell slot above 1st level, the number of darts increases by 1.",
+      "For each spell slot above 1st level, you create an additional dart.",
     sources: ["arcane"],
-    group: "Magic Missiles",
+    group: "Magic Missile",
+    tags: ["ranged"],
   },
   {
     name: "Arrow",
@@ -337,13 +345,14 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You create an immense arrow of pure energy and shoot it with high precision.",
     description: [
       "This spell always hits (don't roll against the Target).",
-      "You create an arrow that deals 4d4+4 force damage.",
+      "You create an arrow that deals 3d6+3 force damage.",
     ],
     damageTypes: ["force"],
     atHigherLevels:
-      "For each spell slot above 1st level, the damage increases by 1d4+1.",
+      "For each spell slot above 1st level, the damage increases by 1d6+1.",
     sources: ["arcane"],
-    group: "Magic Missiles",
+    group: "Magic Missile",
+    tags: ["ranged"],
   },
   {
     name: "Fireball",
@@ -363,10 +372,11 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["fire"],
     atHigherLevels:
       "For each spell slot above 3rd level, the damage increases by 1d6 and the radius of the sphere increases by 5 feet (to a maximum of 30 feet at 6th level).",
-    // defense: "dex",
+    savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
     isPrivate: true,
+    tags: ["area"],
   },
   {
     name: "Lightning Bolt",
@@ -385,9 +395,10 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["lightning"],
     atHigherLevels:
       "For each spell slot above 3rd, you can evoke an additional line for each slot level above 3rd (to a maximum of four at 6th level) to increase the area of effect of this spell. The damage also increases to 6d12 for a 4th-level slot and 7d12 for a 6th-level slot.",
-    // defense: "dex",
+    savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
+    tags: ["area"],
   },
   {
     name: "Frozen Cube",
@@ -407,9 +418,10 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["cold"],
     atHigherLevels:
       "For each spell slot above 3rd level, the damage increases by 2d4 and the width of the cube increases by 5 feet (to a maximum of 40 feet at 6th level).",
-    // defense: "con",
+    savingThrow: "con",
     sources: ["arcane"],
     group: "Elemental Torrent",
+    tags: ["area"],
   },
 ];
 

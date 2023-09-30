@@ -17,15 +17,15 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-    .setTitle("D&D 5e NicoToff API")
+    .setTitle("D&D Home - NicoToff's API")
     .setDescription(
-      "Serves homebrew spells (and more) for D&D 5th edition. This is a work in progress, built with NestJS. More information can be found at: https://github.com/NicoToff/nestjs-spells-api"
+      "Serves homebrew content (spells and more) for D&D Home, a homebrew fork of D&D 5e. This is a work in progress, built with NestJS. More information can be found on the repo: https://github.com/NicoToff/nestjs-spells-api"
     )
     .setLicense(
       "MIT License",
       "https://raw.githubusercontent.com/NicoToff/nestjs-spells-api/main/LICENSE"
     )
-    .setVersion("0.0.3")
+    .setVersion("0.0.4")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, document);

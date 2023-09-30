@@ -20,6 +20,8 @@ export class SpellsService {
     damageTypes,
     concentration,
     ritual,
+    savingThrow,
+    tags,
   }: FilterSpellDto) {
     // Logger.debug(
     //   `
@@ -53,11 +55,13 @@ export class SpellsService {
       ...boolFilter("concentration", concentration),
       ...boolFilter("ritual", ritual),
       ...boolFilter("isPrivate", false),
+      ...strArrayRegExpFilter("savingThrow", savingThrow),
+      ...strArrayRegExpFilter("tags", tags),
     };
     if (inNameOrGroup.length) {
       filterConditions["$or"] = inNameOrGroup;
     }
-    console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
+    // console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
     return this.spellModel
       .find<Spell>(filterConditions, "-_id -isPrivate")
       .exec();
@@ -93,7 +97,6 @@ function strSearchTextFilter(
   const valArr = [...new Set(words.filter(Boolean))];
   const regExps = valArr.map((v) => new RegExp(v, flags));
   const conditions = regExps.map((r) => ({ [fieldName]: { $regex: r } }));
-  console.log("🚀 ~ file: spells.service.ts:91 ~ conditions:", conditions);
   arr.push({ $and: conditions });
 }
 

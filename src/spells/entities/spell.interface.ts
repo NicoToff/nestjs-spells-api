@@ -3,6 +3,8 @@ import type {
   DamageType,
   ComponentName,
   SchoolName,
+  AbilityScore,
+  SpellTag,
 } from "dnd-home-utils";
 
 export interface ISpellBase {
@@ -22,4 +24,6 @@ export interface ISpellBase {
   flavor?: string;
   description: string[];
   damageTypes?: DamageType[];
+  savingThrow?: AbilityScore;
+  tags?: SpellTag[];
 }

@@ -37,6 +37,8 @@ import {
   SOURCES,
   SPELL_LEVELS,
   DAMAGE_TYPES,
+  SPELL_TAGS,
+  ABILITY_SCORES,
 } from "dnd-home-utils";
 
 @ApiTags(ApiTagsEnum.Spells)
@@ -112,6 +114,20 @@ export class SpellsController {
     required: false,
     enum: DAMAGE_TYPES,
     isArray: true,
+  })
+  @ApiQuery({
+    name: "tags",
+    description:
+      "Tags associated with the spell (e.g. 'melee', 'ranged', 'heal', 'buff'...)",
+    required: false,
+    enum: SPELL_TAGS,
+    isArray: true,
+  })
+  @ApiQuery({
+    name: "savingThrow",
+    description: "The main Saving Throw of the spell (if any)",
+    required: false,
+    enum: ABILITY_SCORES,
   })
   @Get()
   @UsePipes(
