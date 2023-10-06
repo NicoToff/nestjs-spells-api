@@ -22,6 +22,27 @@ export const SPELL_DATA: CreateSpellDto[] = [
     tags: ["area"],
   },
   {
+    name: "Bang",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "120 feet",
+    duration: "Instantaneous",
+    components: ["v", "m"],
+    material: "a tiny drum",
+    flavor: "A loud sound bursts your opponent's ears.",
+    description: [
+      "On a hit, a creature takes 1d8 thunder damage and is Deafened until the start of your next turn.",
+    ],
+    damageTypes: ["thunder"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+    savingThrow: "con",
+    sources: ["arcane"],
+    group: "Elemental Rudiment",
+    tags: ["ranged"],
+  },
+  {
     name: "Blade Ward",
     level: 0,
     school: "abjuration",
