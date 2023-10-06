@@ -31,10 +31,31 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     flavor: "You extend your hand and trace a sigil of warding in the air.",
     description: [
-      "You are Resistant against bludgeoning, piercing, and slashing damage dealt by weapon attacks until the end of your next turn.",
+      "You are Resistant against bludgeoning, piercing, and slashing damage dealt by weapon attacks until the start of your next turn.",
     ],
     sources: ["arcane"],
     tags: ["buff"],
+  },
+  {
+    name: "Censure",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "Until the start of your next turn",
+    components: ["v", "s"],
+    flavor: "You warn a creature of dire consequence if it dares to move.",
+    description: [
+      "On a hit, if the creature willingly moves, it takes 2d8 radiant damage.",
+      "The creature is aware of this effect.",
+    ],
+    damageTypes: ["radiant"],
+    cantripUpgrade:
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 11th level (6d8), and 17th level (8d8).",
+    savingThrow: "wis",
+    tags: ["ranged", "control"],
+    group: "Blessed Radiance",
+    sources: ["divine"],
   },
   {
     name: "Chill Touch",
@@ -47,7 +68,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
-      "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points until the end of your next turn.",
+      "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points until the start of your next turn.",
       "If you hit an undead creature, it also has disadvantage on attack rolls against you until then.",
     ],
     damageTypes: ["necrotic"],
@@ -104,8 +125,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You create one of the following magical effects within range:",
       "- You instantly clean or soil an object no larger than 1 cubic foot.",
       "- You instantly light or snuff out a candle, a torch, or a small campfire.",
-      "- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.",
-      "- Until the end of your next turn, you create an harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, an odd odor, falling leaves, or similar phenomenon.",
+      "- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the start of your next turn.",
+      "- Until the start of your next turn, you create an harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, an odd odor, falling leaves, or similar phenomenon.",
       "- You chill or warm, a 5-foot cube area for 1 hour.",
       "- You flavor up 1 cubic foot of nonliving material for 1 hour.",
       "- You make a small mark appear on an object or surface for 1 hour.",
@@ -150,7 +171,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["poison"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (3d8), 11th level (4d8), and 17th level (5d8).",
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 11th level (6d8), and 17th level (8d8).",
     tags: ["ranged"],
     sources: ["arcane", "primal"],
   },
@@ -164,7 +185,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     flavor: "A frigid beam of blue-white light streaks toward your enemy.",
     description: [
-      "On a hit, the creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the end of your next turn.",
+      "On a hit, the creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
@@ -191,7 +212,29 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["radiant"],
     tags: ["ranged"],
     savingThrow: "dex",
+    group: "Blessed Radiance",
     sources: ["divine"],
+  },
+  {
+    name: "Shillelagh",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Bonus Action",
+    range: "Touch",
+    duration: "1 minute",
+    components: ["v", "s", "m"],
+    material: "mistletoe, a shamrock leaf, and a club or quarterstaff",
+    flavor: "You imbue a wooden weapon with the power of nature.",
+    description: [
+      "You can use your Spellcasting Ability instead of Strength for the Attack and Damage Rolls of Melee attacks using the weapon.",
+      "The weapon's damage die becomes a d10 and you can choose to replace its damage type with radiant damage.",
+      "The spell ends if you cast it again or if you let go of the weapon.",
+    ],
+    cantripUpgrade:
+      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 11th level, and 2d10 at 17th level.",
+    damageTypes: ["radiant"],
+    tags: ["melee", "buff"],
+    sources: ["druid"],
   },
   {
     name: "Shocking Grasp",
@@ -233,6 +276,28 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "The damage of the Attack provided by this spell increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
     tags: ["melee", "ranged", "buff"],
     damageTypes: ["force"],
+  },
+  {
+    name: "Veil",
+    level: 0,
+    school: "abjuration",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "1 minute, or until hit",
+    components: ["v", "s"],
+    flavor: "You wreathe a creature with a protective veil of radiant energy.",
+    description: [
+      "The creature glows, shedding bright light in a 5-foot radius and dim light for an additional 5 feet.",
+      "While glowing, if the creature is hit by a Melee Attack or Spell, the attacker takes 1d12 radiant damage and this spell ends.",
+      "An unwilling creature can try to resist this spell.",
+    ],
+    damageTypes: ["radiant"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).",
+    savingThrow: "wis",
+    tags: ["buff"],
+    group: "Blessed Radiance",
+    sources: ["divine"],
   },
   {
     name: "Vicious Mockery",
@@ -471,7 +536,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "a drop of water",
     flavor: "You create a cube of ice that explodes outward in a frigid blast.",
     description: [
-      "On a hit, a creature takes 12d4 cold damage and has its speed halved until the end of your next turn.",
+      "On a hit, a creature takes 12d4 cold damage and has its speed halved until the start of your next turn.",
       "On a miss, a creature takes half as much damage and its speed isn't reduced.",
     ],
     damageTypes: ["cold"],
@@ -481,6 +546,29 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["arcane"],
     group: "Elemental Torrent",
     tags: ["area"],
+  },
+  {
+    name: "Deadly Feast",
+    level: 5,
+    school: "necromancy",
+    castingTime: "Action",
+    range: "Self",
+    area: "600-foot-radius sphere",
+    duration: "24 hours",
+    components: ["v", "s", "m"],
+    material: "a flask of poison, that the spell consumes",
+    flavor: "You bring death the fools that dare to eat spoiled meat.",
+    description: [
+      "All food and drinks become poisonous. A creature that ingests any of this poison must make a Constitution Saving Throw or take 10d10 poison damage, or half as much damage on a successful save.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 5th level, the area of effect increases by 600 feet.",
+    savingThrow: "con",
+    sources: ["arcane"],
+    group: "Blighted Harvest",
+    tags: ["area"],
+    damageTypes: ["poison"],
+    ritual: true,
   },
 ];
 
