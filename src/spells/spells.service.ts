@@ -64,7 +64,8 @@ export class SpellsService {
     // console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
     return this.spellModel
       .find<Spell>(filterConditions, "-_id -isPrivate")
-      .exec();
+      .exec()
+      .then((spells) => spells.sort(sortBySpellFullName));
   }
 
   async seedBulk(createSpellDtos: CreateSpellDto[]) {
@@ -124,4 +125,10 @@ function findIfMatchInArray<T extends number | string>(
 ) {
   if (fieldValues == null || !fieldValues.length) return {};
   return { [fieldName]: { $in: fieldValues } };
+}
+
+function sortBySpellFullName(s1: Spell, s2: Spell) {
+  const aFullName = `${s1.group}${s1.name}`;
+  const bFullName = `${s2.group}${s2.name}`;
+  return aFullName.localeCompare(bFullName);
 }
