@@ -55,7 +55,7 @@ export class SpellsService {
       ...boolFilter("concentration", concentration),
       ...boolFilter("ritual", ritual),
       ...boolFilter("isPrivate", false),
-      ...strArrayRegExpFilter("savingThrow", savingThrow),
+      ...findIfMatchInArray("savingThrow", savingThrow),
       ...strArrayRegExpFilter("tags", tags),
     };
     if (inNameOrGroup.length) {
