@@ -49,7 +49,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     castingTime: "Action",
     range: "Self",
     duration: "1 round",
-    components: ["v"],
+    components: ["s"],
     flavor: "You extend your hand and trace a sigil of warding in the air.",
     description: [
       "You are Resistant against bludgeoning, piercing, and slashing damage dealt by weapon attacks until the start of your next turn.",
@@ -203,7 +203,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     castingTime: "Action",
     range: "60 feet",
     duration: "Instantaneous",
-    components: ["v"],
+    components: ["v", "s"],
     flavor: "A frigid beam of blue-white light streaks toward your enemy.",
     description: [
       "On a hit, the creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
@@ -264,7 +264,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     castingTime: "Action",
     range: "Touch",
     duration: "Instantaneous",
-    components: ["v"],
+    components: ["s"],
     flavor:
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
@@ -348,7 +348,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     area: "Up to 4-mile radius",
     concentration: true,
     duration: "Until dispelled",
-    components: ["v", "s"],
+    components: ["v", "s", "m"],
+    material: "enchanted herbs",
     flavor:
       "You enter a trance and listen to primal energy transmitted through the wind.",
     description: [
