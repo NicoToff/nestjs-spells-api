@@ -1,9 +1,11 @@
 export const ApiTagsEnum = {
   Spells: "Spells",
+  TalentFeat: "Talents & Feats",
 } as const;
 
 export const RoutePathPrefixEnum = {
   spells: "spells",
+  talentFeat: "talent-feat",
 } as const;
 
 export const API_KEY_HEADER = "api-key" as const;

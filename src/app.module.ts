@@ -13,6 +13,7 @@ import { AuthGuardModule } from "./auth/auth.module";
 import { AppController } from "./app.controller";
 
 import { ThrottlingConfigEnum } from "../lib/constants";
+import { TalentFeatModule } from "./talent-feat/talent-feat.module";
 @Module({
   // NOTE : Imports are resolved in appearing order
   imports: [
@@ -29,6 +30,7 @@ import { ThrottlingConfigEnum } from "../lib/constants";
     ApiKeyModule,
     AuthGuardModule,
     SpellsModule,
+    TalentFeatModule,
     ThrottlerModule.forRoot([
       {
         ttl: ThrottlingConfigEnum.ttl,
@@ -45,6 +47,3 @@ import { ThrottlingConfigEnum } from "../lib/constants";
   ],
 })
 export class AppModule {}
-
-console.log("process.env.MONGODB_URI", process.env.MONGODB_URI);
-console.log("process.env.MONGODB_DB_NAME", process.env.MONGODB_DB_NAME);
