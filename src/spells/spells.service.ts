@@ -63,9 +63,16 @@ export class SpellsService {
     }
     // console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
     return this.spellModel
-      .find<Spell>(filterConditions, "-_id -isPrivate")
+      .find<Spell>(filterConditions, "-isPrivate")
       .exec()
       .then((spells) => spells.sort(sortBySpellFullName));
+  }
+
+  async findById(id: string) {
+    return this.spellModel
+      .findById(id, "-isPrivate")
+      .exec()
+      .catch(() => null);
   }
 
   async seedBulk(createSpellDtos: CreateSpellDto[]) {

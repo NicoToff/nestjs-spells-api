@@ -6,6 +6,7 @@ import {
   Query,
   Body,
   ParseArrayPipe,
+  HttpException,
 } from "@nestjs/common";
 import {
   ApiTags,
@@ -139,6 +140,36 @@ export class SpellsController {
   )
   findAll(@Query() filter: FilterSpellDto) {
     return this.spellsService.findAll(filter);
+  }
+
+  @ApiOperation({
+    summary: "Finds a spell by its id",
+    description:
+      "This endpoint returns a spell by its id. If no spell matches the id, a no-content response is returned.",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "The requested spell",
+    type: Spell,
+  })
+  @ApiResponse({
+    status: 204,
+    description: "No spell matches the id",
+  })
+  @ApiQuery({
+    name: "id",
+    description: "The id of the spell",
+    required: true,
+    type: String,
+  })
+  @Get("id")
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async findById(@Query("id") id: string) {
+    const spell = await this.spellsService.findById(id);
+    if (!spell) {
+      throw new HttpException("No Content - No spell matches the id", 204);
+    }
+    return spell;
   }
 
   @ApiOperation({
