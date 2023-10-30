@@ -3,7 +3,7 @@ import {
   Get,
   UsePipes,
   ValidationPipe,
-  // Query,
+  Query,
   Body,
   ParseArrayPipe,
 } from "@nestjs/common";
@@ -19,7 +19,6 @@ import {
 import { TalentFeatService } from "./talent-feat.service";
 
 import { TalentFeat } from "./schemas/talent-feat.schema";
-// import { FilterSpellDto } from "./schemas/filter-spell.dto";
 
 import { CreateTalentFeatDto } from "./entities/create-talent-feat.dto";
 
@@ -29,6 +28,7 @@ import {
   RoutePathPrefixEnum,
 } from "../../lib/constants";
 import { PostGuard } from "../../lib/decorators/post-with-guard";
+import { FilterTalentFeatDto } from "./entities/filter-talent-feat.dto";
 
 @ApiTags(ApiTagsEnum.TalentFeat)
 @Controller(RoutePathPrefixEnum.talentFeat)
@@ -89,8 +89,8 @@ export class TalentFeatController {
       whitelist: true,
     })
   )
-  findAll(/*@Query() filter: FilterSpellDto*/) {
-    return this.talentFeatService.findAll(/*filter*/);
+  findAll(@Query() filter: FilterTalentFeatDto) {
+    return this.talentFeatService.findAll(filter);
   }
 
   @ApiOperation({

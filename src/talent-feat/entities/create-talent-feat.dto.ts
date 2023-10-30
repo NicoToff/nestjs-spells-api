@@ -21,7 +21,7 @@ export class CreateTalentFeatDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ default: 1 })
   @IsOptional()
   @IsInt()
   minLevel?: number;

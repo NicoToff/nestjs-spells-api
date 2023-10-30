@@ -12,8 +12,8 @@ export class TalentFeat {
   @Prop({ required: true, unique: true, trim: true })
   name: string;
 
-  @ApiProperty({ required: false })
-  @Prop({ required: false })
+  @ApiProperty()
+  @Prop({ required: false, default: 1 })
   minLevel?: number;
 
   @ApiProperty({ isArray: true, type: String, required: false })
