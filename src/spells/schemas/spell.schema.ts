@@ -31,6 +31,10 @@ export class Spell implements ISpellBase {
   @Prop({ required: true, unique: true, trim: true })
   name: string;
 
+  @ApiProperty({ required: true })
+  @Prop({ required: true, unique: true, trim: true })
+  slug: string;
+
   @ApiProperty({ enum: SPELL_LEVELS, required: true })
   @Prop({ required: true })
   level: SpellLevel;

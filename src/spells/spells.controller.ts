@@ -143,9 +143,9 @@ export class SpellsController {
   }
 
   @ApiOperation({
-    summary: "Finds a spell by its id",
+    summary: "Finds a spell by its slug",
     description:
-      "This endpoint returns a spell by its id. If no spell matches the id, a no-content response is returned.",
+      "This endpoint returns a spell by its slug. If no spell matches the slug, a no-content response is returned.",
   })
   @ApiResponse({
     status: 200,
@@ -154,20 +154,20 @@ export class SpellsController {
   })
   @ApiResponse({
     status: 204,
-    description: "No spell matches the id",
+    description: "No spell matches the slug",
   })
   @ApiQuery({
-    name: "id",
-    description: "The id of the spell",
+    name: "slug",
+    description: "The slug of the spell",
     required: true,
     type: String,
   })
-  @Get("id")
+  @Get("slug")
   @UsePipes(new ValidationPipe({ transform: true }))
-  async findById(@Query("id") id: string) {
-    const spell = await this.spellsService.findById(id);
+  async findBySlug(@Query("slug") slug: string) {
+    const spell = await this.spellsService.findBySlug(slug);
     if (!spell) {
-      throw new HttpException("No Content - No spell matches the id", 204);
+      throw new HttpException("No Content - No spell matches the slug", 204);
     }
     return spell;
   }

@@ -11,6 +11,7 @@ import {
 } from "../lib/constants";
 
 import { getLineFromEnvFile } from "./src/api-keys";
+import { slugify } from "lib/slugify";
 
 import type { CreateSpellDto } from "../src/spells/entities/create-spell.dto";
 import type { CreateTalentFeatDto } from "../src/talent-feat/entities/create-talent-feat.dto";
@@ -71,7 +72,10 @@ seed(href);
 function mapContent(href: RoutePathPrefixType) {
   switch (href) {
     case "spells":
-      return SPELL_DATA;
+      return SPELL_DATA.map((spell) => ({
+        ...spell,
+        slug: slugify(spell.name),
+      }));
     case "talent-feat":
       return TALENT_DATA.concat(FEAT_DATA);
   }

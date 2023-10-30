@@ -40,6 +40,11 @@ export class CreateSpellDto implements ISpellBase {
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  slug?: string; // Optional for TS because it's auto-generated in the seed script
+
   @ApiProperty({ enum: SPELL_LEVELS })
   @IsIn(SPELL_LEVELS, {
     message: `Level must be one of the following: ${SPELL_LEVELS.join(", ")}`,

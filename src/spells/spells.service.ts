@@ -63,21 +63,21 @@ export class SpellsService {
     }
     // console.log("filterConditions:", JSON.stringify(filterConditions, null, 2));
     return this.spellModel
-      .find<Spell>(filterConditions, "-isPrivate")
+      .find<Spell>(filterConditions, "-_id -isPrivate")
       .exec()
       .then((spells) => spells.sort(sortBySpellFullName));
   }
 
-  async findById(id: string) {
+  async findBySlug(slug: string) {
     return this.spellModel
-      .findById(id, "-isPrivate")
+      .findOne({ slug }, "-_id -isPrivate")
       .exec()
       .catch(() => null);
   }
 
   async seedBulk(createSpellDtos: CreateSpellDto[]) {
     await this.deleteAll();
-    return this.spellModel.insertMany<Spell>(createSpellDtos);
+    return this.spellModel.insertMany<CreateSpellDto>(createSpellDtos);
   }
 
   private deleteAll() {
