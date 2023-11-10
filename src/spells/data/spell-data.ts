@@ -266,7 +266,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
-      "You have advantage on the attack roll if the creature is made of metal, or wearing metal armor.",
+      "Your Spellcasting Attempt is Easy if the creature is made of metal, or wearing metal armor.",
       "On a hit, the creature takes 1d10 lightning damage, and it can't take reactions until the start of its next turn.",
     ],
     damageTypes: ["lightning"],
