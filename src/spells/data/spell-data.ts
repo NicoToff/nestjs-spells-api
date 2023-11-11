@@ -88,7 +88,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
       "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points until the start of your next turn.",
-      "If you hit an undead creature, it also has disadvantage on attack rolls against you until then.",
+      "If you hit an undead creature, it also has disadvantage on Attack Rolls against you until then.",
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
@@ -245,8 +245,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "mistletoe, a shamrock leaf, and a club or quarterstaff",
     flavor: "You imbue a wooden weapon with the power of nature.",
     description: [
-      "You can use your Spellcasting Ability instead of Strength for the Attack and Damage Rolls of Melee attacks using the weapon.",
-      "The weapon's damage die becomes a d10 and you can choose to replace its damage type with radiant damage.",
+      "You can use your Spellcasting Ability instead of Strength for the Attack Rolls and damage rolls of Melee Attacks using the weapon.",
+      "The weapon's damage die becomes a d10 and you can choose to replace its damage type with radiant damage when you cast the spell.",
       "The spell ends if you cast it again or if you let go of the weapon.",
     ],
     cantripUpgrade:
@@ -465,7 +465,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor:
       "The air around you becomes thick and absorbs the impact of any attack.",
-    description: ["You have Absorb all damage 2"],
+    description: ["You have Absorb all damage 2."],
     atHigherLevels:
       "For each spell slot above 1st level, the Absorb all damage increases by 1.",
     sources: ["arcane"],
