@@ -124,10 +124,10 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "Smell the air, feel the wind, and read the clouds...",
     description: [
-      "You get a vision of the weather within a 5-mile radius for the next 24 hours.",
+      "You get a vision of the weather within a 1-mile radius for the next 24 hours.",
     ],
     cantripUpgrade:
-      "The location of the weather forecast increases to a 5 mile-radius when you reach 5th level, 10 mile-radius at 11th level, and 100 mile-radius at 17th level.",
+      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 11th level, and 100-mile radius at 17th level.",
     sources: ["primal"],
     group: "Nature Craft",
   },
