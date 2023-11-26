@@ -225,17 +225,17 @@ export const TALENT_DATA: CreateTalentFeatDto[] = [
     prerequisites: ["Tiefling"],
     flavor: "You learn to call on hellfire to serve your commands.",
   },
-  {
-    type: "talent",
-    name: "Human Determination",
-    description: [
-      "When you make a d20 Test, you can do so with Advantage.",
-      "Once you use this ability, you can't use it again until you finish a Long Rest.",
-    ],
-    prerequisites: ["Human"],
-    flavor:
-      "You are filled with a determination that can draw the unreachable within your reach.",
-  },
+  // {
+  //   type: "talent",
+  //   name: "Human Determination",
+  //   description: [
+  //     "When you make a d20 Test, you can do so with Advantage.",
+  //     "Once you use this ability, you can't use it again until you finish a Long Rest.",
+  //   ],
+  //   prerequisites: ["Human"],
+  //   flavor:
+  //     "You are filled with a determination that can draw the unreachable within your reach.",
+  // },
   {
     type: "talent",
     name: "Knack for Illusions",
@@ -402,7 +402,7 @@ export const TALENT_DATA: CreateTalentFeatDto[] = [
     description: [
       "When you take the Help action to aid an ally in attacking a creature, you can make one weapon Attack as a Bonus Action against the same creature.",
     ],
-    minLevel: 3,
+    minLevel: 6,
     flavor: "You have extensive experience in fighting alongside others.",
   },
   {

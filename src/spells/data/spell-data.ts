@@ -115,7 +115,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["arcane"],
   },
   {
-    name: "Predict Weather",
+    name: "Druidcraft",
     level: 0,
     school: "divination",
     castingTime: "Action",
@@ -124,12 +124,31 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "Smell the air, feel the wind, and read the clouds...",
     description: [
-      "You get a vision of the weather within a 1-mile radius for the next 24 hours.",
+      "Choose one of the following effect:",
+      "- You get a vision of the weather within a 1-mile radius for the next 24 hours.",
+      "- You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.",
     ],
     cantripUpgrade:
-      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 11th level, and 100-mile radius at 17th level.",
+      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 11th level, and 100-mile radius at 17th level. The number of plant you can affect increases to two at 5th level, ten at 11th level, and twenty-five at 17th level.",
     sources: ["primal"],
     group: "Nature Craft",
+  },
+  {
+    name: "Light",
+    level: 0,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["v", "m"],
+    material: "a firefly or phosphorescent moss",
+    flavor: "You conjure a source of light on any surface.",
+    description: [
+      "The surface emits bright light in a 20-foot radius and dim light for an additional 20 feet.",
+    ],
+    cantripUpgrade:
+      "Both radius increase to 40 feet when you reach 5th level, 60 feet at 11th level, and 120 feet at 17th level.",
+    sources: ["arcane", "divine", "primal"],
   },
   {
     name: "Prestidigitation",
@@ -154,6 +173,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 11th level, and there is no limit starting at 17th level.",
     sources: ["arcane", "primal"],
+    group: "Nature Craft",
   },
   {
     name: "Fire Bolt",
@@ -377,6 +397,23 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 11th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
   },
   {
+    name: "Cure Wounds",
+    level: 1,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You channel positive energy to heal a creature's wounds.",
+    description: [
+      "The creature regains a number of Hit Points equal to 1d12 + your Spellcasting Ability Modifier.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d12 for each slot level above 1st.",
+    tags: ["heal"],
+    sources: ["divine", "primal"],
+  },
+  {
     name: "Detect Magic",
     level: 1,
     school: "divination",
@@ -396,6 +433,47 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
     group: "Sense the Unseen",
     sources: ["arcane", "divine", "primal"],
+  },
+  {
+    name: "Detect Metal and Mineral",
+    level: 1,
+    school: "divination",
+    castingTime: "Action",
+    range: "Self",
+    area: "10-foot radius sphere",
+    concentration: true,
+    ritual: true,
+    duration: "10 minutes",
+    components: ["v", "s"],
+    flavor:
+      "Throuh the toughest material, you sense the presence of metals and minerals.",
+    description: [
+      "You perceive metals and minerals and can recognize them instantaneously if you are familiar with them.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 1st level, the radius of the sphere increases by 5 feet.",
+    group: "Sense the Unseen",
+    sources: ["arcane", "primal"],
+  },
+  {
+    name: "Detect Life",
+    level: 1,
+    school: "divination",
+    castingTime: "Action",
+    range: "Self",
+    area: "60-foot radius sphere",
+    ritual: true,
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor:
+      "In a flash, you sense the presence of living creatures around you.",
+    description: [
+      "You perceive living creatures and can recognize their Creature Type if you are familiar with it.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 1st level, the radius of the sphere increases by 30 feet.",
+    group: "Sense the Unseen",
+    sources: ["primal"],
   },
   {
     name: "Detect Poison and Disease",
@@ -535,7 +613,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
-    isPrivate: true,
     tags: ["area"],
   },
   {

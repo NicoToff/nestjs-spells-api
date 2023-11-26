@@ -1,14 +1,14 @@
 import type { CreateTalentFeatDto } from "../entities/create-talent-feat.dto";
 
 export const FEAT_DATA: CreateTalentFeatDto[] = [
-  {
-    type: "feat",
-    name: "Ability Score Increase",
-    description: [
-      "Increase one Ability Score of your choice by 2, or increase two Ability Scores of your choice by 1. You can't increase an Ability Score above 20 using this feat.",
-      "You can choose this feat multiple times.",
-    ],
-  },
+  // {
+  //   type: "feat",
+  //   name: "Ability Score Increase",
+  //   description: [
+  //     "Increase one Ability Score of your choice by 2, or increase two Ability Scores of your choice by 1. You can't increase an Ability Score above 20 using this feat.",
+  //     "You can choose this feat multiple times.",
+  //   ],
+  // },
   {
     type: "feat",
     name: "Crossbow Expert",
@@ -52,18 +52,18 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
     ],
     flavor: "You master fighting with two weapons.",
   },
-  {
-    type: "feat",
-    name: "Elven Accuracy",
-    description: [
-      "You gain the following benefits:",
-      "- Increase your Dexterity, Intelligence, Wisdom, or Charisma Score by 1, to a maximum of 20.",
-      "- Whenever you have Advantage on an Attack Roll using Dexterity, Intelligence, Wisdom, or Charisma, you can reroll one of the dice once.",
-    ],
-    prerequisites: ["Elf or half-elf"],
-    flavor:
-      "The accuracy of elves is legendary, especially that of elf archers and spellcasters. You have uncanny aim with attacks that rely on precision rather than brute force.",
-  },
+  // {
+  //   type: "feat",
+  //   name: "Elven Accuracy",
+  //   description: [
+  //     "You gain the following benefits:",
+  //     "- Increase your Dexterity, Intelligence, Wisdom, or Charisma Score by 1, to a maximum of 20.",
+  //     "- Whenever you have Advantage on an Attack Roll using Dexterity, Intelligence, Wisdom, or Charisma, you can reroll one of the dice once.",
+  //   ],
+  //   prerequisites: ["Elf or half-elf"],
+  //   flavor:
+  //     "The accuracy of elves is legendary, especially that of elf archers and spellcasters. You have uncanny aim with attacks that rely on precision rather than brute force.",
+  // },
   {
     type: "feat",
     name: "Fighting Expert",
@@ -154,16 +154,16 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
       "By learning the arts of monks, you are never stressed in battle. Your mind and your agility become more efficient than any armor.",
     prerequisites: ["Dexterity and Wisdom 13 or higher"],
   },
-  {
-    type: "feat",
-    name: "Lucky",
-    description: [
-      "You have 3 luck points. Whenever you make a d20 Test, you can spend one luck point to roll an additional d20; roll two additional d20 if you have Advantage or Disadvantage. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the d20 Test; or you choose the pair of d20s if you have Advantage or Disadvantage.",
-      "You regain your expended luck points when you finish a Long Rest.",
-    ],
-    flavor:
-      "You have inexplicable luck that seems to kick in at just the right moment.",
-  },
+  // {
+  //   type: "feat",
+  //   name: "Lucky",
+  //   description: [
+  //     "You have 3 luck points. Whenever you make a d20 Test, you can spend one luck point to roll an additional d20; roll two additional d20 if you have Advantage or Disadvantage. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the d20 Test; or you choose the pair of d20s if you have Advantage or Disadvantage.",
+  //     "You regain your expended luck points when you finish a Long Rest.",
+  //   ],
+  //   flavor:
+  //     "You have inexplicable luck that seems to kick in at just the right moment.",
+  // },
   {
     type: "feat",
     name: "Mage Slayer",
@@ -303,17 +303,17 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
     flavor:
       "When attacking a foe, you do it with the worst intentions every single time.",
   },
-  {
-    type: "feat",
-    name: "Second Chance",
-    description: [
-      "When a friendly creature you can see within 10 feet of you rolls a 1 on a d20 Test, you can use your Reaction to let the ally reroll the die. The ally must use the new roll.",
-      "When you use this ability, you can't use your Lucky racial trait before the end of your next turn.",
-    ],
-    prerequisites: ["Halfling"],
-    flavor:
-      "Your people have extraordinary luck, which you have learned to mystically lend to your companions when you see them falter. You're not sure how you do it; you just wish it, and it happens. Surely a sign of fortune's favor!",
-  },
+  // {
+  //   type: "feat",
+  //   name: "Second Chance",
+  //   description: [
+  //     "When a friendly creature you can see within 10 feet of you rolls a 1 on a d20 Test, you can use your Reaction to let the ally reroll the die. The ally must use the new roll.",
+  //     "When you use this ability, you can't use your Lucky racial trait before the end of your next turn.",
+  //   ],
+  //   prerequisites: ["Halfling"],
+  //   flavor:
+  //     "Your people have extraordinary luck, which you have learned to mystically lend to your companions when you see them falter. You're not sure how you do it; you just wish it, and it happens. Surely a sign of fortune's favor!",
+  // },
   {
     type: "feat",
     name: "Sentinel",
@@ -333,8 +333,7 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
       "You gain the following benefits:",
       "- Attacking at long range doesn't impose Disadvantage on your ranged weapon Attack Rolls.",
       "- Your ranged weapon Attacks ignore cover that isn't Total Cover.",
-      "- Before you make an attack with a ranged weapon that you are proficient with, you can choose to take a –5 penalty to the Attack Roll. If the attack hits, you add +10 to the attack's",
-      "damage.",
+      "- Before you make an attack with a ranged weapon that you are proficient with, you can choose to take a -5 penalty to the Attack Roll. If the attack hits, you add +10 to the attack's damage.",
     ],
     flavor:
       "You have mastered ranged weapons and can make shots that others find impossible.",
