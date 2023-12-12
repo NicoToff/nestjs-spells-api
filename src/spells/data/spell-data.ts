@@ -234,6 +234,25 @@ export const SPELL_DATA: CreateSpellDto[] = [
     group: "Elemental Rudiment",
   },
   {
+    name: "Relieve Pain",
+    level: 0,
+    school: "abjuration",
+    castingTime: "1 minute",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["v", "s", "m"],
+    material: "a piece of bread and a cup of water",
+    flavor: "Through the essence of nutrition, you soothe a creature's weariness or illness.",
+    description: [
+      "The creature is unaffected by the effect of one level of Exhaustion and its fever, nausea, or hangover (if any) is ignored.",
+      "**Non-repeatable.** A creature affected by this spell can't be affected by it again until it finishes a Long Rest.",
+    ],
+    cantripUpgrade:
+      "The number of creatures you can affect increases to 2 when you reach 5th level, 4 at 11th level, and 25 at 17th level.",
+    sources: ["divine"],
+    tags: ["heal"],
+  },
+  {
     name: "Sacred Flame",
     level: 0,
     school: "evocation",
