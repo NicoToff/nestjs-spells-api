@@ -198,8 +198,8 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
     name: "Magic Initiate",
     description: [
       "Increase your Intelligence, Wisdom or Charisma Score by 1, to a maximum of 20.",
-      "Choose a spell source from arcane, divine or primal and one 1st-level spell that has that source. You learn the spell and can cast it at its lowest level. Once you cast it, you must finish a Long Rest before you can cast it again using this feat.",
-      "You can choose this feat multiple times. ",
+      "Choose a 1st-level that has either arcane, divine or primal as a spell source. You learn the spell and can cast it at its lowest level. Once you cast it, you must finish a Long Rest before you can cast it again using this feat.",
+      "You can choose this feat multiple times.",
     ],
   },
   {
