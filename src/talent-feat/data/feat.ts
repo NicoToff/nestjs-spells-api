@@ -11,6 +11,18 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
   // },
   {
     type: "feat",
+    name: "Battle Medic",
+    description: [
+      "You gain the following benefits:",
+      "- When you use a healer's kit to stabilize a Dying creature, that creature also regains 1 Hit Point.",
+      "- As an Action, you can spend one use of a healer's kit to tend to a Player Character and restore 1d10 Hit Points to them, plus additional Hit Points equal to their level (or maximum number of Hit Dice if it has no level). The creature can't regain Hit Points from this feat again until it finishes a Short or Long Rest.",
+      "- Whenever you roll a die to determine the number of Hit Points you restore with a spell or with this feat, you can reroll any die if it rolls a 1 and must use the new roll.",
+    ],
+    flavor:
+      "You are an able physician, allowing you to mend wounds quickly in the frey of battle and get your allies back in the fight.",
+  },
+  {
+    type: "feat",
     name: "Crossbow Expert",
     description: [
       "You gain the following benefits:",
@@ -97,17 +109,6 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
     ],
     flavor:
       "You've learned to put the weight of a weapon to your Advantage, letting its momentum empower your strikes.",
-  },
-  {
-    type: "feat",
-    name: "Healer",
-    description: [
-      "You gain the following benefits:",
-      "- When you use a healer's kit to stabilize a Dying creature, that creature also regains 1 Hit Point.",
-      "- As an Action, you can spend one use of a healer's kit to tend to a Player Character and restore 1d10 Hit Points to them, plus additional Hit Points equal to their level. If the creature doesn't have a level, the extra life is equal to its maximum number of Hit Dice. The creature can't regain Hit Points from this feat again until it finishes a Short or Long Rest.",
-    ],
-    flavor:
-      "You are an able physician, allowing you to mend wounds quickly and get your allies back in the fight.",
   },
   {
     type: "feat",

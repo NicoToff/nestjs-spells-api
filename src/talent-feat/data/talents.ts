@@ -63,6 +63,17 @@ export const TALENT_DATA: CreateTalentFeatDto[] = [
     flavor:
       "You've lived a longer existence than most and have acquired general knowledge about many topics.",
   },
+  {
+    type: "talent",
+    name: "Breaker",
+    description: [
+      "You gain the following benefits:",
+      "- You deal double damage against objects and structures with weapon Attacks.",
+      "- You have Advantage on Strength Checks made to break or force objects.",
+    ],
+    prerequisites: ["Strength 13 or higher"],
+    flavor: "Even doors and furniture fear you.",
+  },
   // {
   //   type: "talent",
   //   name: "Barbed Hide",
