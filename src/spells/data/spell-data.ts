@@ -1,4 +1,6 @@
 import { CreateSpellDto } from "../entities/create-spell.dto";
+const meleeAtkInstead =
+  "You make a Melee Attack Roll instead of a Spellcasting Attempt to cast this spell.";
 
 export const SPELL_DATA: CreateSpellDto[] = [
   {
@@ -15,7 +17,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     description: ["On a hit, a creature takes 1d8 acid damage."],
     damageTypes: ["acid"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -36,7 +38,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["thunder"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "con",
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -51,9 +53,30 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "You snap your fingers, then trace a sigil of warding in the air.",
-    description: ["A Melee Attack against you becomes Hard."],
+    description: ["You impose Disadvantage on the triggering Attack."],
     sources: ["arcane"],
     tags: ["debuff"],
+  },
+  {
+    name: "Booming Blade",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Self",
+    duration: "1 round",
+    components: ["s", "m"],
+    material: "a melee weapon",
+    flavor: "You channel thunderous energy into your weapon.",
+    description: [
+      meleeAtkInstead,
+      "On a hit, you deal damage normally, and the target becomes sheathed in booming energy until the start of your next turn. If the target willingly moves before then, it immediately takes 1d8 thunder damage, and the spell ends.",
+    ],
+    sources: ["arcane"],
+    cantripUpgrade:
+      "Starting at 5th level, the Melee Attack deals an additional 1d8 thunder damage on a hit and the damage for moving increases to 2d8. These damage rolls increase to 2d8 and 3d8 at 10th level, and to 3d8 and 4d8 at 17th level.",
+    tags: ["melee", "debuff"],
+    damageTypes: ["thunder"],
+    group: "Magic Strike",
   },
   {
     name: "Censure",
@@ -70,7 +93,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["radiant"],
     cantripUpgrade:
-      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 11th level (6d8), and 17th level (8d8).",
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
     savingThrow: "wis",
     tags: ["ranged", "control"],
     group: "Blessed Radiance",
@@ -92,27 +115,9 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     sources: ["arcane"],
     tags: ["ranged", "debuff"],
-  },
-  {
-    name: "Mending",
-    level: 0,
-    school: "transmutation",
-    castingTime: "1 minute",
-    range: "Touch",
-    duration: "Instantaneous",
-    components: ["v", "s", "m"],
-    material: "two lodestones",
-    flavor:
-      "As chips of wood appear out of thin air, the shallow dent in your cart repairs before everyone's eyes.",
-    description: [
-      "Repair a break or tear in a nonmagical nonliving object on a surface of up to 1 foot in width and height.",
-    ],
-    cantripUpgrade:
-      "The width and height of the surface increases to 2 feet when you reach 5th level, 5 feet at 11th level, and 20 feet at 17th level.",
-    sources: ["arcane"],
   },
   {
     name: "Druidcraft",
@@ -129,9 +134,109 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "- You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.",
     ],
     cantripUpgrade:
-      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 11th level, and 100-mile radius at 17th level. The number of plant you can affect increases to two at 5th level, ten at 11th level, and twenty-five at 17th level.",
+      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 10th level, and 100-mile radius at 17th level. The number of plant you can affect increases to two at 5th level, ten at 10th level, and twenty-five at 17th level.",
     sources: ["primal"],
     group: "Nature Craft",
+  },
+  {
+    isPrivate: true,
+    name: "Eldritch Blast",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "120 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "A beam of crackling energy streaks toward your foe.",
+    description: ["On a hit, the creature takes 1d10 force damage."],
+    damageTypes: ["force"],
+    cantripUpgrade:
+      "This spell creates one additional beam when you reach 5th level (two beams), 10th level (three beams), and 17th level (four beams).",
+    tags: ["ranged"],
+    sources: ["warlock"],
+  },
+  {
+    name: "Fire Bolt",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "120 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You hurl a searing mote of magical fire at your foe.",
+    description: [
+      "On a hit, the creature takes 1d12 fire damage.",
+      "A flammable object hit by this spell ignites if it isn't being worn or carried.",
+    ],
+    damageTypes: ["fire"],
+    tags: ["ranged"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
+    sources: ["arcane"],
+    group: "Elemental Rudiment",
+  },
+  {
+    name: "Green-Flame Blade",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["v", "m"],
+    material: "a melee weapon",
+    flavor: "You imbue your weapon with green fire.",
+    description: [
+      "You make an Attack Roll instead of a Spellcasting Attempt to cast this spell.",
+      "On a hit, you deal damage normally, and the target takes 1d8 fire damage. If the target is within 5 feet of a creature, other than you, that creature takes fire damage equal to your Spellcasting Ability Modifier.",
+    ],
+    cantripUpgrade:
+      "Starting at 5th level, the Melee Attack deals an additional 1d8 fire damage on a hit and the damage for the secondary target increases to 1d8 + your Spellcasting Ability Modifier. These damage rolls increase to 3d8 and 2d8 at 10th level, and to 4d8 and 3d8 at 17th level.",
+    damageTypes: ["fire"],
+    tags: ["melee"],
+    sources: ["arcane"],
+    group: "Magic Strike",
+  },
+  {
+    name: "Gust",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You seize the air and force it to move at your command.",
+    description: [
+      "On a successful Attempt, choose one of the following effect:",
+      "- One Medium or smaller creature that you can see is pushed up to 5 feet away from you.",
+      "- Push an object that isn't being worn or carried up to 5 feet away from you. It isn't pushed with enough force to cause direct damage.",
+      "- You cause leaves to rustle, wind to slam shutters shut, your clothing to ripple in a breeze or any other harmless sensory effect linked to wind.",
+    ],
+    sources: ["arcane", "primal"],
+    cantripUpgrade:
+      "The maximum weight of the object you can affect increases to 10 pounds when you reach 5th level, 25 pounds at 10th level, and 50 pounds at 17th level. The size of the creature you can affect increases to Large at 5th level, Huge at 10th level, and Gargantuan at 17th level.",
+    group: "Nature Craft",
+    savingThrow: "str",
+  },
+  {
+    name: "Infestation",
+    level: 0,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a living flea or moth",
+    flavor: "You cause a cloud of mites, fleas, and other parasites to appear.",
+    description: [
+      "On a hit, the target takes 1d8 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet.",
+      "The movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move.",
+    ],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+    sources: ["arcane", "primal"],
+    savingThrow: "con",
+    damageTypes: ["poison"],
+    tags: ["ranged", "debuff"],
   },
   {
     name: "Light",
@@ -147,7 +252,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "The surface emits bright light in a 20-foot radius and dim light for an additional 20 feet.",
     ],
     cantripUpgrade:
-      "Both radius increase to 40 feet when you reach 5th level, 60 feet at 11th level, and 120 feet at 17th level.",
+      "Both radius increase to 40 feet when you reach 5th level, 60 feet at 10th level, and 120 feet at 17th level.",
     sources: ["arcane", "divine", "primal"],
   },
   {
@@ -168,32 +273,128 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "- You chill or warm, a 5-foot cube area for 1 hour.",
       "- You flavor up 1 cubic foot of nonliving material for 1 hour.",
       "- You make a small mark appear on an object or surface for 1 hour.",
-      "If you cast this spell multiple times, you can have up to five of its non-instantaneous effects active at a time. You can dismiss any effect as an action.",
+      "If you cast this spell multiple times, you can have up to five of its non-instantaneous effects active at a time. You can dismiss any effect as an Action.",
     ],
     cantripUpgrade:
-      "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 11th level, and there is no limit starting at 17th level.",
+      "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 10th level, and there is no limit starting at 17th level.",
     sources: ["arcane", "primal"],
     group: "Nature Craft",
   },
   {
-    name: "Fire Bolt",
+    name: "Mage Hand",
     level: 0,
-    school: "evocation",
+    school: "conjuration",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "1 minute",
+    components: ["v", "s"],
+    flavor: "You conjure a spectral, floating hand.",
+    description: [
+      "You can use your Action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.",
+      "The hand can't Attack, activate magic items, or carry more than 10 pounds.",
+      "It can carry one object at a time, and anything it is carrying disappears if it is more than 30 feet away from you or if you cast this spell again.",
+    ],
+    sources: ["arcane"],
+    tags: ["summon"],
+  },
+  {
+    name: "Mending",
+    level: 0,
+    school: "transmutation",
+    castingTime: "1 minute",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "two lodestones",
+    flavor:
+      "As chips of wood appear out of thin air, the shallow dent in your cart repairs before everyone's eyes.",
+    description: [
+      "Repair a break or tear in a nonmagical nonliving object on a surface of up to 1 foot in width and height.",
+    ],
+    cantripUpgrade:
+      "The width and height of the surface increases to 2 feet when you reach 5th level, 5 feet at 10th level, and 20 feet at 17th level.",
+    sources: ["arcane"],
+  },
+  {
+    name: "Message",
+    level: 0,
+    school: "transmutation",
     castingTime: "Action",
     range: "120 feet",
-    duration: "Instantaneous",
-    components: ["v", "s"],
-    flavor: "You hurl a searing mote of magical fire at your foe.",
+    duration: "1 round",
+    components: ["v", "s", "m"],
+    material: "a short piece of metal wire",
+    flavor: "You communicate a distant message with a whisper.",
     description: [
-      "On a hit, the creature takes 1d12 fire damage.",
-      "A flammable object hit by this spell ignites if it isn't being worn or carried.",
+      "You point your finger toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear.",
+      "You can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical Silence, 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood blocks the spell.",
     ],
-    damageTypes: ["fire"],
-    tags: ["ranged"],
     cantripUpgrade:
-      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).",
+      "This cantrip's range increases to 300 feet when you reach 5th level, 1 mile at 10th level, and 20 miles at 17th level.",
     sources: ["arcane"],
-    group: "Elemental Rudiment",
+  },
+  {
+    name: "Mind Sliver",
+    level: 0,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "1 round",
+    components: ["v"],
+    flavor:
+      "You drive a disorienting spike of psychic energy into the mind of one creature.",
+    description: [
+      "On a hit, the creature takes 1d6 psychic damage, and the the next time this round a d20 Test is rolled against that creature, the Test has a +1d2 bonus.",
+    ],
+    sources: ["arcane"],
+    cantripUpgrade:
+      "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6. At 17th level, the damage increases to 4d6 and the bonus to +1d8.",
+    savingThrow: "int",
+    damageTypes: ["psychic"],
+    tags: ["ranged", "buff"],
+  },
+  {
+    name: "Minor Illusion",
+    level: 0,
+    school: "illusion",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "1 minute",
+    components: ["s", "m"],
+    material: "a bit of fleece",
+    flavor: "You create a sound or an image of an object.",
+    description: [
+      "If you create a sound, its volume can range from a whisper to a scream. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.",
+      "If you create an image of an object, it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.",
+      "If a creature uses its Action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) Check against the Target. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+      "The illusion ends if you dismiss it as an Action or cast this spell again.",
+    ],
+    cantripUpgrade:
+      "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level.",
+    sources: ["arcane"],
+    tags: ["ranged", "summon"],
+    savingThrow: "int",
+  },
+  {
+    name: "Mold Earth",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Instantaneous",
+    components: ["s"],
+    flavor: "You shape dirt or stone.",
+    description: [
+      "Choose one of the following effect:",
+      "- Excavate 5-foot cube of loose earth. You can move the dirt up to 5 feet away. This movement doesn't have enough force to cause damage.",
+      "- You cause shapes, colors, or both to appear on the dirt or stone, spelling out words, creating images, or shaping patterns. The changes last for 1 hour.",
+      "- You cause a stone or dirt ground to become difficult terrain on a 5-foot surface, or difficult terrain to become normal terrain. This change lasts for 1 hour.",
+      "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an Action.",
+    ],
+    sources: ["arcane", "primal"],
+    cantripUpgrade:
+      "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
+    group: "Nature Craft",
   },
   {
     name: "Poison Spray",
@@ -210,9 +411,28 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["poison"],
     cantripUpgrade:
-      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 11th level (6d8), and 17th level (8d8).",
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
     tags: ["ranged"],
     sources: ["arcane", "primal"],
+  },
+  {
+    name: "Primal Savagery",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["s"],
+    flavor:
+      "You channel primal magic to cause your teeth or fingernails to sharpen, ready to deliver a corrosive attack.",
+    description: [
+      `${meleeAtkInstead} The Attack Roll uses your Spellcasting Ability Modifier.`,
+      "On a hit, the creature takes 1d12 acid damage.",
+      "After the Attack, your teeth or fingernails return to normal.",
+    ],
+    cantripUpgrade:
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
+    sources: ["druid"],
   },
   {
     name: "Ray of Frost",
@@ -228,7 +448,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     tags: ["ranged", "debuff"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -242,13 +462,14 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "1 hour",
     components: ["v", "s", "m"],
     material: "a piece of bread and a cup of water",
-    flavor: "Through the essence of nutrition, you soothe a creature's weariness or illness.",
+    flavor:
+      "Through the essence of nutrition, you soothe a creature's weariness or illness.",
     description: [
       "The creature is unaffected by the effect of one level of Exhaustion and its fever, nausea, or hangover (if any) is ignored.",
       "**Non-repeatable.** A creature affected by this spell can't be affected by it again until it finishes a Long Rest.",
     ],
     cantripUpgrade:
-      "The number of creatures you can affect increases to 2 when you reach 5th level, 4 at 11th level, and 25 at 17th level.",
+      "The number of creatures you can affect increases to 2 when you reach 5th level, 4 at 10th level, and 25 at 17th level.",
     sources: ["divine"],
     tags: ["heal"],
   },
@@ -266,7 +487,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "On a hit, the creature takes 1d10 radiant damage.",
     ],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     damageTypes: ["radiant"],
     tags: ["ranged"],
     savingThrow: "dex",
@@ -289,7 +510,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "The spell ends if you cast it again or if you let go of the weapon.",
     ],
     cantripUpgrade:
-      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 11th level, and 2d10 at 17th level.",
+      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 10th level, and 2d10 at 17th level.",
     damageTypes: ["radiant"],
     tags: ["melee", "buff"],
     sources: ["druid"],
@@ -306,11 +527,11 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
       "Your Spellcasting Attempt is Easy if the creature is made of metal, or wearing metal armor.",
-      "On a hit, the creature takes 1d10 lightning damage, and it can't take reactions until the start of its next turn.",
+      "On a hit, the creature takes 1d10 lightning damage, and it can't take Reactions until the start of its next turn.",
     ],
     damageTypes: ["lightning"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     tags: ["melee", "debuff"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -342,14 +563,15 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "the weapon you use for the Attack Roll",
     flavor: "A flash of magical insight guides your strike.",
     description: [
-      "You make an Attack Roll instead of a Spellcasting Attempt to cast this spell. The Attack Roll and damage roll is made using your Spellcasting Ability Modifier.",
+      `${meleeAtkInstead} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
       "On a hit, you deal damage normally, but you can choose to replace the weapon's damage type with force damage.",
     ],
     sources: ["arcane"],
     cantripUpgrade:
-      "The damage of the Attack provided by this spell increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+      "The damage of the Attack provided by this spell increases by 1d6 when you reach 5th level (2d6), 10th level (3d6), and 17th level (4d6).",
     tags: ["melee", "ranged", "buff"],
     damageTypes: ["force"],
+    group: "Magic Strike",
   },
   {
     name: "Veil",
@@ -367,7 +589,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["radiant"],
     cantripUpgrade:
-      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).",
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
     savingThrow: "wis",
     tags: ["buff"],
     group: "Blessed Radiance",
@@ -387,7 +609,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     damageTypes: ["psychic"],
     cantripUpgrade:
-      "This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+      "This spell's damage increases by 1d6 when you reach 5th level (2d6), 10th level (3d6), and 17th level (4d6).",
     savingThrow: "wis",
     sources: ["bard"],
     tags: ["ranged", "debuff"],
@@ -406,14 +628,14 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You enter a trance and listen to primal energy transmitted through the wind.",
     description: [
-      "You are uncounscious for the duration, except you can take an action to end the spell.",
+      "You are uncounscious for the duration, except you can take an Action to end the spell.",
       "While in the trance, you can receive and broadcast emotions to and from creatures using this spell or similar magic. Nature itself sends primal energy that you can perceive with this spell.",
       "This spell doesn't allow you to know the location of the creatures you communicate with.",
       "The communication isn't instantaneous. It takes a round for an emotion to travel 1 mile (i.e. it takes a minute to travel 10 miles).",
     ],
     sources: ["primal"],
     cantripUpgrade:
-      "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 11th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
+      "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 10th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
   },
   {
     name: "Cure Wounds",
@@ -446,7 +668,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "Your senses awaken to the mystical tapestry that surrounds you.",
     description: [
       "You see a faint aura around any visible creature or object that bears magic.",
-      "As an action, you can learn the school of magic of an aura, if it has one.",
+      "As an Action, you can learn the school of magic of an aura, if it has one.",
     ],
     atHigherLevels:
       "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
@@ -720,5 +942,3 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ritual: true,
   },
 ];
-
-// For reference, actual sphere size are: https://i.imgur.com/7RXyGqi.png
