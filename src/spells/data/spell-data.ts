@@ -372,7 +372,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level.",
     sources: ["arcane"],
-    tags: ["ranged", "summon"],
+    tags: ["summon"],
     savingThrow: "int",
   },
   {
@@ -395,6 +395,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
     group: "Nature Craft",
+    tags: ["area"],
   },
   {
     name: "Poison Spray",
@@ -433,6 +434,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
     sources: ["druid"],
+    damageTypes: ["acid"],
+    tags: ["melee"],
   },
   {
     name: "Ray of Frost",
