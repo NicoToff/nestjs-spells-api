@@ -417,19 +417,6 @@ export const FEAT_DATA: CreateTalentFeatDto[] = [
     flavor:
       "Your skin is exceptionally thick and you can take a beating more than most.",
   },
-  {
-    type: "feat",
-    name: "War Caster",
-    description: [
-      "You gain the following benefits:",
-      "- You have Advantage on Constitution Saving Throws that you make to maintain your concentration on a spell when you take damage.",
-      "- You can perform the somatic components of spells even when you have weapons or a shield in one or both hands.",
-      "- When a hostile creature's movement provokes an Opportunity Attack from you, you can use your Reaction to cast a spell at the creature, rather than making an Opportunity Attack. The spell must have a casting time of 1 Action (or 1 Bonus Action) and must target only that creature.",
-    ],
-    prerequisites: ["The ability to cast at least one spell"],
-    flavor:
-      "You have practiced casting spells in the midst of combat, learning techniques.",
-  },
   // {
   //   type: "feat",
   //   name: "Wrathful Warrior",

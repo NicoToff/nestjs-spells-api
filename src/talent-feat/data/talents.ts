@@ -469,6 +469,17 @@ export const TALENT_DATA: CreateTalentFeatDto[] = [
     flavor:
       "You expend your knowledge of magic to be prepared for all situations.",
   },
+  {
+    type: "talent",
+    name: "War Caster",
+    description: [
+      "You gain the following benefits:",
+      "- You don't have Disadvantage on Attack Rolls when making a Ranged Spellcasting Attempt while you are within 5 feet of a hostile creature.",
+      "- When a hostile creature's movement provokes an Opportunity Attack from you, you can use your Reaction to cast a spell at the creature rather than making an Opportunity Attack. The spell must have a casting time of 1 Action and must target only that creature.",
+    ],
+    prerequisites: ["The ability to cast at least one spell"],
+    flavor: "You have practiced casting spells in the midst of combat.",
+  },
   // {
   //   type: "talent",
   //   name: "Wood Elf Magic",
