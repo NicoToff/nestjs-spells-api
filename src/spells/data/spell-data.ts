@@ -64,7 +64,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     school: "evocation",
     castingTime: "Action",
     range: "Self",
-    duration: "1 round",
+    duration: "Until the start of your next turn",
     components: ["s", "m"],
     material: "the weapon you use for the Attack Roll",
     flavor: "You channel thunderous energy into your weapon.",
@@ -106,13 +106,13 @@ export const SPELL_DATA: CreateSpellDto[] = [
     school: "necromancy",
     castingTime: "Action",
     range: "120 feet",
-    duration: "1 round",
+    duration: "Until the start of your next turn",
     components: ["v"],
     flavor:
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
-      "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points until the start of your next turn.",
-      "If you hit an undead creature, it also has Disadvantage on Attack Rolls against you until then.",
+      "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points.",
+      "If you hit an undead creature, it also has Disadvantage on Attack Rolls against you.",
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
@@ -197,6 +197,21 @@ export const SPELL_DATA: CreateSpellDto[] = [
     tags: ["melee"],
     sources: ["arcane"],
     group: "Magic Strike",
+  },
+  {
+    name: "Guidance",
+    level: 0,
+    school: "divination",
+    castingTime: "Action",
+    components: ["v", "s"],
+    range: "30 feet",
+    duration: "Until the start of your next turn",
+    description: [
+      "The creature gets the benefits of the Help Action on its next d20 Test.",
+    ],
+    cantripUpgrade:
+      "The range of this spell increases to 60 feet at 5th level, 120 feet at 10th level, and 300 feet at 17th level.",
+    sources: ["divine"],
   },
   {
     name: "Gust",
@@ -327,7 +342,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     school: "transmutation",
     castingTime: "Action",
     range: "120 feet",
-    duration: "1 round",
+    duration: "Until the start of your next turn",
     components: ["v", "s", "m"],
     material: "a short piece of metal wire",
     flavor: "You communicate a distant message with a whisper.",
@@ -345,7 +360,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     school: "enchantment",
     castingTime: "Action",
     range: "60 feet",
-    duration: "1 round",
+    duration: "Until the start of your next turn",
     components: ["v"],
     flavor:
       "You drive a disorienting spike of psychic energy into the mind of one creature.",
