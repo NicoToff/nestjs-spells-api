@@ -1,7 +1,8 @@
 import { CreateSpellDto } from "../entities/create-spell.dto";
 const meleeAtkInstead =
   "You make a Melee Attack Roll instead of a Spellcasting Attempt to cast this spell.";
-
+const noHalfCover =
+  "A creature doesn't benefit from Half-Cover against this spell.";
 export const SPELL_DATA: CreateSpellDto[] = [
   {
     name: "Acid Splash",
@@ -14,7 +15,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor:
       "A bubble of acid materializes around your foe and bursts in a spray.",
-    description: ["On a hit, a creature takes 1d8 acid damage."],
+    description: ["On a hit, each creature take 1d8 acid damage."],
     damageTypes: ["acid"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
@@ -65,7 +66,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     range: "Self",
     duration: "1 round",
     components: ["s", "m"],
-    material: "a melee weapon",
+    material: "the weapon you use for the Attack Roll",
     flavor: "You channel thunderous energy into your weapon.",
     description: [
       meleeAtkInstead,
@@ -111,13 +112,14 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
       "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points until the start of your next turn.",
-      "If you hit an undead creature, it also has disadvantage on Attack Rolls against you until then.",
+      "If you hit an undead creature, it also has Disadvantage on Attack Rolls against you until then.",
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
       "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
-    sources: ["arcane"],
+    sources: ["arcane", "divine"],
     tags: ["ranged", "debuff"],
+    group: "Requiems",
   },
   {
     name: "Druidcraft",
@@ -183,7 +185,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     range: "Self",
     duration: "Instantaneous",
     components: ["v", "m"],
-    material: "a melee weapon",
+    material: "the weapon you use for the Attack Roll",
     flavor: "You imbue your weapon with green fire.",
     description: [
       "You make an Attack Roll instead of a Spellcasting Attempt to cast this spell.",
@@ -266,18 +268,22 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "Magic can be powerful, but it can also amuse.",
     description: [
       "You create one of the following magical effects within range:",
-      "- You instantly clean or soil an object no larger than 1 cubic foot.",
-      "- You instantly light or snuff out a candle, a torch, or a small campfire.",
+      "- You clean or soil an object no larger than 1 cubic foot.",
+      "- You light or snuff out a candle, a torch, or a small campfire.",
+      "- You can an unlocked door, window or container to open or slam shut.",
+      "- You cause harmless tremors in the ground for 1 minute.",
+      "- Your voice booms up to three times as loud as normal for 1 minutes.",
+      "- You alter the color of your eyes, for 1 minute.",
       "- You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the start of your next turn.",
-      "- Until the start of your next turn, you create an harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, an odd odor, falling leaves, or similar phenomenon.",
+      "- Until the start of your next turn, you create an harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, an odd odor, falling leaves, a rumble of thunder, the cry of a raven, ominous whispers or a similar phenomenon.",
       "- You chill or warm, a 5-foot cube area for 1 hour.",
       "- You flavor up 1 cubic foot of nonliving material for 1 hour.",
       "- You make a small mark appear on an object or surface for 1 hour.",
-      "If you cast this spell multiple times, you can have up to five of its non-instantaneous effects active at a time. You can dismiss any effect as an Action.",
+      "If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time. You can dismiss any effect as an Action.",
     ],
     cantripUpgrade:
-      "The maximum amount of effects you can have active at a time increases to 10 when you reach 5th level, 30 at 10th level, and there is no limit starting at 17th level.",
-    sources: ["arcane", "primal"],
+      "The maximum amount of effects you can have active at a time increases to six when you reach 5th level, ten at 10th level, and twenty-five at 17th level.",
+    sources: ["arcane", "divine", "primal"],
     group: "Nature Craft",
   },
   {
@@ -383,7 +389,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     range: "30 feet",
     duration: "Instantaneous",
     components: ["s"],
-    flavor: "You shape dirt or stone.",
+    flavor: "You modify the aspect and density of dirt or stone.",
     description: [
       "Choose one of the following effect:",
       "- Excavate 5-foot cube of loose earth. You can move the dirt up to 5 feet away. This movement doesn't have enough force to cause damage.",
@@ -395,7 +401,28 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
     group: "Nature Craft",
-    tags: ["area"],
+  },
+  {
+    name: "Shape Water",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Instantaneous",
+    components: ["s"],
+    flavor: "You shape a volume of water.",
+    description: [
+      "Choose one of the following effect to apply on 5-foot cube of water:",
+      "- You move or change the flow of the water, up to 5 feet in any direction. This movement doesn't have enough force to cause damage.",
+      "- You cause the water to form into simple shapes and animate at your command. This change lasts for 1 hour.",
+      "- You change the water's color or opacity. This change lasts for 1 hour.",
+      "- You freeze the water, provided that there are no creatures in it. The water unfreezes in 1 hour.",
+      "If you cast this spell multiple times, you can have no more than two of its non-instantaneous effects active at a time, and you can dismiss such an effect as an Action.",
+    ],
+    sources: ["arcane", "primal"],
+    cantripUpgrade:
+      "At 5th level, the size of the cube increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
+    group: "Nature Craft",
   },
   {
     name: "Poison Spray",
@@ -414,7 +441,9 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
     tags: ["ranged"],
+    savingThrow: "con",
     sources: ["arcane", "primal"],
+    group: "Wild Nature",
   },
   {
     name: "Primal Savagery",
@@ -436,6 +465,24 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["druid"],
     damageTypes: ["acid"],
     tags: ["melee"],
+    group: "Wild Nature",
+  },
+  {
+    name: "Protection",
+    level: 0,
+    school: "abjuration",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "a miniature cloak",
+    flavor: "You shield a creature from harm.",
+    description: ["The creature is Resistant to nonmagical Physical damage."],
+    sources: ["artificer", "divine"],
+    tags: ["buff"],
+    cantripUpgrade:
+      "The number of creatures you can affect increases to 2 when you reach 5th level, 3 at 10th level, and 6 at 17th level.",
   },
   {
     name: "Ray of Frost",
@@ -472,7 +519,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "**Non-repeatable.** A creature affected by this spell can't be affected by it again until it finishes a Long Rest.",
     ],
     cantripUpgrade:
-      "The number of creatures you can affect increases to 2 when you reach 5th level, 4 at 10th level, and 25 at 17th level.",
+      "The number of creatures you can affect increases to 2 when you reach 5th level, 6 at 10th level, and 25 at 17th level.",
     sources: ["divine"],
     tags: ["heal"],
   },
@@ -486,7 +533,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     flavor: "Bright flames are called from the heavens to engulf your foe.",
     description: [
-      "A creature doesn't benefit from half-cover against this spell.",
+      noHalfCover,
       "On a hit, the creature takes 1d10 radiant damage.",
     ],
     cantripUpgrade:
@@ -508,12 +555,12 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "mistletoe, a shamrock leaf, and a club or quarterstaff",
     flavor: "You imbue a wooden weapon with the power of nature.",
     description: [
-      "You can use your Spellcasting Ability instead of Strength for the Attack Rolls and damage rolls of Melee Attacks using the weapon.",
+      "You can use your Spellcasting Ability instead of Strength for the Melee Attack rolls and damage rolls using the weapon.",
       "The weapon's damage die becomes a d10 and you can choose to replace its damage type with radiant damage when you cast the spell.",
       "The spell ends if you cast it again or if you let go of the weapon.",
     ],
     cantripUpgrade:
-      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 10th level, and 2d10 at 17th level.",
+      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 10th level, and 2d12 at 17th level.",
     damageTypes: ["radiant"],
     tags: ["melee", "buff"],
     sources: ["druid"],
@@ -550,10 +597,89 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You channel positive energy in your hands to stabilize a dying creature.",
     description: [
-      "The creature becomes stable. It can spend a Hit Die and roll it to regain an amount of Hit Points equal to the roll + its Constitution modifier (minimum of 1).",
+      "If it is Dying, the creature becomes stable. Then, it can spend a Hit Die and roll it to regain an amount of Hit Points equal to the roll + your Spellcasting Ability Modifier (minimum of 1).",
     ],
     tags: ["heal"],
     sources: ["divine"],
+  },
+  {
+    name: "Sword Burst",
+    level: 0,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "Self",
+    area: "5-foot radius",
+    duration: "Instantaneous",
+    components: ["v"],
+    sources: ["arcane"],
+    flavor: "You create a circle of spectral blades that sweep around you.",
+    description: ["On a hit, each creature takes 1d8 slashing damage."],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+    tags: ["area"],
+    damageTypes: ["slashing"],
+    savingThrow: "dex",
+  },
+  {
+    name: "Thorn Whip",
+    level: 0,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "the stem of a plant with thorns",
+    flavor:
+      "You create a long vine covered in thorns that lashes out at your command.",
+    description: [
+      "On a hit, the creature takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
+    ],
+    cantripUpgrade:
+      "The damage, range and pull distance increase when you reach certain levels. At 5th level, the damage increases to 2d8, the range to 60 feet, and the pull distance to 15 feet. At 10th level, the damage increases to 3d8, the range to 90 feet, and the pull distance to 20 feet. At 17th level, the damage increases to 4d8, the range to 120 feet, and the pull distance to 30 feet.",
+    sources: ["primal"],
+    tags: ["ranged"],
+    damageTypes: ["piercing"],
+    group: "Wild Nature",
+  },
+  {
+    name: "Thunderclap",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Self",
+    area: "5-foot radius",
+    duration: "Instantaneous",
+    components: ["s"],
+    flavor:
+      "You create a burst of thunderous sound which resonates in your surroundings.",
+    description: ["On a hit, eachke 1d8 thnder damage."],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+    damageTypes: ["thunder"],
+    savingThrow: "con",
+    tags: ["area"],
+    sources: ["primal"],
+    group: "Wild Nature",
+  },
+  {
+    name: "Toll the Dead",
+    level: 0,
+    school: "necromancy",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You point at a creature and unleash a, ominous bell-like sound.",
+    description: [
+      "On a hit, the creature takes 2d8 necrotic damage, or only 1d12 necrotic damage if it is missing any of its Hit Points.",
+    ],
+    savingThrow: "wis",
+    damageTypes: ["necrotic"],
+    cantripUpgrade:
+      "This spell's number of damage dice increases when you reach 5th level (4d8 or 2d12), 10th level (6d8 or 3d12), and 17th level (8d8 or 4d12).",
+    tags: ["ranged"],
+    sources: ["divine"],
+    group: "Requiems",
   },
   {
     name: "True Strike",
@@ -608,11 +734,11 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     flavor: "You unleash a string of insults laced with subtle enchantments.",
     description: [
-      "On a hit, the creature takes 1d6 psychic damage, and it has disadvantage on the next d20 Test it makes as an Action or Bonus Action before the end of its next turn.",
+      "On a hit, the creature takes 1d8 psychic damage, and it has Disadvantage on the next d20 Test it makes as an Action or Bonus Action before the end of its next turn.",
     ],
     damageTypes: ["psychic"],
     cantripUpgrade:
-      "This spell's damage increases by 1d6 when you reach 5th level (2d6), 10th level (3d6), and 17th level (4d6).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "wis",
     sources: ["bard"],
     tags: ["ranged", "debuff"],
@@ -633,12 +759,32 @@ export const SPELL_DATA: CreateSpellDto[] = [
     description: [
       "You are uncounscious for the duration, except you can take an Action to end the spell.",
       "While in the trance, you can receive and broadcast emotions to and from creatures using this spell or similar magic. Nature itself sends primal energy that you can perceive with this spell.",
-      "This spell doesn't allow you to know the location of the creatures you communicate with.",
+      "This spell doesn't allow you to know the location of eachu communiate with.",
       "The communication isn't instantaneous. It takes a round for an emotion to travel 1 mile (i.e. it takes a minute to travel 10 miles).",
     ],
     sources: ["primal"],
     cantripUpgrade:
       "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 10th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
+  },
+  {
+    name: "Word of Radiance",
+    level: 0,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Self",
+    area: "5-foot radius",
+    duration: "Instantaneous",
+    components: ["v", "m"],
+    material: "a holy symbol",
+    flavor: "You utter a divine word, and burning radiance erupts from you.",
+    description: ["On a hit, each creature takes 1d8 radiant damage."],
+    sources: ["divine"],
+    savingThrow: "con",
+    tags: ["area"],
+    cantripUpgrade:
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+    damageTypes: ["radiant"],
+    group: "Blessed Radiance",
   },
   {
     name: "Cure Wounds",
@@ -849,7 +995,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "A bright streak flashes from your pointing finger into the distance and then blossoms with a low roar into an explosion of flame.",
     description: [
-      "On a hit, a creature takes 8d6 fire damage. On a miss, it takes half as much damage.",
+      "On a hit, each creature takes 8d6 fire damage. On a miss, each creature takes half as much damage.",
     ],
     damageTypes: ["fire"],
     atHigherLevels:
@@ -871,7 +1017,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "a bit of fur and a rod of amber, crystal, or glass",
     flavor: "A stroke of lightning blasts straight out of you.",
     description: [
-      "On a hit, a creature takes 5d12 lightning damage. On a miss, it takes half as much damage.",
+      "On a hit, each creature takes 5d12 lightning damage. On a miss, each creature takes half as much damage.",
     ],
     damageTypes: ["lightning"],
     atHigherLevels:
@@ -880,23 +1026,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["arcane"],
     group: "Elemental Torrent",
     tags: ["area"],
-  },
-  {
-    name: "Friends",
-    level: 0,
-    school: "enchantment",
-    castingTime: "Action",
-    range: "Self",
-    duration: "Concentration, up to 10 minute",
-    components: ["s", "m"],
-    material: "some makeup",
-    flavor: "You attempt to befriend a creature.",
-    description: [
-      "Choose a creature that isn't hostile towards you. You have Advantage on your next Influence Check against the creature. If your Influence Check fails, the creature realizes that you used magic to influence its mood and can become hostile towards you.",
-      "The spell ends early if the target takes damage or if you make a hostile d20 Tests, deal damage, or force anyone to make a Saving Throw.",
-    ],
-    sources: ["arcane"],
-    tags: ["buff"],
   },
   {
     name: "Frozen Cube",
@@ -910,8 +1039,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "a drop of water",
     flavor: "You create a cube of ice that explodes outward in a frigid blast.",
     description: [
-      "On a hit, a creature takes 12d4 cold damage and has its speed halved until the start of your next turn.",
-      "On a miss, a creature takes half as much damage and its speed isn't reduced.",
+      "On a hit, each creature takes 12d4 cold damage and has its speed halved until the start of your next turn.",
+      "On a miss, each creature takes half as much damage and its speed isn't reduced.",
     ],
     damageTypes: ["cold"],
     atHigherLevels:
