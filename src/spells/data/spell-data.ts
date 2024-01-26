@@ -206,12 +206,15 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     range: "30 feet",
     duration: "Until the start of your next turn",
+    flavor:
+      "You are able to assist your companions with wise words and foresight.",
     description: [
       "The creature gets the benefits of the Help Action on its next d20 Test.",
     ],
     cantripUpgrade:
       "The range of this spell increases to 60 feet at 5th level, 120 feet at 10th level, and 300 feet at 17th level.",
     sources: ["divine"],
+    tags: ["buff"],
   },
   {
     name: "Gust",
