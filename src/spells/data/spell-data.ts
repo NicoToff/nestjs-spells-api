@@ -360,7 +360,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     ],
     cantripUpgrade:
       "The width and height of the surface increases to 2 feet when you reach 5th level, 5 feet at 10th level, and 20 feet at 17th level.",
-    sources: ["arcane"],
+    sources: ["arcane", "divine", "primal"],
   },
   {
     name: "Message",
