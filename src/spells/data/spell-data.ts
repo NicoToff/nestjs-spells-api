@@ -4,7 +4,7 @@ const meleeAtkInstead =
 const noHalfCover =
   "A creature doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
-  "You affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
+  "You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
 
 export const SPELL_DATA: CreateSpellDto[] = [
   {
@@ -18,7 +18,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor:
       "A bubble of acid materializes around your foe and bursts in a spray.",
-    description: ["On a hit, each creature takes 1d8 acid damage."],
+    description: ["Each creature takes 1d8 acid damage."],
     damageTypes: ["acid"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
@@ -38,7 +38,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "a tiny drum",
     flavor: "A loud sound bursts your opponent's ears.",
     description: [
-      "On a hit, a creature takes 1d8 thunder damage and is Deafened until the start of your next turn.",
+      "A creature takes 1d8 thunder damage and is Deafened until the start of your next turn.",
     ],
     damageTypes: ["thunder"],
     cantripUpgrade:
@@ -73,7 +73,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "You channel thunderous energy into your weapon.",
     description: [
       meleeAtkInstead,
-      "On a hit, you deal damage normally, and the target becomes sheathed in booming energy until the start of your next turn. If the target willingly moves before then, it immediately takes 1d8 thunder damage, and the spell ends.",
+      "You deal damage normally, and the target becomes sheathed in booming energy until the start of your next turn. If the target willingly moves before then, it immediately takes 1d8 thunder damage, and the spell ends.",
     ],
     sources: ["arcane"],
     cantripUpgrade:
@@ -92,7 +92,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "You warn a creature of dire consequence if it dares to move.",
     description: [
-      "On a hit, if the creature willingly moves, it takes 2d8 radiant damage.",
+      "If the creature willingly moves before the spell ends, it takes 2d8 radiant damage.",
       "The creature is aware of this effect.",
     ],
     damageTypes: ["radiant"],
@@ -134,7 +134,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You create a ghostly, skeletal hand to strangle your opponent with the chill of the grave.",
     description: [
-      "On a hit, the creature takes 1d10 necrotic damage, and it can't regain hit points.",
+      "The creature takes 1d10 necrotic damage, and it can't regain hit points.",
       "If you hit an undead creature, it also has Disadvantage on Attack Rolls against you.",
     ],
     damageTypes: ["necrotic"],
@@ -173,7 +173,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "A beam of crackling energy streaks toward your foe.",
-    description: ["On a hit, the creature takes 1d10 force damage."],
+    description: ["The creature takes 1d10 force damage."],
     damageTypes: ["force"],
     cantripUpgrade:
       "This spell creates one additional beam when you reach 5th level (two beams), 10th level (three beams), and 17th level (four beams).",
@@ -190,7 +190,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "You hurl a searing mote of magical fire at your foe.",
     description: [
-      "On a hit, the creature takes 1d12 fire damage.",
+      "The creature takes 1d12 fire damage.",
       "A flammable object hit by this spell ignites if it isn't being worn or carried.",
     ],
     damageTypes: ["fire"],
@@ -211,8 +211,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "the weapon you use for the Attack Roll",
     flavor: "You imbue your weapon with green fire.",
     description: [
-      "You make an Attack Roll instead of a Spellcasting Attempt to cast this spell.",
-      "On a hit, you deal damage normally, and the target takes 1d8 fire damage. If the target is within 5 feet of a creature, other than you, that creature takes fire damage equal to your Spellcasting Ability Modifier.",
+      meleeAtkInstead,
+      "You deal damage normally, and the creature takes 1d8 fire damage. If the creature is within 5 feet of another enemy, that enemy takes fire damage equal to your Spellcasting Ability Modifier.",
     ],
     cantripUpgrade:
       "Starting at 5th level, the Melee Attack deals an additional 1d8 fire damage on a hit and the damage for the secondary target increases to 1d8 + your Spellcasting Ability Modifier. These damage rolls increase to 3d8 and 2d8 at 10th level, and to 4d8 and 3d8 at 17th level.",
@@ -271,7 +271,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "a living flea or moth",
     flavor: "You cause a cloud of mites, fleas, and other parasites to appear.",
     description: [
-      "On a hit, the target takes 1d8 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet.",
+      "The creature takes 1d8 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet.",
       "The movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move.",
     ],
     cantripUpgrade:
@@ -391,7 +391,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You drive a disorienting spike of psychic energy into the mind of one creature.",
     description: [
-      "On a hit, the creature takes 1d6 psychic damage, and the the next time this round a d20 Test is rolled against that creature, the Test has a +1d2 bonus.",
+      "The creature takes 1d6 psychic damage, and the the next time this round a d20 Test is rolled against that creature, the Test has a +1d2 bonus.",
     ],
     sources: ["arcane"],
     cantripUpgrade:
@@ -476,7 +476,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "You spray a mist of toxic energy on your enemy.",
     description: [
       "A creature doesn't benefit from half-cover against this spell.",
-      "On a hit, the creature takes 2d8 poison damage.",
+      "The creature takes 2d8 poison damage.",
     ],
     damageTypes: ["poison"],
     cantripUpgrade:
@@ -498,7 +498,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "You channel primal magic to cause your teeth or fingernails to sharpen, ready to deliver a corrosive attack.",
     description: [
       `${meleeAtkInstead} The Attack Roll uses your Spellcasting Ability Modifier.`,
-      "On a hit, the creature takes 1d12 acid damage.",
+      "The creature takes 1d12 acid damage.",
       "After the Attack, your teeth or fingernails return to normal.",
     ],
     cantripUpgrade:
@@ -535,7 +535,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "A frigid beam of blue-white light streaks toward your enemy.",
     description: [
-      "On a hit, the creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
+      "The creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
@@ -573,10 +573,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "Instantaneous",
     components: ["v"],
     flavor: "Bright flames are called from the heavens to engulf your foe.",
-    description: [
-      noHalfCover,
-      "On a hit, the creature takes 1d10 radiant damage.",
-    ],
+    description: [noHalfCover, "The creature takes 1d10 radiant damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     damageTypes: ["radiant"],
@@ -618,7 +615,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
       "Your Spellcasting Attempt is Easy if the creature is made of metal, or wearing metal armor.",
-      "On a hit, the creature takes 1d10 lightning damage, and it can't take Reactions until the start of its next turn.",
+      "The creature takes 1d10 lightning damage, and it can't take Reactions until the start of its next turn.",
     ],
     damageTypes: ["lightning"],
     cantripUpgrade:
@@ -654,7 +651,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     sources: ["arcane"],
     flavor: "You create a circle of spectral blades that sweep around you.",
-    description: ["On a hit, each creature takes 1d8 slashing damage."],
+    description: ["Each creature takes 1d8 slashing damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     tags: ["area"],
@@ -673,7 +670,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor:
       "You create a long vine covered in thorns that lashes out at your command.",
     description: [
-      "On a hit, the creature takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
+      "The creature takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
     ],
     cantripUpgrade:
       "The damage, range and pull distance increase when you reach certain levels. At 5th level, the damage increases to 2d8, the range to 60 feet, and the pull distance to 15 feet. At 10th level, the damage increases to 3d8, the range to 90 feet, and the pull distance to 20 feet. At 17th level, the damage increases to 4d8, the range to 120 feet, and the pull distance to 30 feet.",
@@ -693,7 +690,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["s"],
     flavor:
       "You create a burst of thunderous sound which resonates in your surroundings.",
-    description: ["On a hit, eachke 1d8 thnder damage."],
+    description: ["Each creature takes 1d8 thunder damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     damageTypes: ["thunder"],
@@ -712,7 +709,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "s"],
     flavor: "You point at a creature and unleash a, ominous bell-like sound.",
     description: [
-      "On a hit, the creature takes 2d8 necrotic damage, or only 1d12 necrotic damage if it is missing any of its Hit Points.",
+      "The creature takes 2d8 necrotic damage, or only 1d12 necrotic damage if it is missing any of its Hit Points.",
     ],
     savingThrow: "wis",
     damageTypes: ["necrotic"],
@@ -734,7 +731,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     flavor: "A flash of magical insight guides your strike.",
     description: [
       `${meleeAtkInstead} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
-      "On a hit, you deal damage normally, but you can choose to replace the weapon's damage type with force damage.",
+      "You deal damage normally, but you can choose to replace the weapon's damage type with force damage.",
     ],
     sources: ["arcane"],
     cantripUpgrade:
@@ -775,7 +772,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v"],
     flavor: "You unleash a string of insults laced with subtle enchantments.",
     description: [
-      "On a hit, the creature takes 1d8 psychic damage, and it has Disadvantage on the next d20 Test it makes as an Action or Bonus Action before the end of its next turn.",
+      "The creature takes 1d8 psychic damage, and it has Disadvantage on the next d20 Test it makes as an Action or Bonus Action before the end of its next turn.",
     ],
     damageTypes: ["psychic"],
     cantripUpgrade:
@@ -818,7 +815,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["v", "m"],
     material: "a holy symbol",
     flavor: "You utter a divine word, and burning radiance erupts from you.",
-    description: ["On a hit, each creature takes 1d8 radiant damage."],
+    description: ["Each creature takes 1d8 radiant damage."],
     sources: ["divine"],
     savingThrow: "con",
     tags: ["area"],
@@ -879,8 +876,8 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["primal"],
     description: [
       beastOnly,
-      "On a success, the beast is Charmed by you for the spell's duration.",
-      "If you or one of your companions harms the target, the spells ends.",
+      "One beast is Charmed by you.",
+      "If you or one of your companions harm the target, the spells ends.",
     ],
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional beast and the duration increases by 24 hours for each slot level above 1st.",
@@ -888,6 +885,12 @@ export const SPELL_DATA: CreateSpellDto[] = [
     group: "Bestial Connection",
     savingThrow: "wis",
   },
+  // {
+  //   name: "Armor of Agathys",
+  // },
+  // {
+  //   name: "Arms of Hadar",
+  // },
   {
     name: "Bane",
     level: 1,
@@ -954,23 +957,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     group: "Divine Enchantment",
   },
   {
-    name: "Cure Wounds",
-    level: 1,
-    school: "evocation",
-    castingTime: "Action",
-    range: "Touch",
-    duration: "Instantaneous",
-    components: ["v", "s"],
-    flavor: "You channel positive energy to heal a creature's wounds.",
-    description: [
-      "The creature regains a number of Hit Points equal to 1d12 + your Spellcasting Ability Modifier.",
-    ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d12 for each slot level above 1st.",
-    tags: ["heal"],
-    sources: ["divine", "primal"],
-  },
-  {
     name: "Burning Hands",
     level: 1,
     school: "evocation",
@@ -989,6 +975,122 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["fire"],
     savingThrow: "dex",
     group: "Elemental Burst",
+  },
+  {
+    name: "Catapult",
+    level: 1,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "Instantaneous",
+    components: ["s"],
+    flavor: "You launch an object at a creature.",
+    description: [
+      "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose before falling to the ground. If the object encounters a creature or a solid surface, it stops early and deals 3d10 bludgeoning damage to it.",
+    ],
+    atHigherLevels:
+      "The damage increases by 1d10 and the weight limit increases by 5 pounds for each slot level above 1st.",
+    damageTypes: ["bludgeoning"],
+    sources: ["arcane"],
+    tags: ["ranged"],
+    savingThrow: "dex",
+  },
+  {
+    name: "Cause Fear",
+    level: 1,
+    school: "necromancy",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v"],
+    flavor: "You awaken the sense of mortality in your foe.",
+    description: [
+      "One creature is Frightened of you.",
+      "A creature can roll a Wisdom Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
+    sources: ["arcane"],
+    tags: ["debuff"],
+    savingThrow: "wis",
+  },
+  // {
+  //   name: "Ceremony",
+  // },
+  {
+    name: "Chaos Bolt",
+    level: 1,
+    school: "evocation",
+    castingTime: "Action",
+    range: "120 feet",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor:
+      "You manifest and hurl an undulating, warbling mass of chaotic energy.",
+    description: [
+      "The creature takes 2d8 + 1d12 damage. Choose one of the d8s. The number it rolled determines the type of damage you deal (see below). If you rolled the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new Spellcasting Attempt against the new target.",
+      "A creature can be targeted only once by each casting of this spell.",
+      "**Damage Type.**",
+      "- (1) Acid",
+      "- (2) Cold",
+      "- (3) Fire",
+      "- (4) Force",
+      "- (5) Lightning",
+      "- (6) Poison",
+      "- (7) Psychic",
+      "- (8) Thunder",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, each creature takes 1d12 extra damage of the type rolled for each slot level above 1st.",
+    sources: ["sorcerer"],
+    damageTypes: [
+      "acid",
+      "cold",
+      "fire",
+      "force",
+      "lightning",
+      "poison",
+      "psychic",
+      "thunder",
+    ],
+    tags: ["ranged"],
+  },
+  {
+    name: "Charm Person",
+    level: 1,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "1 hour",
+    components: ["v", "s"],
+    flavor: "Your presence inspires a friendly attitude in other humanoids.",
+    description: [
+      "One humanoid becomes Charmed by you.",
+      "If you or one of your companions harm the target, the spell ends.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional humanoid for each slot level above 1st.",
+    sources: ["divine"],
+    savingThrow: "wis",
+    tags: ["debuff"],
+  },
+  {
+    name: "Cure Wounds",
+    level: 1,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You channel positive energy to heal a creature's wounds.",
+    description: [
+      "The creature regains a number of Hit Points equal to 1d12 + your Spellcasting Ability Modifier.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d12 for each slot level above 1st.",
+    tags: ["heal"],
+    sources: ["divine", "primal"],
   },
   {
     name: "Detect Magic",
