@@ -414,15 +414,17 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "1 minute",
     components: ["s", "m"],
     material: "a bit of fleece",
-    flavor: "You create a sound or an image of an object.",
+    flavor:
+      "You have a knack for presenting tangible proof of thing that... aren't quite there.",
     description: [
-      "If you create a sound, its volume can range from a whisper to a scream. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.",
-      "If you create an image of an object, it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.",
-      "If a creature uses its Action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) Check against the Target. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+      "Create one of the following effects:",
+      "**Sound.** The volume can range from a whisper to a scream. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.",
+      "**Image.** The image must be an object no larger than a 5-foot cube. It can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.",
+      "If a creature uses its Action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) Check. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
       "The illusion ends if you dismiss it as an Action or cast this spell again.",
     ],
     cantripUpgrade:
-      "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level.",
+      "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level. Moreover, you can have two illusions active at a time when you reach 5th level, three at 10th level, and four at 17th level.",
     sources: ["arcane"],
     tags: ["summon"],
     savingThrow: "int",
@@ -990,7 +992,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     components: ["s"],
     flavor: "You launch an object at a creature.",
     description: [
-      "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose before falling to the ground. If the object encounters a creature or a solid surface, it stops early and deals 3d10 bludgeoning damage to it.",
+      "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose; after that distance, it falls to the ground. If the object encounters a creature or a solid surface, the object stops early and you can have the spell deal 3d10 bludgeoning damage to the target.",
     ],
     atHigherLevels:
       "The damage increases by 1d10 and the weight limit increases by 5 pounds for each slot level above 1st.",
