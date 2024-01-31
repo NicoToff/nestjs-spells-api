@@ -1,6 +1,11 @@
 import { CreateSpellDto } from "../entities/create-spell.dto";
-const meleeAtkInstead =
-  "You make a Melee Attack Roll instead of a Spellcasting Attempt to cast this spell.";
+const atkInstead = (type?: "melee" | "ranged") => {
+  let atkType = "an";
+  if (type != null) {
+    atkType = type === "melee" ? "a Melee" : "a Ranged";
+  }
+  return `You make ${atkType} Attack Roll instead of a Spellcasting Attempt to cast this spell.`;
+};
 const noHalfCover =
   "A creature doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
@@ -72,7 +77,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "the weapon you use for the Attack Roll",
     flavor: "You channel thunderous energy into your weapon.",
     description: [
-      meleeAtkInstead,
+      atkInstead("melee"),
       "You deal damage normally, and the target becomes sheathed in booming energy until the start of your next turn. If the target willingly moves before then, it immediately takes 1d8 thunder damage, and the spell ends.",
     ],
     sources: ["arcane"],
@@ -211,7 +216,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "the weapon you use for the Attack Roll",
     flavor: "You imbue your weapon with green fire.",
     description: [
-      meleeAtkInstead,
+      atkInstead("melee"),
       "You deal damage normally, and the creature takes 1d8 fire damage. If the creature is within 5 feet of another enemy, that enemy takes fire damage equal to your Spellcasting Ability Modifier.",
     ],
     cantripUpgrade:
@@ -495,11 +500,10 @@ export const SPELL_DATA: CreateSpellDto[] = [
     duration: "Instantaneous",
     components: ["s"],
     flavor:
-      "You channel primal magic to cause your teeth or fingernails to sharpen, ready to deliver a corrosive attack.",
+      "You channel primal magic to cause your teeth or fingernails to sharpen, to deliver a corrosive attack before returning their normal form.",
     description: [
-      `${meleeAtkInstead} The Attack Roll uses your Spellcasting Ability Modifier.`,
+      `${atkInstead("melee")} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
       "The creature takes 1d12 acid damage.",
-      "After the Attack, your teeth or fingernails return to normal.",
     ],
     cantripUpgrade:
       "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
@@ -730,7 +734,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     material: "the weapon you use for the Attack Roll",
     flavor: "A flash of magical insight guides your strike.",
     description: [
-      `${meleeAtkInstead} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
+      `${atkInstead()} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
       "You deal damage normally, but you can choose to replace the weapon's damage type with force damage.",
     ],
     sources: ["arcane"],
