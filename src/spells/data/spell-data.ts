@@ -1,4 +1,21 @@
-import { CreateSpellDto } from "../entities/create-spell.dto";
+import type { CreateSpellDto } from "../entities/create-spell.dto";
+import type { SpellTag, AbilityScore } from "dnd-home-utils";
+
+/* *** TYPESCRIPT SHENANIGANS *** */
+// Spells that have the "melee" or "ranged" tag can't have a savingThrow
+type SpellTagWithoutSpellAttack = Exclude<SpellTag, "melee" | "ranged">;
+type LeanSpellType = Omit<CreateSpellDto, "tags" | "savingThrow">;
+type NormalSpellType = LeanSpellType & {
+  tags?: SpellTagWithoutSpellAttack[];
+  savingThrow?: AbilityScore;
+};
+type MeleeRangedSpellType = LeanSpellType & {
+  tags: ["melee" | "ranged", ...SpellTag[]];
+  savingThrow?: never;
+};
+/* *** *** *** *** *** *** *** *** *** *** */
+
+/* *** HELPER FUNCTIONS AND CONSTANTS *** */
 const atkInstead = (type?: "melee" | "ranged") => {
   let atkType = "an";
   if (type != null) {
@@ -10,8 +27,9 @@ const noHalfCover =
   "A creature doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
   "You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
+/* *** *** *** *** *** *** *** *** *** *** */
 
-export const SPELL_DATA: CreateSpellDto[] = [
+export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   {
     name: "Acid Splash",
     level: 0,
@@ -51,7 +69,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     savingThrow: "con",
     sources: ["arcane"],
     group: "Elemental Rudiment",
-    tags: ["ranged"],
   },
   {
     name: "Blade Ward",
@@ -104,7 +121,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
     savingThrow: "wis",
-    tags: ["ranged", "control"],
+    tags: ["control"],
     group: "Blessed Radiance",
     sources: ["divine"],
   },
@@ -284,7 +301,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
     sources: ["arcane", "primal"],
     savingThrow: "con",
     damageTypes: ["poison"],
-    tags: ["ranged", "debuff"],
+    tags: ["debuff"],
   },
   {
     name: "Light",
@@ -403,7 +420,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6. At 17th level, the damage increases to 4d6 and the bonus to +1d8.",
     savingThrow: "int",
     damageTypes: ["psychic"],
-    tags: ["ranged", "buff"],
+    tags: ["buff"],
   },
   {
     name: "Minor Illusion",
@@ -488,7 +505,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["poison"],
     cantripUpgrade:
       "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
-    tags: ["ranged"],
     savingThrow: "con",
     sources: ["arcane", "primal"],
     group: "Wild Nature",
@@ -583,7 +599,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     cantripUpgrade:
       "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     damageTypes: ["radiant"],
-    tags: ["ranged"],
     savingThrow: "dex",
     group: "Blessed Radiance",
     sources: ["divine"],
@@ -721,7 +736,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["necrotic"],
     cantripUpgrade:
       "This spell's number of damage dice increases when you reach 5th level (4d8 or 2d12), 10th level (6d8 or 3d12), and 17th level (8d8 or 4d12).",
-    tags: ["ranged"],
     sources: ["divine"],
     group: "Requiems",
   },
@@ -785,7 +799,7 @@ export const SPELL_DATA: CreateSpellDto[] = [
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "wis",
     sources: ["bard"],
-    tags: ["ranged", "debuff"],
+    tags: ["debuff"],
   },
   {
     name: "Wind Whisper",
@@ -999,7 +1013,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     damageTypes: ["bludgeoning"],
     sources: ["arcane"],
     tags: ["ranged"],
-    savingThrow: "dex",
   },
   {
     name: "Cause Fear",
@@ -1289,7 +1302,6 @@ export const SPELL_DATA: CreateSpellDto[] = [
     atHigherLevels:
       "The damage increases by 1d8 for each spell slot level above 1st.",
     sources: ["bard"],
-    tags: ["ranged"],
     savingThrow: "wis",
     damageTypes: ["psychic"],
   },
@@ -1382,6 +1394,27 @@ export const SPELL_DATA: CreateSpellDto[] = [
     tags: ["buff"],
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, the range of the spell becomes Touch and you can affect one additional creature for each slot level above 1st.",
+  },
+  {
+    name: "Faerie Fire",
+    level: 1,
+    school: "evocation",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "20-foot cube",
+    duration: "1 minute",
+    components: ["v"],
+    concentration: true,
+    flavor: "You make creatures and objects glow with a an eerie color.",
+    description: [
+      "Each creature in the area sheds dim light in 15-foot radius sphere. The creatures can't benefit from being Invisible.",
+      "Attack Rolls and Melee or Ranged Spellcasting Attempts against the creatures have Advantage if the attacker can see them.",
+    ],
+    atHigherLevels:
+      "The area increases by 5 feet for each spell slot level above 1st.",
+    savingThrow: "dex",
+    sources: ["artificer", "bard", "druid"],
+    tags: ["area", "debuff"],
   },
   {
     name: "Shield",
