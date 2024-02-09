@@ -67,7 +67,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "con",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     group: "Elemental Rudiment",
   },
   {
@@ -400,7 +400,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     cantripUpgrade:
       "This cantrip's range increases to 300 feet when you reach 5th level, 1 mile at 10th level, and 20 miles at 17th level.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
   },
   {
     name: "Mind Sliver",
@@ -415,7 +415,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature takes 1d6 psychic damage, and the the next time this round a d20 Test is rolled against that creature, the Test has a +1d2 bonus.",
     ],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     cantripUpgrade:
       "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6. At 17th level, the damage increases to 4d6 and the bonus to +1d8.",
     savingThrow: "int",
@@ -442,7 +442,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     cantripUpgrade:
       "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level. Moreover, you can have two illusions active at a time when you reach 5th level, three at 10th level, and four at 17th level.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["summon"],
     savingThrow: "int",
   },
@@ -881,7 +881,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, for each slot level above 1st: the area of the spell increases by 10 feet, the duration increases by one day, and the range of the mental ping increases by 1 mile.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
   },
   {
     name: "Animal Friendship",
@@ -902,7 +902,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional beast and the duration increases by 24 hours for each slot level above 1st.",
     tags: ["debuff"],
-    group: "Bestial Connection",
+    group: "Beast Bond",
     savingThrow: "wis",
   },
   // {
@@ -955,29 +955,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "cha",
   },
   {
-    name: "Beast Bond",
-    level: 1,
-    school: "divination",
-    castingTime: "Action",
-    range: "Touch",
-    duration: "10 minutes",
-    components: ["v", "s", "m"],
-    material: "a bit of fur wrapped in a cloth",
-    concentration: true,
-    flavor: "You forge a telepathic link with a beast.",
-    description: [
-      beastOnly,
-      "You establish a telepathic link with the beast if it is friendly to you or Charmed by you.",
-      "Through this link, the beast can understand your telepathic messages you give it and it can respond with simple emotions and concepts.",
-      "While the link is active, the beast gains Advantage on Attack Rolls against any creature within 5 feet of you.",
-    ],
-    sources: ["primal"],
-    tags: ["buff"],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the duration increases by 10 minutes for each slot level above 1st.",
-    group: "Bestial Connection",
-  },
-  {
     name: "Bless",
     level: 1,
     school: "enchantment",
@@ -1009,7 +986,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "You unleash a wave of fire from your outstretched fingertips.",
     description: [
       "On a hit, each creature takes 3d6 fire damage. On a miss, each creature takes only half as much damage.",
-      "The flames ignite any flammable objects in the area that aren't being worn or carried.",
     ],
     atHigherLevels:
       "The damage increases by 1d6 for each slot level above 1st.",
@@ -1034,7 +1010,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels:
       "The damage increases by 1d10 and the weight limit increases by 5 pounds for each slot level above 1st.",
     damageTypes: ["bludgeoning"],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["ranged"],
   },
   {
@@ -1053,7 +1029,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["debuff"],
     savingThrow: "wis",
   },
@@ -1187,6 +1163,29 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   // {
   //   name: "Comprehend Languages",
   // },
+  {
+    name: "Connection",
+    level: 1,
+    school: "divination",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "10 minutes",
+    components: ["v", "s", "m"],
+    material: "a bit of fur wrapped in a cloth",
+    concentration: true,
+    flavor: "You forge a telepathic link with a beast.",
+    description: [
+      beastOnly,
+      "You establish a telepathic link with the beast if it is friendly to you or Charmed by you.",
+      "Through this link, the beast can understand your telepathic messages you give it and it can respond with simple emotions and concepts.",
+      "While the link is active, the beast gains Advantage on Attack Rolls against any creature within 5 feet of you.",
+    ],
+    sources: ["primal"],
+    tags: ["buff"],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 2nd level or higher, the duration increases by 10 minutes for each slot level above 1st.",
+    group: "Beast Bond",
+  },
   {
     isPrivate: true,
     name: "Create or Destroy Water",
@@ -1475,7 +1474,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "On a successful Spellcasting Attempt, and then each turn as a Bonus Action, you can take the Dash Action.",
     ],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["buff"],
     atHigherLevels:
       "When you cast this spell using a spell slot of 2nd level or higher, the range of the spell becomes Touch and you can affect one additional creature for each slot level above 1st.",
@@ -1537,7 +1536,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "For each spell slot above 1st level, the number of creatures you can affect increases by five, the range increases by 60 feet and the duration increases by 1 minute.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["buff"],
   },
   // {
@@ -1603,7 +1602,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "For each spell slot above 1st level, the area increases by 10 feet.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["area", "control"],
     savingThrow: "dex",
   },
@@ -1728,7 +1727,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "For each spell slot above 1st level, you can target one additional creature.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     savingThrow: "wis",
     tags: ["debuff"],
   },
@@ -1757,7 +1756,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You write a message of up to 250 words on a surface. The message appears to be an entirely different message to any creature other than specific creatures you choose. To all others, the message appears as if it were written in a different language or a different script at your discretion.",
       "If dispelled, the original script and the illusion both disappear.",
     ],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     atHigherLevels:
       "For each spell slot above 1st level, the duration doubles.",
   },
@@ -1829,7 +1828,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: ["The creature's speed increases by 15 feet."],
     atHigherLevels:
       "For each spell slot above 1st level, you can target one additional creature.",
-    sources: ["arcane", "primal"],
+    sources: ["bard", "arcane", "primal"],
     tags: ["buff"],
     group: "Enhance Movement",
   },
@@ -1952,7 +1951,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels:
       "For each spell slot above 1st level, the duration increases by 10 minutes.",
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     tags: ["summon"],
   },
   // {
@@ -2091,6 +2090,223 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Zephyr Strike",
   // },
   {
+    name: "Acid Arrow",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "180 feet",
+    area: "10-foot-radius sphere",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "powdered acidic herbs and a snake's stomach",
+    flavor:
+      "A shimmering green arrow streaks shoots in an instant and splashes on impact.",
+    description: [
+      "On a hit, each creature takes 4d4 acid damage and an additional 4d4 acid damage at the end of its next turn. On a miss, each creature takes only half as much damage and no additional damage.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the initial and the additional damage increase by 1d4.",
+    sources: ["arcane"],
+    damageTypes: ["acid"],
+    group: "Elemental Burst",
+    tags: ["area"],
+    savingThrow: "dex",
+  },
+  {
+    name: "Aid",
+    level: 2,
+    school: "abjuration",
+    castingTime: "1 minute",
+    range: "Touch",
+    duration: "8 hours",
+    components: ["v", "s", "m"],
+    material: "a bolt of afforable cloth, which the spell consumes",
+    flavor: "You bolster your allies with toughness and resolve.",
+    description: [
+      "Up to three creatures' Hit Points and maximum Hit Points increase by 4.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the Hit Points and maximum Hit Points increase by 4.",
+    sources: ["divine"],
+    tags: ["buff"],
+  },
+  {
+    name: "Air Bubble",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "3 hours",
+    components: ["s"],
+    flavor:
+      "You create a bubble of renewable clean air around a creature's head.",
+    description: ["The creature can breathe normally in any environment."],
+    atHigherLevels:
+      "For each spell slot above 2nd level, you can target one additional creature and the spell's duration doubles (maximum 24 hours).",
+    sources: ["arcane", "primal"],
+    tags: ["buff"],
+  },
+  // {
+  //   name: "Alter Self",
+  // },
+  {
+    name: "Arcane Lock",
+    level: 2,
+    school: "abjuration",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "Until dispelled",
+    components: ["v", "s", "m"],
+    material: "an expensive amount of a powdered precious metal",
+    flavor: "You magically lock a door, chest, or other entryway.",
+    description: [
+      "The object is locked and can't be unlocked or broken except by magical means. Casting the Knock spell on the object suppresses the lock for 10 minutes.",
+      "You can also set a password that, when spoken within 5 feet of the object, suppresses the spell for 1 minute.",
+    ],
+    sources: ["arcane"],
+    // tags: ["utility"],
+  },
+  {
+    name: "Augury",
+    level: 2,
+    school: "divination",
+    castingTime: "1 minute",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "specially marked sticks, bones, or similar tokens",
+    ritual: true,
+    flavor: "You receive an omen from an otherworldly entity.",
+    description: [
+      "You receive an omen about the results of a specific course of action that you plan to take within the next 30 minutes.",
+      "Casting this spell more than once before completing a Long Rest incurs a cumulative 25% chance of receiving a random reading.",
+    ],
+    sources: ["cleric"],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the time frame for the course of action doubles (maximum 8 hours).",
+    // tags: ["utility"],
+  },
+  {
+    name: "Barkskin",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["v", "s", "m"],
+    material: "a handful of strong bark chips",
+    concentration: true,
+    flavor:
+      "Skin is an inconveniences. You can shape it to become rough and tough.",
+    description: ["The creature gains an Armor Base of 16."],
+    atHigherLevels:
+      "For each spell slot above 2nd level, you can target one additional creature.",
+    sources: ["primal"],
+    tags: ["buff"],
+  },
+  {
+    name: "Knock",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "Instantaneous",
+    components: ["v"],
+    flavor: "Nothing can keep you out.",
+    description: [
+      "An object such as a door, box, chest, or set of manacles becomes unlocked, unstuck, or unbarred.",
+      "If the lock magic, this spell suppresses it for only 10 minutes.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the range of the spell doubles.",
+    sources: ["arcane"],
+    // tags: ["utility"],
+  },
+  {
+    name: "Messenger",
+    level: 2,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "24 hours",
+    components: ["v", "s", "m"],
+    material: "a morsel of food",
+    flavor: "You compel a Tiny beast to deliver a message.",
+    ritual: true,
+    description: [
+      "Speak a message of up to 25 words to a Tiny beast within range. The beast travels for the duration of the spell to a location you describe, and then it delivers the message to a creature you can describe. The message is delivered with your voice.",
+      "A flying beast messenger can typically travel 100 miles in 24 hours, while a walking messenger can travel 20 miles in 24 hours.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the duration triples.",
+    sources: ["bard", "primal"],
+    group: "Beast Bond",
+  },
+  {
+    name: "Scorcher",
+    level: 2,
+    school: "evocation",
+    castingTime: "Action",
+    range: "Self",
+    area: "30-foot line",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a red scale",
+    flavor: "You create a line of roaring flame.",
+    description: [
+      "On a hit, each creature takes 4d8 fire damage. On a miss, each creature takes half as much damage.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the damage increases by 1d8 and the length of the line increases by 15 feet.",
+    savingThrow: "dex",
+    damageTypes: ["fire"],
+    tags: ["area"],
+    sources: ["arcane"],
+    group: "Elemental Burst",
+  },
+  {
+    name: "Senses",
+    level: 2,
+    school: "divination",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["s"],
+    concentration: true,
+    ritual: true,
+    flavor: "You see, hear, and smell through a beast's senses.",
+    description: [
+      "You can use your Action to experience the senses of a beast. You continue to do so until you use your Action to return to your own senses.",
+    ],
+    atHigherLevels:
+      "For each spell slot above 2nd level, the duration doubles.",
+    sources: ["primal"],
+    // tags: ["utility"],
+    group: "Beast Bond",
+  },
+  {
+    name: "Shatter",
+    level: 2,
+    school: "evocation",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "10-foot-radius sphere",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a chip of mica",
+    flavor:
+      "A sudden loud ringing noise, painfully intense, erupts out of nowhere.",
+    description: [
+      "Each creature takes 3d8 thunder damage and is pushed 10 feet away from the center of the sphere. On a miss, each creature takes half as much damage and isn't pushed.",
+      "Creatures made of inorganic materials such as stone, crystal, or metal are Vulnerable to this damage.",
+    ],
+    damageTypes: ["thunder"],
+    sources: ["arcane"],
+    group: "Elemental Burst",
+    tags: ["area", "control"],
+    savingThrow: "con",
+  },
+  {
     name: "Fireball",
     level: 3,
     school: "evocation",
@@ -2107,7 +2323,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["fire"],
     atHigherLevels:
-      "For each spell slot above 3rd level, the damage increases by 1d6 and the radius of the sphere increases by 5 feet (to a maximum of 30 feet at 6th level).",
+      "For each spell slot above 3rd level, the damage increases by 1d6 and the radius of the sphere increases by 5 feet.",
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -2119,7 +2335,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     school: "evocation",
     castingTime: "Action",
     range: "Self",
-    area: "120-foot long, 5-foot wide line",
+    area: "120-foot-long, 5-foot-wide line",
     duration: "Instantaneous",
     components: ["v", "s", "m"],
     material: "a bit of fur and a rod of amber, crystal, or glass",
@@ -2129,7 +2345,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["lightning"],
     atHigherLevels:
-      "For each spell slot above 3rd, you can evoke an additional line for each slot level above 3rd (to a maximum of four at 6th level) to increase the area of effect of this spell. The damage also increases to 6d12 for a 4th-level slot and 7d12 for a 6th-level slot.",
+      "For each spell slot above 3rd, you can evoke an additional line. Also, the damage increases to 7d12 with a 5th-level slot.",
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -2141,7 +2357,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     school: "evocation",
     castingTime: "Action",
     range: "150 feet",
-    area: "25-foot cube",
+    area: "25-foot-width cube",
     duration: "Instantaneous",
     components: ["v", "s", "m"],
     material: "a drop of water",
@@ -2152,7 +2368,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["cold"],
     atHigherLevels:
-      "For each spell slot above 3rd level, the damage increases by 2d4 and the width of the cube increases by 5 feet (to a maximum of 40 feet at 6th level).",
+      "For each spell slot above 3rd level, the damage increases by 2d4 and the width of the cube increases by 5 feet.",
     savingThrow: "con",
     sources: ["arcane"],
     group: "Elemental Torrent",
