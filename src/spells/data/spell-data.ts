@@ -1,5 +1,5 @@
 import type { CreateSpellDto } from "../entities/create-spell.dto";
-import type { SpellTag, AbilityScore } from "dnd-home-utils";
+import type { SpellTag, AbilityScore, SpellLevel } from "dnd-home-utils";
 
 /* *** TYPESCRIPT SHENANIGANS *** */
 // Spells that have the "melee" or "ranged" tag can't have a savingThrow
@@ -21,12 +21,32 @@ const atkInstead = (type?: "melee" | "ranged") => {
   if (type != null) {
     atkType = type === "melee" ? "a Melee" : "a Ranged";
   }
-  return `You make ${atkType} Attack Roll instead of a Spellcasting Attempt to cast this spell.`;
+  return `You make ${atkType} Attack Roll instead of a Spellcasting Attempt to cast this spell.` as const;
 };
 const noHalfCover =
   "A creature doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
   "You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
+
+const addTarget = (lvl: SpellLevel) =>
+  `For each slot level above ${levelSchoolLabel(lvl)}, you can target one additional creature.` as const;
+
+type ToString<N> = N extends number ? `${N}` : N extends string ? N : never;
+function levelSchoolLabel(spellLevel: SpellLevel | ToString<SpellLevel>) {
+  // prettier-ignore
+  switch (spellLevel) {
+    case  0:
+    case "0": return `Cantrip`;
+    case  1:
+    case "1": return `1st`;
+    case  2:
+    case "2": return `2nd`;
+    case  3:
+    case "3": return `3rd`;
+    default:  return `${spellLevel}th`;
+  }
+}
+
 /* *** *** *** *** *** *** *** *** *** *** */
 
 export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
@@ -1421,8 +1441,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature gains an amount of Resilience Points equal to four times your Spellcasting Ability Modifier.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["arcane"],
     tags: ["buff"],
     group: "Mage Armor",
@@ -1704,8 +1723,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature is immune to being Frightened and gains Resilience Points equal to your Spellcasting Ability Modifier at the start of each of its turns.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["bard", "paladin"],
     tags: ["buff"],
   },
@@ -1725,8 +1743,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The creature falls Prone and becomes Incapacitated and unable to stand up.",
       "A creature can roll a Wisdom Saving Throw at the end of each of its turns or whenever it takes damage, ending the effect on itself on a success.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["bard", "arcane"],
     savingThrow: "wis",
     tags: ["debuff"],
@@ -1789,8 +1806,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "Once on each of its turns, the creature can spend 10 feet of Movement to jump 30 feet in any direction.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["arcane", "primal"],
     tags: ["buff"],
     group: "Enhance Movement",
@@ -1809,8 +1825,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature gain an Armor Base of 13 + its Dexterity Modifier.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["arcane"],
     tags: ["buff"],
     group: "Mage Armor",
@@ -1826,8 +1841,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a pinch of dirt",
     flavor: "You enhance a creature's speed.",
     description: ["The creature's speed increases by 15 feet."],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["bard", "arcane", "primal"],
     tags: ["buff"],
     group: "Enhance Movement",
@@ -1889,8 +1903,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "If the warded creature makes an Attack or casts a spell that affects an enemy creature, the spell ends.",
     ],
     savingThrow: "wis",
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["artificer", "divine"],
     tags: ["buff"],
   },
@@ -2076,8 +2089,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On each of your turns, you can use your Action to deal 1d20 lightning damage to each affected creatures (no Test required).",
       "A creature dispells this effect on itself if it is ever outside the spell's range.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can target one additional creature.",
+    atHigherLevels: addTarget(1),
     sources: ["arcane"],
     group: "Elemental Burst",
     tags: ["ranged"],
@@ -2199,10 +2211,66 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "Skin is an inconveniences. You can shape it to become rough and tough.",
     description: ["The creature gains an Armor Base of 16."],
-    atHigherLevels:
-      "For each spell slot above 2nd level, you can target one additional creature.",
+    atHigherLevels: addTarget(2),
     sources: ["primal"],
     tags: ["buff"],
+    group: "Ecomorph",
+  },
+  {
+    name: "Blur",
+    level: 2,
+    school: "illusion",
+    castingTime: "Action",
+    range: "Self",
+    duration: "1 minute",
+    components: ["v"],
+    concentration: true,
+    flavor: "Your form becomes blurred and shifting.",
+    description: [
+      "Attackers that rely on sight have Disadvantage on Melee or Ranged Attack Rolls and Spellcasting Attempts against the creature.",
+    ],
+    atHigherLevels: addTarget(2),
+    sources: ["arcane"],
+    tags: ["buff"],
+  },
+  {
+    name: "Deprivation",
+    level: 2,
+    school: "necromancy",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "1 minute",
+    components: ["v"],
+    flavor: "You rip a creature of one of its senses.",
+    description: [
+      "The creature becomes Blinded, Deafened or Numb (your choice).",
+      "The creature can roll a Constitution Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
+    ],
+    atHigherLevels: addTarget(2),
+    sources: ["bard", "arcane"],
+    tags: ["debuff"],
+    savingThrow: "con",
+  },
+  {
+    name: "Firm Shell",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["v", "s", "m"],
+    material: "a chunk of marble or limestone",
+    concentration: true,
+    flavor:
+      "Skin is soft and remains wounded way too long. You know how to solve this.",
+    description: [
+      "The creature gains an Armor Base of 14 + its Dexterity Modifier (max. 2), and gains a number of Resilience Points equal to your Spellcasting Ability Modifier.",
+      "The creature can also use its Bonus Action to gain a number of Resilience Points equal to your Spellcasting Ability Modifier.",
+    ],
+    atHigherLevels: addTarget(2),
+    sources: ["primal"],
+    tags: ["buff"],
+    group: "Ecomorph",
   },
   {
     name: "Knock",
@@ -2373,6 +2441,32 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane"],
     group: "Elemental Torrent",
     tags: ["area"],
+  },
+  {
+    name: "Slow",
+    level: 3,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "120 feet",
+    area: "40-foot cube",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "a drop of molasses",
+    flavor: "You alter time for a handful of unlucky creatures.",
+    description: [
+      "Up to six creatures of your choice are affected by the following effects:",
+      "- They are Numb.",
+      "- Their Speeds are halved.",
+      "- It is Easy to hit them with Melee and Ranged Attacks.",
+      "- It is Easy to hit them with Spellcasting Attempts if they are Melee, Ranged or have a Dexterity Saving Throw.",
+      "- Their Dexterity Saving Throws become Hard.",
+      "- If a creature attempts to cast a spell with a casting time of 1 Action, the GM rolls a d20. On an 11 or higher, the spell doesn't take effect until the creature's next turn, and the creature must use its action on that turn to complete the spell. If it can't, the spell is wasted.",
+      "An affected creature can roll a Wisdom Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
+    ],
+    sources: ["arcane"],
+    tags: ["area", "control", "debuff"],
+    savingThrow: "wis",
   },
   {
     name: "Deadly Feast",
