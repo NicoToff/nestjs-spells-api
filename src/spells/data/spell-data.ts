@@ -28,8 +28,11 @@ const noHalfCover =
 const beastOnly =
   "You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
 
+const forEachAboveDo = (lvl: SpellLevel, effect: string) =>
+  `For each slot level above ${levelSchoolLabel(lvl)}, ${effect}` as const;
+
 const addTarget = (lvl: SpellLevel) =>
-  `For each slot level above ${levelSchoolLabel(lvl)}, you can target one additional creature.` as const;
+  `${forEachAboveDo(lvl, "you can target one additional creature")}.` as const;
 
 type ToString<N> = N extends number ? `${N}` : N extends string ? N : never;
 function levelSchoolLabel(spellLevel: SpellLevel | ToString<SpellLevel>) {
@@ -313,7 +316,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a living flea or moth",
     flavor: "You cause a cloud of mites, fleas, and other parasites to appear.",
     description: [
-      "The creature takes 1d8 poison damage and moves 5 feet in a random direction if it can move and its speed is at least 5 feet.",
+      "The creature takes 1d8 poison damage and moves 5 feet in a random direction if it can move and one of its Speeds is at least 5 feet.",
       "The movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move.",
     ],
     cantripUpgrade:
@@ -579,7 +582,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "A frigid beam of blue-white light streaks toward your enemy.",
     description: [
-      "The creature takes 1d10 cold damage, and its speed is reduced by 10 feet until the start of your next turn.",
+      "The creature takes 1d10 cold damage, and its Speeds are reduced by 10 feet until the start of your next turn.",
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
@@ -878,8 +881,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You are Resistant against the elemental type of your choice: acid, cold, fire, lightning, or thunder.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, you can make an extra creature within 5 feet of you Resistant against the chosen elemental type.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "you can make an extra creature within 5 feet of you Resistant against the chosen elemental type."
+    ),
     sources: ["arcane", "primal"],
     group: "Barrier",
     tags: ["buff"],
@@ -901,8 +906,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is audible and whether the alarm alerts you mentally.",
       "A mental alarm alerts you with a ping in your mind if you are within 1 mile of the warded area. This ping awakens you if you are sleeping. An audible alarm produces the sound of a hand bell for 10 seconds within 120 feet.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, for each slot level above 1st: the area of the spell increases by 10 feet, the duration increases by one day, and the range of the mental ping increases by 1 mile.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the area of the spell increases by 10 feet, the duration increases by one day, and the range of the mental ping increases by 1 mile."
+    ),
     sources: ["bard", "arcane"],
   },
   {
@@ -921,8 +928,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "One beast is Charmed by you.",
       "If you or one of your companions harm the target, the spells ends.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional beast and the duration increases by 24 hours for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "you can affect one additional beast and the duration increases by 24 hours."
+    ),
     tags: ["debuff"],
     group: "Beast Bond",
     savingThrow: "wis",
@@ -948,8 +957,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You create an arrow that deals 3d6+3 force damage.",
     ],
     damageTypes: ["force"],
-    atHigherLevels:
-      "For each spell slot above 1st level, the damage increases by 1d6+1.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d6+1."),
     sources: ["arcane"],
     group: "Magic Missile",
     tags: ["ranged"],
@@ -969,8 +977,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Up to three creatures that you can see become cursed.",
       "Whenever they make an Attack Roll or a Saving Throw, they must roll a d4 and subtract the number rolled from the Test.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "you can target one additional creature."
+    ),
     sources: ["divine"],
     tags: ["debuff"],
     group: "Divine Enchantment",
@@ -988,10 +998,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "1 minute",
     flavor: "You bless your allies with divine favor.",
     description: [
-      "Up to three creatures of your choice within range become bless. Whenever they make an Attack Roll or a Saving Throw, they gain a +1 bonus to the Test.",
+      "Up to three creatures of your choice within range become blessed. Whenever they make an Attack Roll or a Saving Throw, they gain a +1 bonus to the Test.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
+    atHigherLevels: addTarget(1),
     sources: ["divine"],
     tags: ["buff"],
     group: "Divine Enchantment",
@@ -1009,8 +1018,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "On a hit, each creature takes 3d6 fire damage. On a miss, each creature takes only half as much damage.",
     ],
-    atHigherLevels:
-      "The damage increases by 1d6 for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "The damage increases by 1d6."),
     sources: ["arcane"],
     tags: ["area"],
     damageTypes: ["fire"],
@@ -1029,8 +1037,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose; after that distance, it falls to the ground. If the object encounters a creature or a solid surface, the object stops early and you can have the spell deal 3d10 bludgeoning damage to the target.",
     ],
-    atHigherLevels:
-      "The damage increases by 1d10 and the weight limit increases by 5 pounds for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the damage increases by 1d10 and the weight limit increases by 5 pounds."
+    ),
     damageTypes: ["bludgeoning"],
     sources: ["bard", "arcane"],
     tags: ["ranged"],
@@ -1049,8 +1059,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "One creature is Frightened of you.",
       "A creature can roll a Wisdom Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
+    atHigherLevels: addTarget(1),
     sources: ["bard", "arcane"],
     tags: ["debuff"],
     savingThrow: "wis",
@@ -1070,8 +1079,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Each creature is covered in acid until it or another creature uses an Action to wash it off.",
       "A creature covered in acid takes 2d6 acid damage at the start of each of its turns.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the damage increases by 2d6.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     group: "Elemental Burst",
     sources: ["arcane"],
     damageTypes: ["acid"],
@@ -1095,8 +1103,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You can't choose the same creature as a target more than once in a turn.",
       "**Damage Type.** (1) Acid – (2) Cold – (3) Fire – (4) Force – (5) Lightning – (6) Poison – (7) Psychic – (8) Thunder",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, each creature takes 1d12 extra damage of the type rolled for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "each creature takes 1d12 extra damage of the type rolled."
+    ),
     sources: ["sorcerer"],
     damageTypes: [
       "acid",
@@ -1124,8 +1134,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "One humanoid becomes Charmed by you.",
       "If you or one of your companions harm the target, the spell ends.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can target one additional humanoid for each slot level above 1st.",
+    atHigherLevels: addTarget(1),
     sources: ["divine"],
     savingThrow: "wis",
     tags: ["debuff"],
@@ -1144,16 +1153,33 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature takes 3d10 damage of a type you choose: acid, cold, fire, lightning, poison, or thunder.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
     sources: ["arcane"],
     damageTypes: ["acid", "cold", "fire", "lightning", "poison", "thunder"],
     tags: ["ranged"],
     group: "Colorful Energy",
   },
-  // {
-  //   name: "Color Spray",
-  // },
+  {
+    name: "Color Spray",
+    level: 1,
+    school: "illusion",
+    castingTime: "Action",
+    range: "Self",
+    area: "15-foot cube",
+    duration: "Until the end of your next turn",
+    components: ["v", "s", "m"],
+    material: "a pinch of powder or sand",
+    flavor:
+      "A dazzling array of flashing, colored light springs from your hand.",
+    description: [
+      "Roll 6d10. The total is how many Hit Points of creatures this spell can affect. Creatures are affected in ascending order of their current Hit Points (ignoring unconscious creatures and creatures that can't see).",
+      "Starting with the creature that has the lowest current Hit Points, each creature is Blinded.",
+    ],
+    atHigherLevels: forEachAboveDo(1, "roll an additional 3d10."),
+    sources: ["bard", "arcane"],
+    tags: ["area", "debuff"],
+    group: "Colorful Energy",
+  },
   {
     name: "Command",
     level: 1,
@@ -1173,8 +1199,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "**Halt.** The target stays where it is and takes no actions. Its turn ends.",
       "**Smash.** The target makes a Melee Attack against the nearest creature or object.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional creature for each slot level above 1st.",
+    atHigherLevels: addTarget(1),
     sources: ["divine"],
     tags: ["debuff"],
     savingThrow: "wis",
@@ -1204,8 +1229,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["primal"],
     tags: ["buff"],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the duration increases by 10 minutes for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the duration increases by 10 minutes."),
     group: "Beast Bond",
   },
   {
@@ -1226,8 +1250,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "**Create Water.** You create up to 10 gallons of clean water within range in an open container. Alternatively, the water falls as rain in the area, extinguishing exposed flames.",
       "**Destroy Water.** You destroy up to 10 gallons of water in an open container. Alternatively, you destroy fog in the area.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, you create or destroy 10 additional gallons of water, or the size of the cube increases by 10 feet, for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "you create or destroy 10 additional gallons of water, or the size of the cube increases by 10 feet."
+    ),
     sources: ["divine", "primal"],
   },
   {
@@ -1242,8 +1268,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The creature regains a number of Hit Points equal to 1d12 + your Spellcasting Ability Modifier.",
     ],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d12 for each slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the healing increases by 1d12."),
     tags: ["heal"],
     sources: ["divine", "primal"],
   },
@@ -1262,8 +1287,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The darts hit simultaneously and you can direct them to hit one creature or several.",
     ],
     damageTypes: ["force"],
-    atHigherLevels:
-      "For each spell slot above 1st level, you create an additional dart.",
+    atHigherLevels: forEachAboveDo(1, "you create an additional dart."),
     sources: ["arcane"],
     group: "Magic Missile",
     tags: ["ranged"],
@@ -1284,6 +1308,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You know if there is an aberration, celestial, elemental, fey, fiend, or undead within the area, as well as where the creature is located.",
       "Similarly, you know if there is a place or object within the area that has been magically consecrated or desecrated.",
     ],
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 15 feet."
+    ),
     sources: ["divine"],
     group: "Sense the Unseen",
   },
@@ -1303,8 +1331,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You see a faint aura around any visible creature or object that bears magic.",
       "As an Action, you can learn the school of magic of an aura, if it has one.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 15 feet."
+    ),
     group: "Sense the Unseen",
     sources: ["arcane", "divine", "primal"],
   },
@@ -1324,8 +1354,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You perceive metals and minerals and can recognize them instantaneously if you are familiar with them.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the radius of the sphere increases by 5 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 5 feet."
+    ),
     group: "Sense the Unseen",
     sources: ["arcane", "primal"],
   },
@@ -1344,8 +1376,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You perceive living creatures and can recognize their Creature Type if you are familiar with it.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the radius of the sphere increases by 30 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 30 feet."
+    ),
     group: "Sense the Unseen",
     sources: ["primal"],
   },
@@ -1365,8 +1399,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You perceive poisons, poisonous creatures, or diseases and can recognize them instantaneously if you are familiar with them.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the radius of the sphere increases by 15 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 15 feet."
+    ),
     group: "Sense the Unseen",
     sources: ["divine", "primal"],
   },
@@ -1384,10 +1420,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "A faint discordant melody plays in the mind of your enemy.",
     description: [
       "Deafened creatures are immune to this spell.",
-      "On a hit, the creature takes 3d8 psychic damage and must immediately use its Reaction, if available, to safely move as far as its Speed allows away from you. On a miss, the creature takes half as much damage and doesn't have to move away.",
+      "On a hit, the creature takes 3d8 psychic damage and must immediately use its Reaction, if available, to safely move away from you as far as its Speeds allow. On a miss, the creature takes half as much damage and doesn't have to move away.",
     ],
-    atHigherLevels:
-      "The damage increases by 1d8 for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d8."),
     sources: ["bard"],
     savingThrow: "wis",
     damageTypes: ["psychic"],
@@ -1404,7 +1439,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "Your prayers empower your weapon with divine energy.",
     description: ["Your Attacks deal an extra 1d4 radiant damage."],
     atHigherLevels:
-      "The damage increases to 1d6 with 3rd- or 4th-level spell slots and 1d8 with 5th-level spell slots.",
+      "The damage increases to 1d6 with 3rd- or 4th-level spell slots and to 1d8 with a 5th-level spell slot.",
     tags: ["buff"],
     sources: ["divine"],
     damageTypes: ["radiant"],
@@ -1423,8 +1458,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Each creature takes 1d8 bludgeoning damage and is knocked Prone.",
       "If the ground in the area is loose earth or stone, it becomes difficult terrain.",
     ],
-    atHigherLevels:
-      "The damage increases by 1d8 and the radius of the area increases by 5 feet for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the damage increases by 1d8 and the radius of the area increases by 5 feet."
+    ),
     sources: ["arcane", "primal"],
     damageTypes: ["bludgeoning"],
     savingThrow: "dex",
@@ -1477,8 +1514,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The area becomes difficult terrain.",
       "When the spell ends, the plants wilt away.",
     ],
-    atHigherLevels:
-      "The area increases by 5 feet for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the area increases by 5 feet."),
     savingThrow: "str",
     tags: ["area", "control"],
   },
@@ -1496,9 +1532,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a successful Spellcasting Attempt, and then each turn as a Bonus Action, you can take the Dash Action.",
     ],
     sources: ["bard", "arcane"],
-    tags: ["buff"],
-    atHigherLevels:
-      "When you cast this spell using a spell slot of 2nd level or higher, the range of the spell becomes Touch and you can affect one additional creature for each slot level above 1st.",
+    tags: ["movement"],
+    atHigherLevels: `When you cast this spell using a spell slot of 2nd level or higher, the range of the spell becomes Touch. ${addTarget(1)}`,
   },
   {
     name: "Faerie Fire",
@@ -1515,11 +1550,11 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Each creature in the area sheds dim light in 15-foot radius sphere. The creatures can't benefit from being Invisible.",
       "Attack Rolls and Melee or Ranged Spellcasting Attempts against the creatures have Advantage if the attacker can see them.",
     ],
-    atHigherLevels:
-      "The area increases by 5 feet for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the area increases by 5 feet."),
     savingThrow: "dex",
     sources: ["artificer", "bard", "druid"],
     tags: ["area", "debuff"],
+    group: "Colorful Energy",
   },
   {
     name: "False Life",
@@ -1535,8 +1570,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You gain a number of Resilience Points equal to 1d6 plus your Spellcasting Ability Modifier.",
     ],
-    atHigherLevels:
-      "You gain 1d6 additional Resilience Points for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "you gain 1d6 additional Resilience Points."
+    ),
     tags: ["buff"],
     sources: ["arcane"],
     group: "Barrier",
@@ -1555,8 +1592,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "Up to five falling creatures within range descend 60 feet per round instead of falling and take no damage from the fall.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the number of creatures you can affect increases by five, the range increases by 60 feet and the duration increases by 1 minute.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the number of creatures you can affect increases by five, the range increases by 60 feet and the duration increases by 1 minute."
+    ),
     sources: ["bard", "arcane"],
     tags: ["buff"],
   },
@@ -1581,8 +1620,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The area becomes Heavily Obscured.",
       "A moderate wind (at least 10 miles per hour) disperses the fog.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the radius of the sphere increases by 20 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 20 feet."
+    ),
     sources: ["arcane", "primal"],
     tags: ["area", "control"],
   },
@@ -1597,8 +1638,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "The air around you becomes thick and absorbs the impact of any attack.",
     description: ["You have Absorb all damage 2."],
-    atHigherLevels:
-      "For each spell slot above 1st level, the Absorb all damage increases by 1.",
+    atHigherLevels: forEachAboveDo(1, "the Absorb all damage increases by 1."),
     sources: ["arcane"],
     group: "Barrier",
     tags: ["buff"],
@@ -1621,8 +1661,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Each creature falls Prone.",
       "The area becomes difficult terrain and any creature that enters it or ends its turn there must succeed on a Dexterity Saving Throw or fall Prone.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the area increases by 10 feet.",
+    atHigherLevels: forEachAboveDo(1, "the area increases by 10 feet."),
     sources: ["bard", "arcane"],
     tags: ["area", "control"],
     savingThrow: "dex",
@@ -1641,8 +1680,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, the creature takes 4d6 radiant damage and the next Attack Roll against the creature has Advantage.",
       "The creature sheds dim light in a 5-foot radius and can't benefit from being Invisible.",
     ],
-    atHigherLevels:
-      "The damage increases by 2d6 for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     tags: ["ranged", "debuff"],
     damageTypes: ["radiant"],
   },
@@ -1660,8 +1698,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "The next time you hit a creature with a Ranged weapon Attack, the creature and each creatures within 5 feet of it take 2d6 piercing damage. Then, the spell ends.",
     ],
-    atHigherLevels:
-      "The damage increases by 2d6 for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     tags: ["buff"],
     damageTypes: ["piercing"],
   },
@@ -1695,8 +1732,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The creature takes 4d6 fire damage.",
       "On a miss, the creature takes only half as much damage.",
     ],
-    atHigherLevels:
-      "The damage increases by 2d6 for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     sources: ["warlock"],
     tags: ["ranged"],
     damageTypes: ["fire"],
@@ -1776,8 +1812,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "If dispelled, the original script and the illusion both disappear.",
     ],
     sources: ["bard", "arcane"],
-    atHigherLevels:
-      "For each spell slot above 1st level, the duration doubles.",
+    atHigherLevels: forEachAboveDo(1, "the duration doubles."),
   },
   {
     name: "Inflict Wounds",
@@ -1789,8 +1824,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You channel negative energy to make a creature wither.",
     description: ["The creature takes 4d10 necrotic damage."],
-    atHigherLevels:
-      "For each spell slot above 1st level, the damage increases by 1d10.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
     sources: ["cleric"],
     damageTypes: ["necrotic"],
     tags: ["melee"],
@@ -1810,7 +1844,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels: addTarget(1),
     sources: ["arcane", "primal"],
-    tags: ["buff"],
+    tags: ["movement"],
     group: "Enhance Movement",
   },
   {
@@ -1842,10 +1876,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s", "m"],
     material: "a pinch of dirt",
     flavor: "You enhance a creature's speed.",
-    description: ["The creature's speed increases by 15 feet."],
+    description: ["The creature's Speeds increase by 15 feet."],
     atHigherLevels: addTarget(1),
     sources: ["bard", "arcane", "primal"],
-    tags: ["buff"],
+    tags: ["movement"],
     group: "Enhance Movement",
   },
   // {
@@ -1867,6 +1901,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "All nonmagical food and drink is rendered free of nonmagical poison, disease, contamination.",
       "Magical effects are cleared only if their spell level is lower than or equal to the spell slot used to cast this spell.",
     ],
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the sphere increases by 5 feet."
+    ),
     sources: ["artificer", "divine", "primal"],
     // tags: ["utility"],
   },
@@ -1883,8 +1921,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, the creature takes 3d8 poison damage and is Poisoned.",
       "On a miss, the creature takes half as much damage and isn't Poisoned.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the damage increases by 1d8.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d8."),
     sources: ["arcane"],
     tags: ["ranged", "debuff"],
     damageTypes: ["poison"],
@@ -1925,8 +1962,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You have +2 bonus to AC.",
       "In addition, you take no damage from spells in the Magic Missile group.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the bonus to AC increases by 1.",
+    atHigherLevels: forEachAboveDo(1, "the bonus to AC increases by 1."),
     sources: ["arcane"],
     group: "Barrier",
     tags: ["buff"],
@@ -1964,8 +2000,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Physical interaction with the image reveals it to be an illusion, because things can pass through it.",
       "If a creature uses its Action to examine the image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) Check. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
     ],
-    atHigherLevels:
-      "For each spell slot above 1st level, the duration increases by 10 minutes.",
+    atHigherLevels: forEachAboveDo(1, "the duration increases by 10 minutes."),
     sources: ["bard", "arcane"],
     tags: ["summon"],
   },
@@ -2005,6 +2040,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The trap triggers when a Small, Medium or Large creature moves into the area. The triggering creature must succeed on a Dexterity Saving Throw with Disadvantage or become Restrained and be hoisted into the air until it hangs upside down 3 feet above the protected surface.",
       "The Restrained creature can make a Dexterity saving throw with Disadvantage at the end of each of its turns to end the spell. Alternatively, another creature that can reach the Restrained creature can use an Action to make an Intelligence (Arcana) Check. On a success, the spell ends.",
     ],
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the radius of the circle increases by 5 feet."
+    ),
     sources: ["arcane", "primal"],
     tags: ["area", "control"],
     savingThrow: "str",
@@ -2023,6 +2062,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You can ask questions of and receive answers from beasts. The beast's knowledge is limited by its Intelligence, but it can give you information about nearby locations and monsters, including whatever it can perceive or has perceived within the past day.",
     ],
+    atHigherLevels: forEachAboveDo(1, "the duration doubles."),
     sources: ["primal"],
   },
   {
@@ -2039,8 +2079,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, each creature takes 4d4 cold damage. On a miss, each creature takes only half as much damage.",
       "The cold freezes nonmagical liquids that isn't being worn or carried.",
     ],
-    atHigherLevels:
-      "The damage increases by 2d4 for each spell slot level above 1st.",
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 2d4."),
     sources: ["arcane"],
     tags: ["area"],
     damageTypes: ["cold"],
@@ -2064,8 +2103,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, each creature takes 2d8 thunder damage and is pushed 10 feet away from you. On a miss, each creature takes only half as much damage and isn't pushed.",
       "The spell emits a thunderous boom audible out to 300 feet.",
     ],
-    atHigherLevels:
-      "For each slot above 1st level, the damage increases by 1d8 and the distance of the push increases by 5 feet.",
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the damage increases by 1d8 and the distance of the push increases by 5 feet."
+    ),
     savingThrow: "con",
     tags: ["area", "control"],
     damageTypes: ["thunder"],
@@ -2118,8 +2159,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "On a hit, each creature takes 4d4 acid damage and an additional 4d4 acid damage at the end of its next turn. On a miss, each creature takes only half as much damage and no additional damage.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the initial and the additional damage increase by 1d4.",
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the initial and the additional damage increase by 1d4."
+    ),
     sources: ["arcane"],
     damageTypes: ["acid"],
     group: "Elemental Burst",
@@ -2137,10 +2180,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a bolt of afforable cloth, which the spell consumes",
     flavor: "You bolster your allies with toughness and resolve.",
     description: [
-      "Up to three creatures' Hit Points and maximum Hit Points increase by 4.",
+      "Up to three creatures' Hit Points and maximum Hit Points increase by 1d6.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the Hit Points and maximum Hit Points increase by 4.",
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the Hit Points and maximum Hit Points increase by 1d6."
+    ),
     sources: ["divine"],
     tags: ["buff"],
   },
@@ -2155,8 +2200,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "You create a bubble of renewable clean air around a creature's head.",
     description: ["The creature can breathe normally in any environment."],
-    atHigherLevels:
-      "For each spell slot above 2nd level, you can target one additional creature and the spell's duration doubles (maximum 24 hours).",
+    atHigherLevels: forEachAboveDo(
+      2,
+      "you can target one additional creature and the spell's duration doubles (maximum 24 hours)."
+    ),
     sources: ["arcane", "primal"],
     tags: ["buff"],
   },
@@ -2174,8 +2221,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "an expensive amount of a powdered precious metal",
     flavor: "You magically lock a door, chest, or other entryway.",
     description: [
-      "The object is locked and can't be unlocked or broken except by magical means. Casting the Knock spell on the object suppresses the lock for 10 minutes.",
+      "The object is locked and can't be unlocked or broken except by magical means.",
       "You can also set a password that, when spoken within 5 feet of the object, suppresses the spell for 1 minute.",
+      "**Note.** Casting the Knock spell on the object suppresses the lock for 10 minutes.",
     ],
     sources: ["arcane"],
     // tags: ["utility"],
@@ -2196,8 +2244,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Casting this spell more than once before completing a Long Rest incurs a cumulative 25% chance of receiving a random reading.",
     ],
     sources: ["cleric"],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the time frame for the course of action doubles (maximum 8 hours).",
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the time frame for the course of action doubles (maximum 8 hours)."
+    ),
     // tags: ["utility"],
   },
   {
@@ -2234,6 +2284,53 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: addTarget(2),
     sources: ["arcane"],
     tags: ["buff"],
+  },
+  // {
+  //   name: "Borrowed Knowledge",
+  // },
+  // {
+  //   name: "Branding Smite",
+  // },
+  {
+    name: "Calm Emotions",
+    level: 2,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "20-foot-radius sphere",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s"],
+    flavor: "You attempt to suppress strong emotions in a group of people.",
+    description: [
+      "Choose any number of the following effects:",
+      "- Humanoids immediately lose the Charmed and Frightened conditions.",
+      "- Humanoids that are hostile to each other become indifferent.",
+      "- Humanoids that are indifferent to each other become friendly.",
+    ],
+    sources: ["bard", "cleric"],
+    atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
+    tags: ["buff", "debuff"],
+  },
+  {
+    name: "Cloud of Daggers",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "5-foot cube",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "slivers of glass",
+    flavor: "You fill the air with spinning daggers.",
+    description: [
+      "A creature takes 6d4 slashing damage when it enters the area for the first time on a turn or if it starts its turn there.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the spell's damage increases by 3d4"),
+    damageTypes: ["slashing"],
+    sources: ["bard", "arcane"],
+    tags: ["area"],
   },
   {
     name: "Deprivation",
@@ -2287,8 +2384,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "An object such as a door, box, chest, or set of manacles becomes unlocked, unstuck, or unbarred.",
       "If the lock magic, this spell suppresses it for only 10 minutes.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the range of the spell doubles.",
+    atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
     sources: ["arcane"],
     // tags: ["utility"],
   },
@@ -2307,8 +2403,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Speak a message of up to 25 words to a Tiny beast within range. The beast travels for the duration of the spell to a location you describe, and then it delivers the message to a creature you can describe. The message is delivered with your voice.",
       "A flying beast messenger can typically travel 100 miles in 24 hours, while a walking messenger can travel 20 miles in 24 hours.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the duration triples.",
+    atHigherLevels: forEachAboveDo(2, "the range of the spell triples."),
     sources: ["bard", "primal"],
     group: "Beast Bond",
   },
@@ -2318,7 +2413,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     school: "evocation",
     castingTime: "Action",
     range: "Self",
-    area: "30-foot line",
+    area: "30-foot long, 5-foot wide line",
     duration: "Instantaneous",
     components: ["v", "s", "m"],
     material: "a red scale",
@@ -2326,8 +2421,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "On a hit, each creature takes 4d8 fire damage. On a miss, each creature takes half as much damage.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the damage increases by 1d8 and the length of the line increases by 15 feet.",
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the damage increases by 1d8 and the length of the line increases by 30 feet."
+    ),
     savingThrow: "dex",
     damageTypes: ["fire"],
     tags: ["area"],
@@ -2348,8 +2445,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "You can use your Action to experience the senses of a beast. You continue to do so until you use your Action to return to your own senses.",
     ],
-    atHigherLevels:
-      "For each spell slot above 2nd level, the duration doubles.",
+    atHigherLevels: forEachAboveDo(2, "the duration doubles."),
     sources: ["primal"],
     // tags: ["utility"],
     group: "Beast Bond",
@@ -2370,11 +2466,39 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Each creature takes 3d8 thunder damage and is pushed 10 feet away from the center of the sphere. On a miss, each creature takes half as much damage and isn't pushed.",
       "Creatures made of inorganic materials such as stone, crystal, or metal are Vulnerable to this damage.",
     ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the damage increases by 1d8 and the radius of the sphere increases by 5 feet."
+    ),
     damageTypes: ["thunder"],
     sources: ["arcane"],
     group: "Elemental Burst",
     tags: ["area", "control"],
     savingThrow: "con",
+  },
+  {
+    name: "Acidic Rain",
+    level: 3,
+    school: "evocation",
+    castingTime: "Action",
+    range: "150 feet",
+    area: "15-foot-radius, 60-foot high cylinder",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a phial of acid",
+    flavor: "Sizzling rain falls from above.",
+    description: [
+      "On a hit, each creature takes 6d4 acid damage and becomes Brittle until the start of your next turn. On a miss, each creature takes half as much damage and isn't Brittle.",
+    ],
+    damageTypes: ["acid"],
+    atHigherLevels: forEachAboveDo(
+      3,
+      "the damage increases by 1d4 and the radius increases by 5 feet."
+    ),
+    savingThrow: "con",
+    sources: ["arcane"],
+    group: "Elemental Torrent",
+    tags: ["area"],
   },
   {
     name: "Fireball",
@@ -2392,8 +2516,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, each creature takes 8d6 fire damage. On a miss, each creature takes half as much damage.",
     ],
     damageTypes: ["fire"],
-    atHigherLevels:
-      "For each spell slot above 3rd level, the damage increases by 1d6 and the radius of the sphere increases by 5 feet.",
+    atHigherLevels: forEachAboveDo(
+      3,
+      "the damage increases by 1d6 and the radius of the sphere increases by 5 feet."
+    ),
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -2414,8 +2540,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "On a hit, each creature takes 5d12 lightning damage. On a miss, each creature takes half as much damage.",
     ],
     damageTypes: ["lightning"],
-    atHigherLevels:
-      "For each spell slot above 3rd, you can evoke an additional line. Also, the damage increases to 7d12 with a 5th-level slot.",
+    atHigherLevels: forEachAboveDo(
+      3,
+      "you can evoke an additional line and each line's damage increases by 1d12."
+    ),
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -2433,12 +2561,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a drop of water",
     flavor: "You create a cube of ice that explodes outward in a frigid blast.",
     description: [
-      "On a hit, each creature takes 12d4 cold damage and has its speed halved until the start of your next turn.",
-      "On a miss, each creature takes half as much damage and its speed isn't reduced.",
+      "On a hit, each creature takes 12d4 cold damage and has its Speeds halved until the start of your next turn. On a miss, each creature takes half as much damage and its Speeds aren't reduced.",
     ],
     damageTypes: ["cold"],
-    atHigherLevels:
-      "For each spell slot above 3rd level, the damage increases by 2d4 and the width of the cube increases by 5 feet.",
+    atHigherLevels: forEachAboveDo(
+      3,
+      "the damage increases by 2d4 and the width of the cube increases by 5 feet."
+    ),
     savingThrow: "con",
     sources: ["arcane"],
     group: "Elemental Torrent",
@@ -2469,6 +2598,31 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane"],
     tags: ["area", "control", "debuff"],
     savingThrow: "wis",
+  },
+  {
+    name: "Tempest",
+    level: 3,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "Self",
+    area: "60-foot-radius sphere",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a drum",
+    flavor:
+      "You conjure the fury of a tempest and surgically unleash it against your enemies.",
+    description: [
+      "On a hit, up to six creatures of your choice take 5d6 thunder damage and are pushed 15 feet away from you. On a miss, each creature takes half as much damage and isn't pushed.",
+    ],
+    damageTypes: ["thunder"],
+    atHigherLevels: forEachAboveDo(
+      3,
+      "the damage increases by 1d6 and you can target two additional creatures."
+    ),
+    savingThrow: "con",
+    sources: ["arcane", "primal"],
+    group: "Elemental Torrent",
+    tags: ["area", "control"],
   },
   {
     name: "Deadly Feast",
