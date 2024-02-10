@@ -329,6 +329,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     school: "conjuration",
     castingTime: "Action",
     range: "Touch",
+    area: "40-foot-radius sphere",
     duration: "1 hour",
     components: ["v", "m"],
     material: "a firefly or phosphorescent moss",
@@ -337,8 +338,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The surface emits bright light in a 20-foot radius and dim light for an additional 20 feet.",
     ],
     cantripUpgrade:
-      "Both radius increase to 40 feet when you reach 5th level, 60 feet at 10th level, and 120 feet at 17th level.",
+      "Both radiuses increase to 40 feet when you reach 5th level and 60 feet at 10th level.",
     sources: ["arcane", "divine", "primal"],
+    tags: ["area"],
   },
   {
     name: "Prestidigitation",
