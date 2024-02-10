@@ -109,7 +109,7 @@ export class CreateSpellDto implements ISpellBase {
   @ApiProperty()
   @IsArray()
   @ArrayNotEmpty()
-  description: string[];
+  description: [string, ...string[]];
 
   @ApiProperty({ required: false })
   @IsOptional()

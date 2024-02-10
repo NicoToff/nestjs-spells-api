@@ -22,7 +22,7 @@ export interface ISpellBase {
   atHigherLevels?: string;
   cantripUpgrade?: string;
   flavor?: string;
-  description: string[];
+  description: [string, ...string[]];
   damageTypes?: DamageType[];
   savingThrow?: AbilityScore;
   tags?: SpellTag[];

@@ -26,7 +26,7 @@ export class TalentFeat {
 
   @ApiProperty({ isArray: true, type: String, required: true })
   @Prop({ required: true })
-  description: string[];
+  description: [string, ...string[]];
 
   // Hidden field from API
   @Prop({ required: false, default: false })

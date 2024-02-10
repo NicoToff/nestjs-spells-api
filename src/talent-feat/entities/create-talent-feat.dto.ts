@@ -44,7 +44,7 @@ export class CreateTalentFeatDto {
   @IsArray()
   @ArrayNotEmpty()
   @IsString({ each: true })
-  description: string[];
+  description: [string, ...string[]];
 
   @ApiProperty({ required: false, default: false })
   @IsOptional()

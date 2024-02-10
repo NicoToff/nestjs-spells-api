@@ -77,7 +77,7 @@ export class Spell implements ISpellBase {
 
   @ApiProperty({ isArray: true, type: String, required: true })
   @Prop({ required: true })
-  description: string[];
+  description: [string, ...string[]];
 
   @ApiProperty({ enum: DAMAGE_TYPES, isArray: true, required: false })
   @Prop({ required: false })
