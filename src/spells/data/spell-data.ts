@@ -2406,6 +2406,24 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "wis",
   },
   {
+    name: "Darkvision",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "8 hours",
+    components: ["v", "s", "m"],
+    material: "either a pinch of dried root or an agate",
+    flavor: "Your eyes become see no difference between light and darkness.",
+    description: ["The creature gains Darkvision out to a range of 60 feet."],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the range of the Darkvision increases by 30 feet."
+    ),
+    sources: ["arcane", "primal"],
+    tags: ["buff"],
+  },
+  {
     name: "Deprivation",
     level: 2,
     school: "necromancy",
@@ -2423,6 +2441,18 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["debuff"],
     savingThrow: "con",
   },
+  // {
+  //   name: "Detect Thoughts",
+  //   level: 2,
+  //   school: "divination",
+  //   castingTime: "Action",
+  //   range: "Self",
+  //   area: "30-foot-radius sphere",
+  //   duration: "1 minute",
+  //   concentration: true,
+  //   components: ["v", "s", "m"],
+  //   material: "a chunk of copper",
+  // },
   {
     name: "Firm Shell",
     level: 2,
