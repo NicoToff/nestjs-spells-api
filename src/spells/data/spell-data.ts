@@ -1806,9 +1806,27 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "wis",
     tags: ["debuff"],
   },
-  // {
-  //   name: "Hunter's Mark",
-  // },
+  {
+    name: "Hunter's Mark",
+    level: 1,
+    school: "divination",
+    castingTime: "Bonus Action",
+    range: "90 feet",
+    duration: "1 hour",
+    components: ["v"],
+    concentration: true,
+    flavor: "You magically mark a creature as your prey.",
+    description: [
+      "The creature takes an extra 1d6 Force damage the first time you hit it with an Attack each turn.",
+      "You have Advantage on any Wisdom (Perception or Survival) Check you make to find it.",
+      "If the target drops to 0 Hit Points before this spell ends, you can use a Bonus Action on a subsequent turn of yours to mark a new creature.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      1,
+      "the damage increases by 1d6 and the duration doubles."
+    ),
+    sources: ["ranger"],
+  },
   // {
   //   name: "Ice Knife",
   // },
