@@ -1445,6 +1445,26 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["radiant"],
   },
   {
+    name: "Divine",
+    level: 1,
+    school: "evocation",
+    castingTime:
+      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["v"],
+    flavor: "Your strike glows with divine energy.",
+    description: [
+      "The creature takes 2d10 radiant damage.",
+      "**Unholy Enemy.** An Undead or a Fiend takes an extra 1d10 radiant damage.",
+    ],
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
+    sources: ["paladin"],
+    damageTypes: ["radiant"],
+    tags: ["melee"],
+    group: "Smite",
+  },
+  {
     name: "Earth Tremor",
     level: 1,
     school: "evocation",
@@ -1547,7 +1567,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     concentration: true,
     flavor: "You make creatures and objects glow with a an eerie color.",
     description: [
-      "Each creature in the area sheds dim light in 15-foot radius sphere. The creatures can't benefit from being Invisible.",
+      "Each creature in the area sheds light in 20-foot radius. The creatures can't benefit from being Invisible.",
       "Attack Rolls and Melee or Ranged Spellcasting Attempts against the creatures have Advantage if the attacker can see them.",
     ],
     atHigherLevels: forEachAboveDo(1, "the area increases by 5 feet."),
@@ -1946,9 +1966,25 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["artificer", "divine"],
     tags: ["buff"],
   },
-  // {
-  //   name: "Searing Smite",
-  // },
+  {
+    name: "Searing",
+    level: 1,
+    school: "evocation",
+    castingTime:
+      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+    range: "Self",
+    duration: "1 minute",
+    components: ["v"],
+    flavor: "Your strike flares with white-hot intensity.",
+    description: [
+      "The creature takes 1d10 fire damage and ignites with magical flames. At the start of each of its turns, the creature takes 1d10 fire damage and can make a Constitution Saving Throw to end the spell.",
+    ],
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
+    sources: ["paladin"],
+    damageTypes: ["fire"],
+    tags: ["melee"],
+    group: "Smite",
+  },
   {
     name: "Shield",
     level: 1,
@@ -2086,9 +2122,26 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "dex",
     group: "Elemental Burst",
   },
-  // {
-  //   name: "Thunderous Smite",
-  // },
+  {
+    name: "Thunderous",
+    level: 1,
+    school: "evocation",
+    castingTime:
+      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+    range: "Self",
+    duration: "Instantaneous",
+    components: ["v"],
+    flavor: "Your strike rings with the sound of thunder.",
+    description: [
+      "The creature takes 2d8 thunder damage, it is pushed 10 feet away from you and is knocked Prone.",
+      "This spell emits a thunderous boom audible out to 300 feet.",
+    ],
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d8."),
+    sources: ["paladin"],
+    damageTypes: ["thunder"],
+    tags: ["melee"],
+    group: "Smite",
+  },
   {
     name: "Thunderwave",
     level: 1,
@@ -2138,9 +2191,25 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["ranged"],
     damageTypes: ["lightning"],
   },
-  // {
-  //   name: "Wrathful Smite",
-  // },
+  {
+    name: "Wrathful",
+    level: 1,
+    school: "necromancy",
+    castingTime:
+      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+    range: "Self",
+    duration: "1 minute",
+    components: ["v"],
+    flavor: "Your strike channels divine wrath to make a creature shiver.",
+    description: [
+      "The creature takes 1d10 necrotic damage and is Frigthened by you. At the end of each of its turns, the creature can make a Wisdom Saving Throw to end the effect.",
+    ],
+    atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
+    sources: ["paladin"],
+    damageTypes: ["necrotic"],
+    tags: ["melee"],
+    group: "Smite",
+  },
   // {
   //   name: "Zephyr Strike",
   // },
@@ -2287,9 +2356,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   },
   // {
   //   name: "Borrowed Knowledge",
-  // },
-  // {
-  //   name: "Branding Smite",
   // },
   {
     name: "Calm Emotions",
@@ -2632,6 +2698,28 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Elemental Burst",
     tags: ["area", "control"],
     savingThrow: "con",
+  },
+  {
+    name: "Shining",
+    level: 2,
+    school: "evocation",
+    castingTime:
+      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+    range: "Self",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v"],
+    flavor: "Your weapon gleams with astral radiance.",
+    description: [
+      "The creature takes 2d8 radiant damage and can't benefit from the Invisible condition.",
+      "The creature sheds light in a 10-foot radius.",
+      "Attack Rolls and Melee or Ranged Spellcasting Attempts against the creature have Advantage if the attacker can see them.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the damage increases by 1d8."),
+    sources: ["paladin"],
+    damageTypes: ["radiant"],
+    tags: ["melee"],
+    group: "Smite",
   },
   {
     name: "Acidic Rain",
