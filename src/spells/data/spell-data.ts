@@ -26,7 +26,7 @@ const atkInstead = (type?: "melee" | "ranged") => {
 const noHalfCover =
   "A creature doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
-  "You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
+  "**Requirements.** You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
 
 const forEachAboveDo = (lvl: SpellLevel, effect: string) =>
   `For each slot level above ${levelSchoolLabel(lvl)}, ${effect}` as const;
