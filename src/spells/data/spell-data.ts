@@ -2614,6 +2614,28 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   concentration: true,
 
   // },
+  // {
+  //   name: "Enlarge/Reduce",
+  // },
+  {
+    name: "Enthrall",
+    level: 2,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "Self",
+    area: "60-foot-radius sphere",
+    duration: "1 minute",
+    components: ["v", "s"],
+    flavor:
+      "You weave a distracting string of words to become the center of attention.",
+    sources: ["bard", "warlock"],
+    description: [
+      "Creatures that can't be Charmed or can't hear you are Immune to this spell.",
+      "Choose any number of creatures. They each roll Wisdom (Percetion) Checks with Disadvantage to perceive any creature other than you.",
+      "The spell ends if you can't speak or if you are Incapacitated.",
+    ],
+    savingThrow: "wis",
+  },
   {
     name: "Firm Shell",
     level: 2,
