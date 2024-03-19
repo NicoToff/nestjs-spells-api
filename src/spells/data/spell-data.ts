@@ -2563,27 +2563,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   // {
   //   name: "Dragon's Breath",
   // },
-  // {
-  //   name: "Dust Devil",
-  //   level: 2,
-  //   school: "conjuration",
-  //   castingTime: "Action",
-  //   range: "60 feet",
-  //   area: "5-foot-radius sphere",
-  //   duration: "1 minute",
-  //   components: ["v", "s", "m"],
-  //   material: "a pinch of dust",
-  //   concentration: true,
-  //   flavor: "A whirlwind of dust and debris takes the form a demonic creature and harasses whoever comes near.",
-  //   description: [
-  //     "A creature that starts its turn within the area must succeed on a Strength Saving Throw or be pushed 10 feet away from the center of the area.",
-  //   ],
-  //   atHigherLevels: forEachAboveDo(2, "the spell's damage increases by 1d8."),
-  //   sources: ["arcane"],
-  //   tags: ["area", "control"],
-  //   damageTypes: ["bludgeoning"],
-  // },
-
   {
     name: "Earthbind",
     level: 2,
@@ -2635,6 +2614,34 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The spell ends if you can't speak or if you are Incapacitated.",
     ],
     savingThrow: "wis",
+  },
+  // {
+  //   name: "Find Steed"
+  // },
+  // {
+  //   name: "Find Traps"
+  // },
+  {
+    name: "Flame Blade",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Bonus Action",
+    range: "Self",
+    duration: "10 minutes",
+    components: ["v", "s", "m"],
+    material: "a leaf of sumac",
+    concentration: true,
+    flavor: "You materialize a blade of fire the size and shape of a scimitar.",
+    description: [
+      "The blade is a Melee weapon with which you are proficient. It deals 3d6 fire damage (no Ability Modifier) on a hit.",
+      "Attack Rolls with the blade can be made using your Spellcasting Ability Modifier.",
+      "The blade sheds light in a 40-foot radius.",
+      "If another creature uses grabs the blade, the spell ends.",
+    ],
+    damageTypes: ["fire"],
+    atHigherLevels: forEachAboveDo(2, "the damage increases by 1d6."),
+    sources: ["druid"],
+    tags: ["melee"],
   },
   {
     name: "Firm Shell",
@@ -2783,6 +2790,30 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["radiant"],
     tags: ["melee"],
     group: "Smite",
+  },
+  {
+    name: "Tornado",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "5-foot-radius sphere",
+    duration: "1 minute",
+    components: ["v", "s", "m"],
+    material: "a pinch of dust",
+    concentration: true,
+    flavor: "A whirlwind of pushes creatures outwards.",
+    description: [
+      "A creature that starts its turn within the area or enters it must succeed on a Strength Saving Throw or be pushed 10 feet away from the center of the area and is knocked Prone.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the radius of the sphere and the distance of the push increase by 5 feet."
+    ),
+    sources: ["primal"],
+    tags: ["area", "control"],
+    group: "Weather",
+    savingThrow: "str",
   },
   {
     name: "Acidic Rain",
