@@ -2663,6 +2663,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "When you move the sphere, you can direct it over barriers up to 5 feet tall and jump it across pits up to 10 feet wide.",
       "The sphere ignites flammable objects not being worn or carried and sheds light in a 40-foot radius.",
     ],
+    atHigherLevels: forEachAboveDo(2, "the damage increases by 1d8."),
     savingThrow: "dex",
     group: "Elemental Burst",
     sources: ["arcane", "druid"],
