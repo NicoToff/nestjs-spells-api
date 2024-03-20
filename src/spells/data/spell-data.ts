@@ -1624,6 +1624,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   // },
   // {
   //   name: "Floating Disk",
+  //   level: 1,
+  //   school: "conjuration",
+  //   castingTime: "Action",
   // },
   {
     name: "Fog Cloud",
@@ -2689,6 +2692,28 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["primal"],
     tags: ["buff"],
     group: "Ecomorph",
+  },
+  // {
+  //   name: "Flock of Familiars",
+  // },
+  // {
+  //   name: "Fortune's Favor"
+  // },
+  {
+    name: "Gentle Repose",
+    level: 2,
+    school: "necromancy",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "10 days",
+    components: ["v", "s", "m"],
+    material: "a pinch of salt, vinegar and a strong spice",
+    flavor: "You slow a corpse's rate of decay.",
+    description: [
+      "A Dead creature can't decay and magic that would make it become Undead fails.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the duration doubles."),
+    sources: ["divine", "wizard"],
   },
   {
     name: "Knock",
