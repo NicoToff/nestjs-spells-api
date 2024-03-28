@@ -914,6 +914,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "the area of the spell increases by 10 feet, the duration increases by one day, and the range of the mental ping increases by 1 mile."
     ),
     sources: ["bard", "arcane"],
+    // tags: ["utility"],
   },
   {
     name: "Animal Friendship",
@@ -1810,6 +1811,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: addTarget(1),
     sources: ["bard", "arcane"],
     savingThrow: "wis",
+    group: "Artistry",
     tags: ["debuff"],
   },
   {
@@ -2620,6 +2622,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The spell ends if you can't speak or if you are Incapacitated.",
     ],
     savingThrow: "wis",
+    group: "Artistry",
+    tags: ["debuff"],
   },
   // {
   //   name: "Find Steed"
@@ -2807,9 +2811,29 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["control"],
     savingThrow: "wis",
   },
-  // {
-  //   name: "Immovable Object",
-  // },
+  {
+    name: "Immovable Object",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "1 hour",
+    components: ["v", "s", "m"],
+    material:
+      "an affordable amount of a precious metal, which the spell consumes",
+    flavor: "You make an object impossible to move.",
+    description: [
+      "An object weighing no more than 10 pounds becomes fixed in space. If the object is fixed mid-air, it can hold up to 4000 pounds of weight before it falls.",
+      "When you cast the spell, you can designate a password that, when spoken within 5 feet of the object, suppresses the spell for 1 minute. You can also designate creatures that can always move the object.",
+      "Any creature can attempts a Strength (Smashing) Check with Disadvantage to move the object 10 feet.",
+    ],
+    atHigherLevels: `${forEachAboveDo(
+      2,
+      "the weight limit and the duration double."
+    )} When using a 5th-level spell slot or higher, the duration becomes 'Until dispelled'.`,
+    // tags: ["utility"],
+    sources: ["arcane"],
+  },
   {
     name: "Invisibility",
     level: 2,
@@ -2828,6 +2852,27 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: addTarget(2),
     sources: ["bard", "arcane"],
     tags: ["buff"],
+  },
+  {
+    name: "Kinetic Jaunt",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Bonus Action",
+    range: "Touch",
+    duration: "1 minute",
+    components: ["s"],
+    concentration: true,
+    flavor: "You empower your movement with dancelike steps.",
+    description: [
+      "The creature gains the following benefits:",
+      "- Its walking Speed increases by 10 feet.",
+      "- It doesn't provoke Opportunity Attacks.",
+      "- It can move through the space of any other creature, and its space doesn't count as difficult terrain.",
+    ],
+    atHigherLevels: addTarget(2),
+    sources: ["bard"],
+    tags: ["buff"],
+    group: "Artistry",
   },
   {
     name: "Knock",
