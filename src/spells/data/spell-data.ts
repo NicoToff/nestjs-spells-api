@@ -2892,6 +2892,26 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     // tags: ["utility"],
   },
   {
+    name: "Lesser Restoration",
+    level: 2,
+    school: "abjuration",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "Instantaneous",
+    components: ["v", "s"],
+    flavor: "You restore a creature's vitality.",
+    description: [
+      "You end a disease or one following conditions on the creature: Blinded, Brittle, Deafened, Disgusted, Numb, Paralyzed, Poisoned, Vulnerable or Weak.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "you can target one additional creature."
+    ),
+    sources: ["cleric"],
+    tags: ["heal"],
+    group: "Vigor",
+  },
+  {
     name: "Messenger",
     level: 2,
     school: "enchantment",
