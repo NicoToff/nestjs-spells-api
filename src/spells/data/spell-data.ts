@@ -165,7 +165,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "- You cause simple shapes to appear within the flames and animate as you like. The shapes last for 1 hour.",
       "If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an Action.",
     ],
-    group: "Nature Craft",
+    group: "Shape Nature",
     sources: ["arcane", "primal"],
   },
   {
@@ -206,7 +206,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     cantripUpgrade:
       "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 10th level, and 100-mile radius at 17th level. The number of plant you can affect increases to two at 5th level, ten at 10th level, and twenty-five at 17th level.",
     sources: ["primal"],
-    group: "Nature Craft",
+    group: "Shape Nature",
   },
   {
     isPrivate: true,
@@ -305,7 +305,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane", "primal"],
     cantripUpgrade:
       "The maximum weight of the object you can affect increases to 10 pounds when you reach 5th level, 25 pounds at 10th level, and 50 pounds at 17th level. The size of the creature you can affect increases to Large at 5th level, Huge at 10th level, and Gargantuan at 17th level.",
-    group: "Nature Craft",
+    group: "Shape Nature",
     savingThrow: "str",
   },
   {
@@ -375,7 +375,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     cantripUpgrade:
       "The maximum amount of effects you can have active at a time increases to six when you reach 5th level, ten at 10th level, and twenty-five at 17th level.",
     sources: ["arcane", "divine", "primal"],
-    group: "Nature Craft",
+    group: "Shape Nature",
   },
   {
     name: "Mage Hand",
@@ -493,7 +493,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane", "primal"],
     cantripUpgrade:
       "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
-    group: "Nature Craft",
+    group: "Shape Nature",
   },
   {
     name: "Shape Water",
@@ -515,7 +515,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane", "primal"],
     cantripUpgrade:
       "At 5th level, the size of the cube increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
-    group: "Nature Craft",
+    group: "Shape Nature",
   },
   {
     name: "Poison Spray",
@@ -886,7 +886,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels: forEachAboveDo(
       1,
-      "you can make an extra creature within 5 feet of you Resistant against the chosen elemental type."
+      "you can have another creature within 5 feet of you benefit from this spell."
     ),
     sources: ["arcane", "primal"],
     group: "Barrier",
@@ -1200,7 +1200,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "**Drop.** The target drops whatever it is holding and then ends its turn.",
       "**Flee.** The target spends its turn moving away from you by the fastest available means.",
       "**Grovel.** The target falls prone and then ends its turn.",
-      "**Halt.** The target stays where it is and takes no actions. Its turn ends.",
+      "**Halt.** The target stays where it is and takes no Actions. Its turn ends.",
       "**Smash.** The target makes a Melee Attack against the nearest creature or object.",
     ],
     atHigherLevels: addTarget(1),
@@ -2426,6 +2426,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["bard", "cleric"],
     atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
     tags: ["buff", "debuff"],
+    group: "Vigor",
   },
   {
     name: "Cloud of Daggers",
@@ -2625,6 +2626,50 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Artistry",
     tags: ["debuff"],
   },
+  {
+    name: "Earthen Grasp",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "60 feet",
+    area: "5-foot square",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "a miniature hand sculpted from clay",
+    flavor: "A hand of soil and stone reaches for a creature.",
+    description: [
+      "Choose an unoocupied space. A Medium hand made of compacted soil rises there and reaches for a creature within 5 feet of it. The creature takes 2d8 bludgeoning damage and is Restrained. On subsequent turns, you can use your Action to cause the hand to crush the Restrained creature again, dealing 2d8 bludgeoning damage.",
+      "As an Action, you can also roll another Spellcasting Attempt to cause the hand to reappear elsewhere and renew the spell.",
+      "At the end of each of its turns, the Restrained creature can roll a Strength Saving Throw, ending the effect on itself on a success.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the damage increases by 1d8."),
+    savingThrow: "str",
+    sources: ["arcane", "primal"],
+    group: "Shape Nature",
+  },
+  {
+    name: "Earworm",
+    level: 2,
+    school: "abjuration",
+    castingTime: "Reaction, taken when you are subjected to a harmful effect",
+    range: "Self",
+    duration: "1 round",
+    components: ["v"],
+    flavor:
+      "You protect your ming with a wall of repetitive thoughts or sounds.",
+    description: [
+      "You have advantage on Intelligence, Wisdom, and Charisma Saving Throws. Moreover, you are Resistant to psychic damage.",
+    ],
+
+    atHigherLevels: forEachAboveDo(
+      2,
+      "you can have another creature within 5 feet of you benefit from this spell."
+    ),
+    sources: ["bard", "arcane"],
+    tags: ["buff"],
+    group: "Barrier",
+  },
   // {
   //   name: "Find Steed"
   // },
@@ -2760,7 +2805,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     concentration: true,
     flavor: "You conjure an intangible beast spirit that heals the wounded.",
     description: [
-      "When a creature that moves into the area for the first time on a round or starts its turn there, you can restore 1d6 hit points to that creature (no action required).",
+      "When a creature that moves into the area for the first time on a round or starts its turn there, you can restore 1d6 hit points to that creature (no Action required).",
       "The spirit can heal a number of times equal to 1 + your Spellcasting Ability Modifier (minimum of twice). After that, the spell ends.",
       "You can use your Bonus Action to move the spirit up to 60 feet.",
     ],
@@ -2830,7 +2875,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: `${forEachAboveDo(
       2,
       "the weight limit and the duration double."
-    )} When using a 5th-level spell slot or higher, the duration becomes 'Until dispelled'.`,
+    )} When using a 5th-level spell slot or higher, the spell becomes permanent."`,
     // tags: ["utility"],
     sources: ["arcane"],
   },
@@ -2912,6 +2957,152 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Vigor",
   },
   {
+    name: "Levitate",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "10 minutes",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material:
+      "either a small leather loop or a piece of golden wire bent into a cup shape",
+    flavor: "You make a creature float in the air.",
+    description: [
+      "The creature rises vertically up to 20 feet and remains suspended mid-air. It can move horizontally only by pushing or pulling against fixed objects or surfaces. On subsequent turns, you can use move the creature up or down 20 feet (no Action required).",
+      "The spell can levitate a creature that weighs up to 500 pounds.",
+      "When the spells ends, the creature falls slowly to the ground.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the weight limit doubles and the height increases by 20 feet."
+    ),
+    sources: ["arcane"],
+    savingThrow: "con",
+    group: "Gravity",
+    tags: ["control", "movement"],
+  },
+  {
+    name: "Locate Animals or Plants",
+    level: 2,
+    school: "divination",
+    castingTime: "Action",
+    range: "Self",
+    area: "5-mile radius",
+    duration: "Instantaneous",
+    components: ["v", "s", "m"],
+    material: "a bit of fur from a bloodhound",
+    ritual: true,
+    flavor:
+      "Concentrating on the voice of nature in your surroundings, you feel closer to a natural entity.",
+    description: [
+      "Describe or name a specific kind of beast or plant. If anything matches your description, you learn the direction and distance to the closest one around you.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
+    sources: ["primal"],
+    tags: ["area" /*"utility"*/],
+    group: "Beast Bond",
+  },
+  {
+    name: "Locate Object",
+    level: 2,
+    school: "divination",
+    castingTime: "Action",
+    range: "Self",
+    area: "1000-foot radius",
+    duration: "10 minutes",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "a forked twig",
+    flavor: "You sense the presence of a specific object.",
+    description: [
+      "Describe or name an object that is familiar to you or a type of object. If the object is within range, you learn the direction and distance to the object and whether it is moving.",
+      "**Special.** You cannot locate an object if any thickness of lead, even a thin sheet, blocks a direct path between you and the object.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
+    sources: ["arcane", "divine", "primal"],
+    tags: ["area" /*"utility"*/],
+  },
+  {
+    name: "Magic Mouth",
+    level: 2,
+    school: "illusion",
+    castingTime: "Action",
+    range: "30 feet",
+    duration: "Until dispelled",
+    ritual: true,
+    components: ["v", "s", "m"],
+    material:
+      "an afforable amount of honeycomb and powdered precious stone, which the spell consumes",
+    flavor: "You implant a message to be delivered at a time of your choosing.",
+    description: [
+      "Choose an object and speak a message that lasts 6 seconds at most. Then, choose a trigger condition that will cause the spell to deliver the message.",
+      "When the trigger condition is met, a mouth appears on the object and speaks the message in your voice, with the same volume as you spoke.",
+      "When you cast the spell, you can choose whether the spell ends once the message is delivered or if it should repeat whenever the trigger condition is met.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the maximum length of the message doubles (the casting time changes accordingly)."
+    ),
+    sources: ["arcane"],
+    // tags: ["utility"],
+  },
+  {
+    name: "Fake Aura",
+    level: 2,
+    school: "illusion",
+    castingTime: "Action",
+    range: "Touch",
+    duration: "24 hours",
+    components: ["v", "s", "m"],
+    material: "a small square of silk",
+    flavor: "You create magical false tracks against nosy foes.",
+    description: [
+      "A creature or object gains a magical aura that reveals false information to divination spells that are cast on it. You choose the type of misinformation that the aura provides.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the duration of the spell doubles. When using a 5th-level spell slot or higher, the spell becomes permanent."
+    ),
+    sources: ["arcane"],
+  },
+  {
+    name: "Magic Weapon",
+    level: 2,
+    school: "transmutation",
+    castingTime: "Bonus Action",
+    range: "Touch",
+    duration: "1 hour",
+    concentration: true,
+    components: ["v", "s"],
+    flavor: "You enchant a weapon to be more effective.",
+    description: [
+      "The weapon becomes magical if it isn't already. Attack Rolls with the weapon have a +1 bonus to Attack Rolls and damage rolls.",
+    ],
+    atHigherLevels:
+      "When you cast this spell using a spell slot of 4th level or higher, the bonus increases to +2.",
+    sources: ["arcane", "ranger", "paladin"],
+    tags: ["buff"],
+    group: "Craft",
+  },
+  {
+    name: "Mental Exhaustion",
+    level: 2,
+    school: "enchantment",
+    castingTime: "Action",
+    range: "60 feet",
+    duration: "Until the start of your next turn",
+    components: ["v", "s"],
+    flavor: "You overload a creature's mind with too much information.",
+    description: ["The creature takes 3d8 psychic damage and becomes Dazed."],
+    atHigherLevels: addTarget(2),
+    savingThrow: "int",
+    sources: ["bard", "arcane"],
+    tags: ["debuff"],
+    damageTypes: ["psychic"],
+    group: "Psychic Assault",
+  },
+  {
     name: "Messenger",
     level: 2,
     school: "enchantment",
@@ -2930,6 +3121,54 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["bard", "primal"],
     group: "Beast Bond",
   },
+  {
+    name: "Mind Spike",
+    level: 2,
+    school: "divination",
+    castingTime: "Action",
+    range: "60 feet",
+    components: ["s"],
+    concentration: true,
+    duration: "1 hour",
+    flavor: "You reach into the mind of a creature and pierce it painfully.",
+    description: [
+      "On a hit, the creature takes 3d10 psychic damage and you can mentally keep track of its precise location over any distance while it is on the same plane of existence (it doesn't benefit from being Invisible against you). On a miss, the creature takes half as much damage and you can't track its location.",
+      "**Special.** You can forgo the damage of this spell.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the damage increases by 1d10 and the duration doubles. When using a 5th-level spell slot or higher, the spell becomes permanent."
+    ),
+    sources: ["arcane"],
+    savingThrow: "wis",
+    damageTypes: ["psychic"],
+    tags: ["debuff"],
+    group: "Psychic Assault",
+  },
+  //   {
+  //     name: "Mirror Image",
+  //   },
+  {
+    name: "Misty Step",
+    level: 2,
+    school: "conjuration",
+    castingTime: "Bonus Action",
+    range: "Self",
+    components: ["v"],
+    duration: "Instantaneous",
+    flavor: "You are briefly surrounded by a silvery mist.",
+    description: ["You teleport up to 30 feet to an unoccupied space."],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the distance of the teleport increases by 15 feet."
+    ),
+    sources: ["arcane"],
+    tags: ["movement"],
+    group: "Teleportation",
+  },
+  //   {
+  //     name: "Moonbeam",
+  //   },
   {
     name: "Scorcher",
     level: 2,
@@ -3186,7 +3425,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "- It is Easy to hit them with Melee and Ranged Attacks.",
       "- It is Easy to hit them with Spellcasting Attempts if they are Melee, Ranged or have a Dexterity Saving Throw.",
       "- Their Dexterity Saving Throws become Hard.",
-      "- If a creature attempts to cast a spell with a casting time of 1 Action, the GM rolls a d20. On an 11 or higher, the spell doesn't take effect until the creature's next turn, and the creature must use its action on that turn to complete the spell. If it can't, the spell is wasted.",
+      "- If a creature attempts to cast a spell with a casting time of 1 Action, the GM rolls a d20. On an 11 or higher, the spell doesn't take effect until the creature's next turn, and the creature must use its Action on that turn to complete the spell. If it can't, the spell is wasted.",
       "An affected creature can roll a Wisdom Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
     ],
     sources: ["arcane"],
