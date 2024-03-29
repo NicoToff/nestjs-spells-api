@@ -3145,9 +3145,27 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["debuff"],
     group: "Psychic Assault",
   },
-  //   {
-  //     name: "Mirror Image",
-  //   },
+  {
+    name: "Mirror Image",
+    level: 2,
+    school: "illusion",
+    castingTime: "Action",
+    range: "Self",
+    duration: "1 minute",
+    components: ["v", "s"],
+    flavor: "You are legion.",
+    description: [
+      "Three illusory duplicates of yourself appear in your space. Each time a creature targets you with an Attack during the spell's duration, roll a d12 to determine whether the Attack instead targets one of your duplicates.",
+      "If you have three duplicates, you must roll a 4 or higher to change the Attack's target to a duplicate. With two duplicates, you must roll an 5 or higher. With one duplicate, you must roll an 7 or higher.",
+      "A duplicate's AC equals 10 + your Dexterity Modifier. If an Attack hits a duplicate, the duplicate is destroyed.",
+    ],
+    atHigherLevels: forEachAboveDo(
+      2,
+      "the AC of your duplicates increases by 1."
+    ),
+    sources: ["arcane"],
+    tags: ["buff"],
+  },
   {
     name: "Misty Step",
     level: 2,
@@ -3166,9 +3184,29 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["movement"],
     group: "Teleportation",
   },
-  //   {
-  //     name: "Moonbeam",
-  //   },
+  {
+    name: "Moonbeam",
+    level: 2,
+    school: "evocation",
+    castingTime: "Action",
+    range: "120 feet",
+    area: "5-foot-radius, 40-foot-high cylinder",
+    duration: "1 minute",
+    concentration: true,
+    components: ["v", "s", "m"],
+    material: "several rare seeds",
+    flavor: "A column of moonlight sears you opponents.",
+    description: [
+      "When a creature enters the spell's area for the first time on a turn or starts its turn there, it must make a Constitution Saving Throw. It takes 2d12 radiant damage on a failed save, or half as much damage on a successful one.",
+      "On subsequent turns, you can use your Action to move the beam up to 60 feet.",
+      "**Special.** Shapechangers make the Saving Throw with Disadvantage and revert to their original form if they fail the Saving Throw.",
+    ],
+    atHigherLevels: forEachAboveDo(2, "the damage increases by 1d12."),
+    sources: ["druid"],
+    damageTypes: ["radiant"],
+    tags: ["area", "debuff"],
+    savingThrow: "con",
+  },
   {
     name: "Scorcher",
     level: 2,
