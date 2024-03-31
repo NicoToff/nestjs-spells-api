@@ -229,7 +229,7 @@ export const TALENT_DATA: CreateTalentFeatDto[] = [
     name: "Font of Divinity",
     description: [
       "You gain the following Channel Divinity option:",
-      "**Font of Divinity** As an Action, you regain one expended spell slot. You can't use this Channel Divinity option more than once between Long Rests.",
+      "- **Font of Divinity.** As an Action, you regain one expended spell slot. You can't use this Channel Divinity option more than once between Long Rests.",
     ],
     prerequisites: ["Channel Divinity feature"],
     flavor:
