@@ -120,7 +120,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       atkInstead("melee"),
       "You deal damage normally, and the target becomes sheathed in booming energy until the start of your next turn. If the target willingly moves before then, it immediately takes 1d8 thunder damage, and the spell ends.",
     ],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     cantripUpgrade:
       "Starting at 5th level, the Melee Attack deals an additional 1d8 thunder damage on a hit and the damage for moving increases to 2d8. These damage rolls increase to 2d8 and 3d8 at 10th level, and to 3d8 and 4d8 at 17th level.",
     tags: ["melee", "debuff"],
@@ -447,6 +447,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     cantripUpgrade:
       "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6. At 17th level, the damage increases to 4d6 and the bonus to +1d8.",
     savingThrow: "int",
+    group: "Psyshock",
     damageTypes: ["psychic"],
     tags: ["buff"],
   },
@@ -826,6 +827,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     savingThrow: "wis",
+    group: "Psyshock",
     sources: ["bard"],
     tags: ["debuff"],
   },
@@ -1047,6 +1049,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ),
     damageTypes: ["bludgeoning"],
     sources: ["bard", "arcane"],
+    group: "Telekinesis",
     tags: ["ranged"],
   },
   {
@@ -1430,6 +1433,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d8."),
     sources: ["bard"],
     savingThrow: "wis",
+    group: "Psyblitz",
     damageTypes: ["psychic"],
   },
   {
@@ -1556,7 +1560,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "On a successful Spellcasting Attempt, and then each turn as a Bonus Action, you can take the Dash Action.",
     ],
-    sources: ["bard", "arcane"],
+    sources: ["arcane"],
     tags: ["movement"],
     atHigherLevels: `When you cast this spell using a spell slot of 2nd level or higher, the range of the spell becomes Touch. ${addTarget(1)}`,
   },
@@ -1621,7 +1625,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       1,
       "the number of creatures you can affect increases by five, the range increases by 60 feet and the duration increases by 1 minute."
     ),
-    sources: ["bard", "arcane"],
+    sources: ["arcane"],
+    group: "Telekinesis",
     tags: ["buff"],
   },
   // {
@@ -1690,7 +1695,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The area becomes difficult terrain and any creature that enters it or ends its turn there must succeed on a Dexterity Saving Throw or fall Prone.",
     ],
     atHigherLevels: forEachAboveDo(1, "the area increases by 10 feet."),
-    sources: ["bard", "arcane"],
+    sources: ["arcane"],
     tags: ["area", "control"],
     savingThrow: "dex",
   },
@@ -1858,7 +1863,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You write a message of up to 250 words on a surface. The message appears to be an entirely different message to any creature other than specific creatures you choose. To all others, the message appears as if it were written in a different language or a different script at your discretion.",
       "If dispelled, the original script and the illusion both disappear.",
     ],
-    sources: ["bard", "arcane"],
+    sources: ["arcane"],
     atHigherLevels: forEachAboveDo(1, "the duration doubles."),
   },
   {
@@ -1925,7 +1930,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "You enhance a creature's speed.",
     description: ["The creature's Speeds increase by 15 feet."],
     atHigherLevels: addTarget(1),
-    sources: ["bard", "arcane", "primal"],
+    sources: ["arcane", "primal"],
     tags: ["movement"],
     group: "Enhance Movement",
   },
@@ -2214,7 +2219,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area", "control"],
     damageTypes: ["thunder"],
     group: "Elemental Burst",
-    sources: ["arcane", "druid"],
+    sources: ["bard", "arcane", "druid"],
   },
   // {
   //   name: "Unseen Servant",
@@ -2446,7 +2451,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels: forEachAboveDo(2, "the spell's damage increases by 3d4"),
     damageTypes: ["slashing"],
-    sources: ["bard", "arcane"],
+    sources: ["arcane"],
     tags: ["area"],
   },
   {
@@ -2554,7 +2559,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The creature can roll a Constitution Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
     ],
     atHigherLevels: addTarget(2),
-    sources: ["bard", "arcane"],
+    sources: ["divine", "arcane"],
     tags: ["debuff"],
     savingThrow: "con",
   },
@@ -2878,6 +2883,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "the weight limit and the duration double."
     )} When using a 5th-level spell slot or higher, the spell becomes permanent."`,
     // tags: ["utility"],
+    group: "Telekinesis",
     sources: ["arcane"],
   },
   {
@@ -2980,7 +2986,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ),
     sources: ["arcane"],
     savingThrow: "con",
-    group: "Gravity",
+    group: "Telekinesis",
     tags: ["control", "movement"],
   },
   {
@@ -3101,7 +3107,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["bard", "arcane"],
     tags: ["debuff"],
     damageTypes: ["psychic"],
-    group: "Psychic Assault",
+    group: "Psyblitz",
   },
   {
     name: "Messenger",
@@ -3140,11 +3146,11 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       2,
       "the damage increases by 1d10 and the duration doubles. When using a 5th-level spell slot or higher, the spell becomes permanent."
     ),
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     savingThrow: "wis",
     damageTypes: ["psychic"],
     tags: ["debuff"],
-    group: "Psychic Assault",
+    group: "Psyblitz",
   },
   {
     name: "Mirror Image",
@@ -3353,7 +3359,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "the damage increases by 1d8 and the radius of the sphere increases by 5 feet."
     ),
     damageTypes: ["thunder"],
-    sources: ["arcane"],
+    sources: ["bard", "arcane"],
     group: "Elemental Burst",
     tags: ["area", "control"],
     savingThrow: "con",
@@ -3573,7 +3579,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "the damage increases by 1d6 and you can target two additional creatures."
     ),
     savingThrow: "con",
-    sources: ["arcane", "primal"],
+    sources: ["bard", "arcane", "primal"],
     group: "Elemental Torrent",
     tags: ["area", "control"],
   },
