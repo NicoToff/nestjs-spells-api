@@ -24,7 +24,7 @@ const atkInstead = (type?: "melee" | "ranged") => {
   return `You make ${atkType} Attack Roll instead of a Spellcasting Attempt to cast this spell.` as const;
 };
 const noHalfCover =
-  "A creature doesn't benefit from Half-Cover against this spell.";
+  "A target doesn't benefit from Half-Cover against this spell.";
 const beastOnly =
   "**Requirements.** You can affect a beast with an Intelligence of 3 or less that can hear you. The spell fails on any other creature.";
 
@@ -32,7 +32,7 @@ const forEachAboveDo = (lvl: SpellLevel, effect: string) =>
   `For each slot level above ${levelSchoolLabel(lvl)}, ${effect}` as const;
 
 const addTarget = (lvl: SpellLevel) =>
-  `${forEachAboveDo(lvl, "you can target one additional creature")}.` as const;
+  `${forEachAboveDo(lvl, "you can choose one additional target")}.` as const;
 
 type ToString<N> = N extends number ? `${N}` : N extends string ? N : never;
 function levelSchoolLabel(spellLevel: SpellLevel | ToString<SpellLevel>) {
@@ -64,7 +64,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor:
       "A bubble of acid materializes around your foe and bursts in a spray.",
-    description: ["Each creature takes 1d8 acid damage."],
+    description: ["Each target takes 1d8 acid damage."],
     damageTypes: ["acid"],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
@@ -84,7 +84,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a tiny drum",
     flavor: "A loud sound bursts your opponent's ears.",
     description: [
-      "A creature takes 1d8 thunder damage and is Deafened until the start of your next turn.",
+      "A target takes 1d8 thunder damage and is Deafened until the start of your next turn.",
     ],
     damageTypes: ["thunder"],
     cantripUpgrade:
@@ -218,7 +218,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "A beam of crackling energy streaks toward your foe.",
-    description: ["The creature takes 1d10 force damage."],
+    description: ["The target takes 1d10 force damage."],
     damageTypes: ["force"],
     cantripUpgrade:
       "This spell creates one additional beam when you reach 5th level (two beams), 10th level (three beams), and 17th level (four beams).",
@@ -238,7 +238,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You hurl a searing mote of magical fire at your foe.",
     description: [
-      "The creature takes 1d12 fire damage.",
+      "The target takes 1d12 fire damage.",
       "A flammable object hit by this spell ignites if it isn't being worn or carried.",
     ],
     damageTypes: ["fire"],
@@ -280,7 +280,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "You are able to assist your companions with wise words and foresight.",
     description: [
-      "The creature gets the benefits of the Help Action on its next d20 Test.",
+      "Your ally gets the benefits of the Help Action on its next d20 Test.",
     ],
     cantripUpgrade:
       "The range of this spell increases to 60 feet at 5th level, 120 feet at 10th level, and 300 feet at 17th level.",
@@ -304,7 +304,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["arcane", "primal"],
     cantripUpgrade:
-      "The maximum weight of the object you can affect increases to 10 pounds when you reach 5th level, 25 pounds at 10th level, and 50 pounds at 17th level. The size of the creature you can affect increases to Large at 5th level, Huge at 10th level, and Gargantuan at 17th level.",
+      "The maximum size of the object you can affect increases to Large at 5th level and Huge at 10th level.",
     group: "Shape Nature",
     savingThrow: "str",
   },
@@ -356,9 +356,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     range: "30 feet",
     duration: "See description",
     components: ["v", "s"],
-    flavor: "Magic can be powerful, but it can also amuse.",
+    flavor: "Magic can be powerful, but it can also surprise and amuse.",
     description: [
-      "You create one of the following magical effects within range:",
+      "You create one of the following magical effects (or a similar one):",
       "- You clean or soil an object no larger than 1 cubic foot.",
       "- You light or snuff out a candle, a torch, or a small campfire.",
       "- You can an unlocked door, window or container to open or slam shut.",
@@ -527,10 +527,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "You spray a mist of toxic energy on your enemy.",
-    description: [
-      "A creature doesn't benefit from half-cover against this spell.",
-      "The creature takes 2d8 poison damage.",
-    ],
+    description: [noHalfCover, "The creature takes 2d8 poison damage."],
     damageTypes: ["poison"],
     cantripUpgrade:
       "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
@@ -550,7 +547,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You channel primal magic to cause your teeth or fingernails to sharpen, to deliver a corrosive attack before returning their normal form.",
     description: [
       `${atkInstead("melee")} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
-      "The creature takes 1d12 acid damage.",
+      "The target takes 1d12 acid damage.",
     ],
     cantripUpgrade:
       "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
@@ -586,7 +583,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "A frigid beam of blue-white light streaks toward your enemy.",
     description: [
-      "The creature takes 1d10 cold damage, and its Speeds are reduced by 10 feet until the start of your next turn.",
+      "The target takes 1d10 cold damage, and its Speeds are reduced by 10 feet until the start of your next turn.",
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
@@ -624,7 +621,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "Instantaneous",
     components: ["v"],
     flavor: "Bright flames are called from the heavens to engulf your foe.",
-    description: [noHalfCover, "The creature takes 1d10 radiant damage."],
+    description: [noHalfCover, "The target takes 1d10 radiant damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
     damageTypes: ["radiant"],
@@ -664,8 +661,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "Lightning springs from your hand to deliver a shock to a creature.",
     description: [
-      "Your Spellcasting Attempt is Easy if the creature is made of metal, or wearing metal armor.",
-      "The creature takes 1d10 lightning damage, and it can't take Reactions until the start of its next turn.",
+      "Your Spellcasting Attempt is Easy if the target is made of metal, or wearing metal armor.",
+      "The target takes 1d10 lightning damage, and it can't take Reactions until the start of its next turn.",
     ],
     damageTypes: ["lightning"],
     cantripUpgrade:
@@ -701,7 +698,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v"],
     sources: ["arcane"],
     flavor: "You create a circle of spectral blades that sweep around you.",
-    description: ["Each creature takes 1d8 slashing damage."],
+    description: ["Each target takes 1d8 slashing damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     tags: ["area"],
@@ -720,7 +717,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "You create a long vine covered in thorns that lashes out at your command.",
     description: [
-      "The creature takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
+      "The target takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
     ],
     cantripUpgrade:
       "The damage, range and pull distance increase when you reach certain levels. At 5th level, the damage increases to 2d8, the range to 60 feet, and the pull distance to 15 feet. At 10th level, the damage increases to 3d8, the range to 90 feet, and the pull distance to 20 feet. At 17th level, the damage increases to 4d8, the range to 120 feet, and the pull distance to 30 feet.",
@@ -740,7 +737,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["s"],
     flavor:
       "You create a burst of thunderous sound which resonates in your surroundings.",
-    description: ["Each creature takes 1d8 thunder damage."],
+    description: ["Each target takes 1d8 thunder damage."],
     cantripUpgrade:
       "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
     damageTypes: ["thunder"],
@@ -759,7 +756,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You point at a creature and unleash a, ominous bell-like sound.",
     description: [
-      "The creature takes 2d8 necrotic damage, or only 1d12 necrotic damage if it is missing any of its Hit Points.",
+      "The target takes 2d8 necrotic damage, or only 1d12 necrotic damage if it is missing any of its Hit Points.",
     ],
     savingThrow: "wis",
     damageTypes: ["necrotic"],
@@ -797,10 +794,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     range: "60 feet",
     duration: "1 minute, or until hit",
     components: ["v", "s"],
-    flavor: "You wreathe a creature with a protective veil of radiant energy.",
+    flavor: "You wreathe a target with a protective veil of radiant energy.",
     description: [
-      "The creature glows, shedding bright light in a 5-foot radius and dim light for an additional 5 feet.",
-      "While glowing, if the creature is hit by a Melee Attack or Spell, the attacker takes 1d12 radiant damage and this spell ends.",
+      "The target glows, shedding bright light in a 5-foot radius and dim light for an additional 5 feet.",
+      "While glowing, if the target is hit by a Melee Attack or Spell, the attacker takes 1d12 radiant damage and this spell ends.",
       "An unwilling creature can try to resist this spell.",
     ],
     damageTypes: ["radiant"],
@@ -865,7 +862,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "m"],
     material: "a holy symbol",
     flavor: "You utter a divine word, and burning radiance erupts from you.",
-    description: ["Each creature takes 1d8 radiant damage."],
+    description: ["Each target takes 1d8 radiant damage."],
     sources: ["divine"],
     savingThrow: "con",
     tags: ["area"],
@@ -1022,7 +1019,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You unleash a wave of fire from your outstretched fingertips.",
     description: [
-      "On a hit, each creature takes 3d6 fire damage. On a miss, each creature takes only half as much damage.",
+      "On a hit, each target takes 3d6 fire damage. On a miss, each target takes only half as much damage.",
     ],
     atHigherLevels: forEachAboveDo(1, "The damage increases by 1d6."),
     sources: ["arcane"],
@@ -1039,9 +1036,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     range: "60 feet",
     duration: "Instantaneous",
     components: ["s"],
-    flavor: "You launch an object at a creature.",
+    flavor: "You launch an object at a target.",
     description: [
-      "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose; after that distance, it falls to the ground. If the object encounters a creature or a solid surface, the object stops early and you can have the spell deal 3d10 bludgeoning damage to the target.",
+      "Choose an object weighing up to 5 pounds that isn't being worn or carried by an unwilling creature. The object flies in a straight line up to 120 feet in a direction you choose; after that distance, it falls to the ground. If the object encounters any obstacle, the object stops early and you can have the spell deal 3d10 bludgeoning damage to the target.",
     ],
     atHigherLevels: forEachAboveDo(
       1,
@@ -1083,8 +1080,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a bit of rotten food",
     flavor: "A stream of acid gushes from your hand.",
     description: [
-      "Each creature is covered in acid until it or another creature uses an Action to wash it off.",
-      "A creature covered in acid takes 2d6 acid damage at the start of each of its turns.",
+      "Each target is covered in acid until it or another creature uses an Action to wash it off.",
+      "A target covered in acid takes 2d6 acid damage at the start of each of its turns.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     group: "Elemental Burst",
@@ -1106,13 +1103,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "You manifest and hurl an undulating, warbling mass of chaotic energy.",
     description: [
-      "The creature takes 2d8 + 1d12 damage. Choose one of the d8s. The number it rolled determines the type of damage you deal (see below). If you scored a Critical Hit on your Spellcasting Attempt or you rolled the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new Spellcasting Attempt against the new target.",
-      "You can't choose the same creature as a target more than once in a turn.",
+      "The target takes 2d8 + 1d12 damage. Choose one of the d8s. The number it rolled determines the type of damage you deal (see below). If you scored a Critical Hit on your Spellcasting Attempt or you rolled the same number on both d8s, the chaotic energy leaps from the target to a different target of your choice within 30 feet of it. Make a new Spellcasting Attempt against the new target.",
+      "You can't choose the same target more than once in a turn.",
       "**Damage Type.** (1) Acid – (2) Cold – (3) Fire – (4) Force – (5) Lightning – (6) Poison – (7) Psychic – (8) Thunder",
     ],
     atHigherLevels: forEachAboveDo(
       1,
-      "each creature takes 1d12 extra damage of the type rolled."
+      "each target takes 1d12 extra damage of the type rolled."
     ),
     sources: ["sorcerer"],
     damageTypes: [
@@ -1158,7 +1155,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a pricy gem",
     flavor: "You materialize a 4-inch-diameter sphere of energy and hurl it.",
     description: [
-      "The creature takes 3d10 damage of a type you choose: acid, cold, fire, lightning, poison, or thunder.",
+      "The target takes 3d10 damage of a type you choose: acid, cold, fire, lightning, poison, or thunder.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
     sources: ["arcane"],
@@ -1204,7 +1201,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "**Flee.** The target spends its turn moving away from you by the fastest available means.",
       "**Grovel.** The target falls prone and then ends its turn.",
       "**Halt.** The target stays where it is and takes no Actions. Its turn ends.",
-      "**Smash.** The target makes a Melee Attack against the nearest creature or object.",
+      "**Smash.** The target makes a Melee Attack against the nearest creature.",
     ],
     atHigherLevels: addTarget(1),
     sources: ["divine"],
@@ -1292,7 +1289,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "This spell always hits (don't roll against the Target).",
       "You create three darts that deal 1d4+1 force damage each.",
-      "The darts hit simultaneously and you can direct them to hit one creature or several.",
+      "The darts hit simultaneously and you can direct them to hit one target or several.",
     ],
     damageTypes: ["force"],
     atHigherLevels: forEachAboveDo(1, "you create an additional dart."),
@@ -1458,13 +1455,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     level: 1,
     school: "evocation",
     castingTime:
-      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+      "Bonus Action, taken immediately hitting a target with a Melee Attack",
     range: "Self",
     duration: "Instantaneous",
     components: ["v"],
     flavor: "Your strike glows with divine energy.",
     description: [
-      "The creature takes 2d10 radiant damage.",
+      "The target takes 2d10 radiant damage.",
       "**Unholy Enemy.** An Undead or a Fiend takes an extra 1d10 radiant damage.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
@@ -1484,7 +1481,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You cause the ground to shake all around you.",
     description: [
-      "Each creature takes 1d8 bludgeoning damage and is knocked Prone.",
+      "Each target takes 1d8 bludgeoning damage and is knocked Prone.",
       "If the ground in the area is loose earth or stone, it becomes difficult terrain.",
     ],
     atHigherLevels: forEachAboveDo(
@@ -1710,8 +1707,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "A flash of light streaks towards your target.",
     sources: ["cleric"],
     description: [
-      "On a hit, the creature takes 4d6 radiant damage and the next Attack Roll against the creature has Advantage.",
-      "The creature sheds dim light in a 5-foot radius and can't benefit from being Invisible.",
+      "On a hit, the target takes 4d6 radiant damage and the next Attack Roll against the target has Advantage.",
+      "The target sheds dim light in a 5-foot radius and can't benefit from being Invisible.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     tags: ["ranged", "debuff"],
@@ -1729,7 +1726,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["ranger"],
     flavor: "You create a storm of thorns around the place you shoot.",
     description: [
-      "The next time you hit a creature with a Ranged weapon Attack, the creature and each creatures within 5 feet of it take 2d6 piercing damage. Then, the spell ends.",
+      "The next time you hit a target with a Ranged weapon Attack, the target and each targets within 5 feet of it take 2d6 piercing damage. Then, the spell ends.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
     tags: ["buff"],
@@ -1762,7 +1759,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You unleash the fires of Hell upon your attacker.",
     description: [
-      "The creature takes 4d6 fire damage.",
+      "The creature that attacked you takes 4d6 fire damage.",
       "On a miss, the creature takes only half as much damage.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
@@ -1874,8 +1871,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     range: "Touch",
     duration: "Instantaneous",
     components: ["v", "s"],
-    flavor: "You channel negative energy to make a creature wither.",
-    description: ["The creature takes 4d10 necrotic damage."],
+    flavor: "You channel negative energy to make a target wither.",
+    description: ["The target takes 4d10 necrotic damage."],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
     sources: ["cleric"],
     damageTypes: ["necrotic"],
@@ -2026,13 +2023,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     level: 1,
     school: "evocation",
     castingTime:
-      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+      "Bonus Action, taken immediately hitting a target with a Melee Attack",
     range: "Self",
     duration: "1 minute",
     components: ["v"],
     flavor: "Your strike flares with white-hot intensity.",
     description: [
-      "The creature takes 1d10 fire damage and ignites with magical flames. At the start of each of its turns, the creature takes 1d10 fire damage and can make a Constitution Saving Throw to end the spell.",
+      "The target takes 1d10 fire damage and ignites with magical flames. At the start of each of its turns, the target takes 1d10 fire damage and can make a Constitution Saving Throw to end the spell.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d10."),
     sources: ["paladin"],
@@ -2167,7 +2164,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You make sharp icicles fall from above.",
     description: [
-      "On a hit, each creature takes 4d4 cold damage. On a miss, each creature takes only half as much damage.",
+      "On a hit, each target takes 4d4 cold damage. On a miss, each target takes only half as much damage.",
       "The cold freezes nonmagical liquids that isn't being worn or carried.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d4."),
@@ -2182,13 +2179,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     level: 1,
     school: "evocation",
     castingTime:
-      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+      "Bonus Action, taken immediately hitting a target with a Melee Attack",
     range: "Self",
     duration: "Instantaneous",
     components: ["v"],
     flavor: "Your strike rings with the sound of thunder.",
     description: [
-      "The creature takes 2d8 thunder damage, it is pushed 10 feet away from you and is knocked Prone.",
+      "The target takes 2d8 thunder damage, it is pushed 10 feet away from you and is knocked Prone.",
       "This spell emits a thunderous boom audible out to 300 feet.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d8."),
@@ -2208,7 +2205,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor: "You create a wave of thunderous force.",
     description: [
-      "On a hit, each creature takes 2d8 thunder damage and is pushed 10 feet away from you. On a miss, each creature takes only half as much damage and isn't pushed.",
+      "On a hit, each target takes 2d8 thunder damage and is pushed 10 feet away from you. On a miss, each target takes only half as much damage and isn't pushed.",
       "The spell emits a thunderous boom audible out to 300 feet.",
     ],
     atHigherLevels: forEachAboveDo(
@@ -2281,7 +2278,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "A shimmering green arrow streaks shoots in an instant and splashes on impact.",
     description: [
-      "On a hit, each creature takes 4d4 acid damage and an additional 4d4 acid damage at the end of its next turn. On a miss, each creature takes only half as much damage and no additional damage.",
+      "On a hit, each target takes 4d4 acid damage and an additional 4d4 acid damage at the end of its next turn. On a miss, each target takes only half as much damage and no additional damage.",
     ],
     atHigherLevels: forEachAboveDo(
       2,
@@ -2447,7 +2444,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "slivers of glass",
     flavor: "You fill the air with spinning daggers.",
     description: [
-      "A creature takes 6d4 slashing damage when it enters the area for the first time on a turn or if it starts its turn there.",
+      "A target takes 6d4 slashing damage when it enters the area for the first time on a turn or if it starts its turn there.",
     ],
     atHigherLevels: forEachAboveDo(2, "the spell's damage increases by 3d4"),
     damageTypes: ["slashing"],
@@ -2625,7 +2622,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["bard", "warlock"],
     description: [
       "Creatures that can't be Charmed or can't hear you are Immune to this spell.",
-      "Choose any number of creatures. They each roll Wisdom (Percetion) Checks with Disadvantage to perceive any creature other than you.",
+      "Choose any number of creatures. They each roll Wisdom (Perception) Checks with Disadvantage to perceive any creature other than you.",
       "The spell ends if you can't speak or if you are Incapacitated.",
     ],
     savingThrow: "wis",
@@ -2645,9 +2642,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a miniature hand sculpted from clay",
     flavor: "A hand of soil and stone reaches for a creature.",
     description: [
-      "Choose an unoocupied space. A Medium hand made of compacted soil rises there and reaches for a creature within 5 feet of it. The creature takes 2d8 bludgeoning damage and is Restrained. On subsequent turns, you can use your Action to cause the hand to crush the Restrained creature again, dealing 2d8 bludgeoning damage.",
+      "Choose an unoocupied space. A Medium hand made of compacted soil rises there and reaches for a target within 5 feet of it. The target takes 2d8 bludgeoning damage and is Restrained. On subsequent turns, you can use your Action to cause the hand to crush the Restrained target again, dealing 2d8 bludgeoning damage.",
       "As an Action, you can also roll another Spellcasting Attempt to cause the hand to reappear elsewhere and renew the spell.",
-      "At the end of each of its turns, the Restrained creature can roll a Strength Saving Throw, ending the effect on itself on a success.",
+      "At the end of each of its turns, a Restrained creature can roll a Strength Saving Throw, ending the effect on itself on a success.",
     ],
     atHigherLevels: forEachAboveDo(2, "the damage increases by 1d8."),
     savingThrow: "str",
@@ -2697,7 +2694,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The blade is a Melee weapon with which you are proficient. It deals 3d6 fire damage (no Ability Modifier) on a hit.",
       "Attack Rolls with the blade can be made using your Spellcasting Ability Modifier.",
       "The blade sheds light in a 40-foot radius.",
-      "If another creature uses grabs the blade, the spell ends.",
+      "If another creature grabs the blade, the spell ends.",
     ],
     damageTypes: ["fire"],
     atHigherLevels: forEachAboveDo(2, "the damage increases by 1d6."),
@@ -2719,7 +2716,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     concentration: true,
     description: [
       "You create a sphere of fire in an unoccupied space.",
-      "When you cast this spell, you can move the sphere up to 30 feet. If you ram the sphere into a creature, it takes 2d8 fire damage. On subsequent turns, you can use a Bonus Action to move the sphere again and roll another Spellcasting Attempt to ram the sphere into a creature.",
+      "When you cast this spell, you can move the sphere up to 30 feet. If you ram the sphere into a target, it takes 2d8 fire damage. On subsequent turns, you can use a Bonus Action to move the sphere again and roll another Spellcasting Attempt to ram the sphere into a target.",
       "Any creature that ends its turn within 5 feet of the sphere must make a Dexterity Saving Throw. On a failed save, the creature takes 2d8 fire damage.",
       "When you move the sphere, you can direct it over barriers up to 5 feet tall and jump it across pits up to 10 feet wide.",
       "The sphere ignites flammable objects not being worn or carried and sheds light in a 40-foot radius.",
@@ -2976,9 +2973,9 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "either a small leather loop or a piece of golden wire bent into a cup shape",
     flavor: "You make a creature float in the air.",
     description: [
-      "The creature rises vertically up to 20 feet and remains suspended mid-air. It can move horizontally only by pushing or pulling against fixed objects or surfaces. On subsequent turns, you can use move the creature up or down 20 feet (no Action required).",
-      "The spell can levitate a creature that weighs up to 500 pounds.",
-      "When the spells ends, the creature falls slowly to the ground.",
+      "The target rises vertically up to 20 feet and remains suspended mid-air. It can move horizontally only by pushing or pulling against fixed objects or surfaces. On subsequent turns, you can use move the target up or down 20 feet (no Action required).",
+      "The spell can levitate a target that weighs up to 500 pounds.",
+      "When the spells ends, the target falls slowly to the ground.",
     ],
     atHigherLevels: forEachAboveDo(
       2,
@@ -3307,7 +3304,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a red scale",
     flavor: "You create a line of roaring flame.",
     description: [
-      "On a hit, each creature takes 4d8 fire damage. On a miss, each creature takes half as much damage.",
+      "On a hit, each target takes 4d8 fire damage. On a miss, each target takes half as much damage.",
     ],
     atHigherLevels: forEachAboveDo(
       2,
@@ -3351,8 +3348,8 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "A sudden loud ringing noise, painfully intense, erupts out of nowhere.",
     description: [
-      "Each creature takes 3d8 thunder damage and is pushed 10 feet away from the center of the sphere. On a miss, each creature takes half as much damage and isn't pushed.",
-      "Creatures made of inorganic materials such as stone, crystal, or metal are Vulnerable to this damage.",
+      "Each target takes 3d8 thunder damage and is pushed 10 feet away from the center of the sphere. On a miss, each target takes half as much damage and isn't pushed.",
+      "Any target made of inorganic materials such as stone, crystal, or metal is Vulnerable to this damage.",
     ],
     atHigherLevels: forEachAboveDo(
       2,
@@ -3369,16 +3366,16 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     level: 2,
     school: "evocation",
     castingTime:
-      "Bonus Action, taken immediately hitting a creature with a Melee Attack",
+      "Bonus Action, taken immediately hitting a target with a Melee Attack",
     range: "Self",
     duration: "1 minute",
     concentration: true,
     components: ["v"],
     flavor: "Your weapon gleams with astral radiance.",
     description: [
-      "The creature takes 2d8 radiant damage and can't benefit from the Invisible condition.",
-      "The creature sheds light in a 10-foot radius.",
-      "Attack Rolls and Melee or Ranged Spellcasting Attempts against the creature have Advantage if the attacker can see them.",
+      "The target takes 2d8 radiant damage and can't benefit from the Invisible condition.",
+      "The target sheds light in a 10-foot radius.",
+      "Attack Rolls and Melee or Ranged Spellcasting Attempts against the target have Advantage if the attacker can see them.",
     ],
     atHigherLevels: forEachAboveDo(2, "the damage increases by 1d8."),
     sources: ["paladin"],
@@ -3399,7 +3396,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     concentration: true,
     flavor: "A potent whirlwind pushes creatures outwards.",
     description: [
-      "A creature that starts its turn within the area or enters it must succeed on a Strength Saving Throw or be pushed 10 feet away from the center of the area and is knocked Prone.",
+      "A target that starts its turn within the area or enters it must succeed on a Strength Saving Throw or be pushed 10 feet away from the center of the area and is knocked Prone.",
     ],
     atHigherLevels: forEachAboveDo(
       2,
@@ -3422,7 +3419,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a phial of acid",
     flavor: "Sizzling rain falls from above.",
     description: [
-      "On a hit, each creature takes 6d4 acid damage and becomes Brittle until the start of your next turn. On a miss, each creature takes half as much damage and isn't Brittle.",
+      "On a hit, each target takes 6d4 acid damage and becomes Brittle until the start of your next turn. On a miss, each target takes half as much damage and isn't Brittle.",
     ],
     damageTypes: ["acid"],
     atHigherLevels: forEachAboveDo(
@@ -3447,7 +3444,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "A bright streak flashes from your pointing finger into the distance and then blossoms with a low roar into an explosion of flame.",
     description: [
-      "On a hit, each creature takes 8d6 fire damage. On a miss, each creature takes half as much damage.",
+      "On a hit, each target takes 8d6 fire damage. On a miss, each target takes half as much damage.",
     ],
     damageTypes: ["fire"],
     atHigherLevels: forEachAboveDo(
@@ -3471,7 +3468,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a bit of fur and a rod of amber, crystal, or glass",
     flavor: "A stroke of lightning blasts straight out of you.",
     description: [
-      "On a hit, each creature takes 5d12 lightning damage. On a miss, each creature takes half as much damage.",
+      "On a hit, each target takes 5d12 lightning damage. On a miss, each target takes half as much damage.",
     ],
     damageTypes: ["lightning"],
     atHigherLevels: forEachAboveDo(
@@ -3497,7 +3494,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "Four menacing pillars materialize in a shower of sparks.",
     description: [
       "Four black structures appear in unoccupied spaces. They must be perfectly aligned to form a square whose sides are up to 30 feet long. Each structure has an Armor Class of 18 and 60 Hit Points.",
-      "Upon casting the spell and as a Bonus Action on subsequent turns, you can trigger lightning to surge between the sides of the square created by the structures. All creatures touched by lightning must roll a Dexterity Saving Throw. On a failed save, they suffer 3d12 lightning damage, or half as much damage on a successful save.",
+      "Upon casting the spell and as a Bonus Action on subsequent turns, you can trigger lightning to surge between the sides of the square created by the structures. All targets touched by lightning must roll a Dexterity Saving Throw. On a failed save, they suffer 3d12 lightning damage, or half as much damage on a successful save.",
       "Lightning can't surge between two sides if a non-conductive obstacle is in the way.",
       "If a structure is destroyed, lightning can't surge towards that side of the square.",
     ],
@@ -3520,7 +3517,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     material: "a drop of water",
     flavor: "You create a cube of ice that explodes outward in a frigid blast.",
     description: [
-      "On a hit, each creature takes 12d4 cold damage and has its Speeds halved until the start of your next turn. On a miss, each creature takes half as much damage and its Speeds aren't reduced.",
+      "On a hit, each target takes 12d4 cold damage and has its Speeds halved until the start of your next turn. On a miss, each target takes half as much damage and its Speeds aren't reduced.",
     ],
     damageTypes: ["cold"],
     atHigherLevels: forEachAboveDo(
@@ -3571,12 +3568,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "You conjure the fury of a tempest and surgically unleash it against your enemies.",
     description: [
-      "On a hit, up to six creatures of your choice take 5d6 thunder damage and are pushed 15 feet away from you. On a miss, each creature takes half as much damage and isn't pushed.",
+      "On a hit, up to six targets of your choice take 5d6 thunder damage and are pushed 15 feet away from you. On a miss, each target takes half as much damage and isn't pushed.",
     ],
     damageTypes: ["thunder"],
     atHigherLevels: forEachAboveDo(
       3,
-      "the damage increases by 1d6 and you can target two additional creatures."
+      "the damage increases by 1d6 and you can target two additional targets."
     ),
     savingThrow: "con",
     sources: ["bard", "arcane", "primal"],
@@ -3605,5 +3602,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
     damageTypes: ["poison"],
     ritual: true,
+    isPrivate: true,
   },
 ];
