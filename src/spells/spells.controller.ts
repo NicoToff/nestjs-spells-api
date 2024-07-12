@@ -139,7 +139,9 @@ export class SpellsController {
     })
   )
   findAll(@Query() filter: FilterSpellDto) {
-    return this.spellsService.findAll(filter);
+    return this.spellsService
+      .findAll(filter)
+      .then((spells) => spells.sort(sortBySpellFullName));
   }
 
   @ApiOperation({
@@ -204,4 +206,10 @@ export class SpellsController {
   ) {
     return this.spellsService.seedBulk(createSpellDtos);
   }
+}
+
+function sortBySpellFullName(s1: Spell, s2: Spell) {
+  const aFullName = `${s1.group}${s1.name}`;
+  const bFullName = `${s2.group}${s2.name}`;
+  return aFullName.localeCompare(bFullName);
 }
