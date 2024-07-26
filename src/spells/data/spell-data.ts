@@ -54,6 +54,7 @@ function levelSchoolLabel(spellLevel: SpellLevel | ToString<SpellLevel>) {
 
 export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   {
+    isPrivate: true,
     name: "Acid Splash",
     level: 0,
     school: "conjuration",
@@ -67,7 +68,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: ["Each target takes 1d8 acid damage."],
     damageTypes: ["acid"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     savingThrow: "dex",
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -88,12 +89,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["thunder"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     savingThrow: "con",
     sources: ["bard", "arcane"],
     group: "Elemental Rudiment",
   },
   {
+    isPrivate: true,
     name: "Blade Ward",
     level: 0,
     school: "abjuration",
@@ -107,6 +109,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["debuff"],
   },
   {
+    isPrivate: true,
     name: "Booming Blade",
     level: 0,
     school: "evocation",
@@ -122,7 +125,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["bard", "arcane"],
     cantripUpgrade:
-      "Starting at 5th level, the Melee Attack deals an additional 1d8 thunder damage on a hit and the damage for moving increases to 2d8. These damage rolls increase to 2d8 and 3d8 at 10th level, and to 3d8 and 4d8 at 17th level.",
+      "Starting at 5th level, the Melee Attack deals an additional 1d8 thunder damage on a hit and the damage for moving increases to 2d8. At 10th level, these damage rolls increase to 2d8 and 3d8.",
     tags: ["melee", "debuff"],
     damageTypes: ["thunder"],
     group: "Magic Strike",
@@ -142,7 +145,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["radiant"],
     cantripUpgrade:
-      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8) and 10th level (6d8).",
     savingThrow: "wis",
     tags: ["control"],
     group: "Blessed Radiance",
@@ -169,6 +172,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane", "primal"],
   },
   {
+    isPrivate: true,
     name: "Chill Touch",
     level: 0,
     school: "necromancy",
@@ -184,7 +188,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["necrotic"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), and 10th level (3d10).",
     sources: ["arcane", "divine"],
     tags: ["ranged", "debuff"],
     group: "Requiems",
@@ -204,7 +208,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "- You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.",
     ],
     cantripUpgrade:
-      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, 10-mile radius at 10th level, and 100-mile radius at 17th level. The number of plant you can affect increases to two at 5th level, ten at 10th level, and twenty-five at 17th level.",
+      "The location of the weather forecast increases to a 5-mile radius when you reach 5th level, and 10-mile radius at 10th level. The number of plant you can affect increases to two at 5th level, and ten at 10th level.",
     sources: ["primal"],
     group: "Shape Nature",
   },
@@ -218,10 +222,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "Instantaneous",
     components: ["v", "s"],
     flavor: "A beam of crackling energy streaks toward your foe.",
-    description: ["The target takes 1d10 force damage."],
+    description: ["The target takes 1d12 force damage."],
     damageTypes: ["force"],
     cantripUpgrade:
-      "This spell creates one additional beam when you reach 5th level (two beams), 10th level (three beams), and 17th level (four beams).",
+      "This spell creates additional beams when you reach higher levels in the warlock class: two beams at 5th level, and three beams at 10th level. These beams can be directed at the same target or different ones.",
     tags: ["ranged"],
     sources: ["warlock"],
   },
@@ -244,11 +248,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["fire"],
     tags: ["ranged"],
     cantripUpgrade:
-      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), and 10th level (3d12).",
     sources: ["arcane"],
     group: "Elemental Rudiment",
   },
   {
+    isPrivate: true,
     name: "Green-Flame Blade",
     level: 0,
     school: "evocation",
@@ -263,7 +268,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You deal damage normally, and the creature takes 1d8 fire damage. If the creature is within 5 feet of another enemy, that enemy takes fire damage equal to your Spellcasting Ability Modifier.",
     ],
     cantripUpgrade:
-      "Starting at 5th level, the Melee Attack deals an additional 1d8 fire damage on a hit and the damage for the secondary target increases to 1d8 + your Spellcasting Ability Modifier. These damage rolls increase to 3d8 and 2d8 at 10th level, and to 4d8 and 3d8 at 17th level.",
+      "Starting at 5th level, the Melee Attack deals an additional 1d8 fire damage on a hit and the damage for the secondary target increases to 1d8 + your Spellcasting Ability Modifier. These damage rolls increase to 3d8 and 2d8 at 10th level.",
     damageTypes: ["fire"],
     tags: ["melee"],
     sources: ["arcane"],
@@ -283,7 +288,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Your ally gets the benefits of the Help Action on its next d20 Test.",
     ],
     cantripUpgrade:
-      "The range of this spell increases to 60 feet at 5th level, 120 feet at 10th level, and 300 feet at 17th level.",
+      "The range of this spell increases to 60 feet at 5th level, and 120 feet at 10th level.",
     sources: ["divine"],
     tags: ["buff"],
   },
@@ -309,6 +314,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "str",
   },
   {
+    isPrivate: true,
     name: "Infestation",
     level: 0,
     school: "conjuration",
@@ -323,7 +329,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The movement doesn't provoke opportunity attacks, and if the direction rolled is blocked, the target doesn't move.",
     ],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     sources: ["arcane", "primal"],
     savingThrow: "con",
     damageTypes: ["poison"],
@@ -373,7 +379,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time. You can dismiss any effect as an Action.",
     ],
     cantripUpgrade:
-      "The maximum amount of effects you can have active at a time increases to six when you reach 5th level, ten at 10th level, and twenty-five at 17th level.",
+      "The maximum amount of effects you can have active at a time increases to six when you reach 5th level, and ten at 10th level.",
     sources: ["arcane", "divine", "primal"],
     group: "Shape Nature",
   },
@@ -409,7 +415,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "Repair a break or tear in a nonmagical nonliving object on a surface of up to 1 foot in width and height.",
     ],
     cantripUpgrade:
-      "The width and height of the surface increases to 2 feet when you reach 5th level, 5 feet at 10th level, and 20 feet at 17th level.",
+      "The width and height of the surface increases to 2 feet when you reach 5th level, and 5 feet at 10th level.",
     sources: ["arcane", "divine", "primal"],
   },
   {
@@ -427,7 +433,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical Silence, 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood blocks the spell.",
     ],
     cantripUpgrade:
-      "This cantrip's range increases to 300 feet when you reach 5th level, 1 mile at 10th level, and 20 miles at 17th level.",
+      "This cantrip's range increases to 300 feet when you reach 5th level, and to 1 mile at 10th level.",
     sources: ["bard", "arcane"],
   },
   {
@@ -445,13 +451,14 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["bard", "arcane"],
     cantripUpgrade:
-      "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6. At 17th level, the damage increases to 4d6 and the bonus to +1d8.",
+      "At 5th level, this spell's damage increases to 2d6 and its bonus to +1d4. At 10th level, the damage increases to 3d6 and the bonus to +1d6.",
     savingThrow: "int",
     group: "Psyshock",
     damageTypes: ["psychic"],
     tags: ["buff"],
   },
   {
+    isPrivate: true,
     name: "Minor Illusion",
     level: 0,
     school: "illusion",
@@ -470,7 +477,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The illusion ends if you dismiss it as an Action or cast this spell again.",
     ],
     cantripUpgrade:
-      "The size of the object you can create increases to 10-foot cube when you reach 5th level, 15-foot cube at 10th level, and 20-foot cube at 17th level. Moreover, you can have two illusions active at a time when you reach 5th level, three at 10th level, and four at 17th level.",
+      "The size of the object you can create increases to 10-foot cube when you reach 5th level, and 15-foot cube at 10th level. Moreover, you can have two illusions active at a time when you reach 5th level, and three at 10th level.",
     sources: ["bard", "arcane"],
     tags: ["summon"],
     savingThrow: "int",
@@ -493,7 +500,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["arcane", "primal"],
     cantripUpgrade:
-      "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
+      "At 5th level, the size of the cube and surface increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours.",
     group: "Shape Nature",
   },
   {
@@ -515,7 +522,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["arcane", "primal"],
     cantripUpgrade:
-      "At 5th level, the size of the cube increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours. At 17th level, the size increases to 20 feet and the effects are permanent.",
+      "At 5th level, the size of the cube increases to 10 feet and duration of non-instantaneous effects increases to 8 hours. At 10th level, the size increases to 15 feet and the duration increases to 24 hours.",
     group: "Shape Nature",
   },
   {
@@ -530,12 +537,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [noHalfCover, "The creature takes 2d8 poison damage."],
     damageTypes: ["poison"],
     cantripUpgrade:
-      "This spell's damage increases by 2d8 when you reach 5th level (4d8), 10th level (6d8), and 17th level (8d8).",
+      "This spell's damage increases by 2d8 when you reach 5th level (4d8) and 10th level (6d8).",
     savingThrow: "con",
     sources: ["arcane", "primal"],
     group: "Wild Nature",
   },
   {
+    isPrivate: true,
     name: "Primal Savagery",
     level: 0,
     school: "transmutation",
@@ -550,7 +558,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The target takes 1d12 acid damage.",
     ],
     cantripUpgrade:
-      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), and 10th level (3d12).",
     sources: ["druid"],
     damageTypes: ["acid"],
     tags: ["melee"],
@@ -571,9 +579,10 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["artificer", "divine"],
     tags: ["buff"],
     cantripUpgrade:
-      "The number of creatures you can affect increases to 2 when you reach 5th level, 3 at 10th level, and 6 at 17th level.",
+      "The number of creatures you can affect increases to 2 when you reach 5th level, and 3 at 10th level.",
   },
   {
+    isPrivate: true,
     name: "Ray of Frost",
     level: 0,
     school: "evocation",
@@ -587,7 +596,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["cold"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), and 10th level (3d10).",
     tags: ["ranged", "debuff"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -608,7 +617,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "**Non-repeatable.** A creature affected by this spell can't be affected by it again until it finishes a Long Rest.",
     ],
     cantripUpgrade:
-      "The number of creatures you can affect increases to 2 when you reach 5th level, 6 at 10th level, and 25 at 17th level.",
+      "The number of creatures you can affect increases to two when you reach 5th level, and to six at 10th level.",
     sources: ["divine"],
     tags: ["heal"],
   },
@@ -623,13 +632,14 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "Bright flames are called from the heavens to engulf your foe.",
     description: [noHalfCover, "The target takes 1d10 radiant damage."],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), and 10th level (3d10).",
     damageTypes: ["radiant"],
     savingThrow: "dex",
     group: "Blessed Radiance",
     sources: ["divine"],
   },
   {
+    isPrivate: true,
     name: "Shillelagh",
     level: 0,
     school: "transmutation",
@@ -645,7 +655,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The spell ends if you cast it again or if you let go of the weapon.",
     ],
     cantripUpgrade:
-      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, 2d8 at 10th level, and 2d12 at 17th level.",
+      "The damage die changes when you reach certain druid levels: 1d12 at 5th level, and 2d8 at 10th level.",
     damageTypes: ["radiant"],
     tags: ["melee", "buff"],
     sources: ["druid"],
@@ -666,7 +676,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["lightning"],
     cantripUpgrade:
-      "This spell's damage increases by 1d10 when you reach 5th level (2d10), 10th level (3d10), and 17th level (4d10).",
+      "This spell's damage increases by 1d10 when you reach 5th level (2d10), and 10th level (3d10).",
     tags: ["melee", "debuff"],
     sources: ["arcane"],
     group: "Elemental Rudiment",
@@ -684,10 +694,11 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     description: [
       "If it is Dying, the creature becomes stable. Then, it can spend a Hit Die and roll it to regain an amount of Hit Points equal to the roll + your Spellcasting Ability Modifier (minimum of 1).",
     ],
-    tags: ["heal"],
     sources: ["divine"],
+    tags: ["heal"],
   },
   {
+    isPrivate: true,
     name: "Sword Burst",
     level: 0,
     school: "conjuration",
@@ -696,12 +707,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     area: "5-foot radius",
     duration: "Instantaneous",
     components: ["v"],
-    sources: ["arcane"],
     flavor: "You create a circle of spectral blades that sweep around you.",
     description: ["Each target takes 1d8 slashing damage."],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     tags: ["area"],
+    sources: ["arcane"],
     damageTypes: ["slashing"],
     savingThrow: "dex",
   },
@@ -720,7 +731,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "The target takes 1d8 piercing damage, and if it is Large or smaller, you pull it up to 10 feet closer to you.",
     ],
     cantripUpgrade:
-      "The damage, range and pull distance increase when you reach certain levels. At 5th level, the damage increases to 2d8, the range to 60 feet, and the pull distance to 15 feet. At 10th level, the damage increases to 3d8, the range to 90 feet, and the pull distance to 20 feet. At 17th level, the damage increases to 4d8, the range to 120 feet, and the pull distance to 30 feet.",
+      "The damage, range and pull distance increase when you reach certain levels. At 5th level, the damage increases to 2d8, the range to 60 feet, and the pull distance to 15 feet. At 10th level, the damage increases to 3d8, the range to 90 feet, and the pull distance to 20 feet.",
     sources: ["primal"],
     tags: ["ranged"],
     damageTypes: ["piercing"],
@@ -739,7 +750,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You create a burst of thunderous sound which resonates in your surroundings.",
     description: ["Each target takes 1d8 thunder damage."],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     damageTypes: ["thunder"],
     savingThrow: "con",
     tags: ["area"],
@@ -747,6 +758,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Wild Nature",
   },
   {
+    isPrivate: true,
     name: "Toll the Dead",
     level: 0,
     school: "necromancy",
@@ -761,7 +773,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "wis",
     damageTypes: ["necrotic"],
     cantripUpgrade:
-      "This spell's number of damage dice increases when you reach 5th level (4d8 or 2d12), 10th level (6d8 or 3d12), and 17th level (8d8 or 4d12).",
+      "This spell's number of damage dice increases when you reach 5th level (4d8 or 2d12), and 10th (6d8 or 3d12).",
     sources: ["divine"],
     group: "Requiems",
   },
@@ -777,13 +789,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "A flash of magical insight guides your strike.",
     description: [
       `${atkInstead()} The Attack Roll and damage roll can be made using your Spellcasting Ability Modifier.`,
-      "You deal damage normally, but you can choose to replace the weapon's damage type with force damage.",
     ],
     sources: ["arcane"],
     cantripUpgrade:
-      "The damage of the Attack provided by this spell increases by 1d6 when you reach 5th level (2d6), 10th level (3d6), and 17th level (4d6).",
+      "The damage of the Attack provided by this spell increases by 1d6 when you reach 5th level (2d6) and 10th level (3d6).",
     tags: ["melee", "ranged", "buff"],
-    damageTypes: ["force"],
+    damageTypes: ["bludgeoning", "piercing", "slashing"],
     group: "Magic Strike",
   },
   {
@@ -802,7 +813,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["radiant"],
     cantripUpgrade:
-      "This spell's damage increases by 1d12 when you reach 5th level (2d12), 10th level (3d12), and 17th level (4d12).",
+      "This spell's damage increases by 1d12 when you reach 5th level (2d12), and 10th level (3d12).",
     savingThrow: "wis",
     tags: ["buff"],
     group: "Blessed Radiance",
@@ -822,13 +833,14 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     damageTypes: ["psychic"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     savingThrow: "wis",
     group: "Psyshock",
     sources: ["bard"],
     tags: ["debuff"],
   },
   {
+    isPrivate: true,
     name: "Wind Whisper",
     level: 0,
     school: "divination",
@@ -849,7 +861,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     sources: ["primal"],
     cantripUpgrade:
-      "This spell's maximum radius increases to 15 miles when you reach 5th level, 100 miles at 10th level, and 1,000 miles at 17th level. Starting at 10th level, the communication can be as articulate as normal speech.",
+      "This spell's maximum radius increases to 15 miles when you reach 5th level, and to 100 miles at 10th level. At 10th level, the communication can be as articulate as normal speech.",
   },
   {
     name: "Word of Radiance",
@@ -867,7 +879,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "con",
     tags: ["area"],
     cantripUpgrade:
-      "This spell's damage increases by 1d8 when you reach 5th level (2d8), 10th level (3d8), and 17th level (4d8).",
+      "This spell's damage increases by 1d8 when you reach 5th level (2d8) and 10th level (3d8).",
     damageTypes: ["radiant"],
     group: "Blessed Radiance",
   },
@@ -946,6 +958,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Arms of Hadar",
   // },
   {
+    isPrivate: true,
     name: "Arrow",
     level: 1,
     school: "evocation",
@@ -957,15 +970,16 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You create an immense arrow of pure energy and shoot it with high precision.",
     description: [
       "This spell always hits (don't roll against the Target).",
-      "You create an arrow that deals 3d6+3 force damage.",
+      "You create an arrow that deals 3d6+3 slashing damage.",
     ],
-    damageTypes: ["force"],
+    damageTypes: ["slashing"],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 1d6+1."),
     sources: ["arcane"],
     group: "Magic Missile",
     tags: ["ranged"],
   },
   {
+    isPrivate: true,
     name: "Bane",
     level: 1,
     school: "enchantment",
@@ -1069,6 +1083,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "wis",
   },
   {
+    isPrivate: true,
     name: "Caustic Brew",
     level: 1,
     school: "evocation",
@@ -1093,6 +1108,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Ceremony",
   // },
   {
+    isPrivate: true,
     name: "Chaos Bolt",
     level: 1,
     school: "evocation",
@@ -1164,6 +1180,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Colorful Energy",
   },
   {
+    isPrivate: true,
     name: "Color Spray",
     level: 1,
     school: "illusion",
@@ -1185,6 +1202,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Colorful Energy",
   },
   {
+    isPrivate: true,
     name: "Command",
     level: 1,
     school: "enchantment",
@@ -1288,16 +1306,17 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor: "Darts of energy erupt from your palms and shoot without warning.",
     description: [
       "This spell always hits (don't roll against the Target).",
-      "You create three darts that deal 1d4+1 force damage each.",
+      "You create three darts that deal 1d4+1 piercing damage each.",
       "The darts hit simultaneously and you can direct them to hit one target or several.",
     ],
-    damageTypes: ["force"],
+    damageTypes: ["piercing"],
     atHigherLevels: forEachAboveDo(1, "you create an additional dart."),
     sources: ["arcane"],
     group: "Magic Missile",
     tags: ["ranged"],
   },
   {
+    isPrivate: true,
     name: "Detect Evil and Good",
     level: 1,
     school: "divination",
@@ -1321,6 +1340,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Sense the Unseen",
   },
   {
+    isPrivate: true,
     name: "Detect Magic",
     level: 1,
     school: "divination",
@@ -1344,6 +1364,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane", "divine", "primal"],
   },
   {
+    isPrivate: true,
     name: "Detect Metal and Mineral",
     level: 1,
     school: "divination",
@@ -1389,6 +1410,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["primal"],
   },
   {
+    isPrivate: true,
     name: "Detect Poison and Disease",
     level: 1,
     school: "divination",
@@ -1451,6 +1473,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["radiant"],
   },
   {
+    isPrivate: true,
     name: "Divine",
     level: 1,
     school: "evocation",
@@ -1494,6 +1517,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area", "control"],
   },
   {
+    isPrivate: true,
     name: "Energy",
     level: 1,
     school: "abjuration",
@@ -1533,7 +1557,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "1 minute",
     components: ["v", "s"],
     concentration: true,
-    sources: ["primal"],
     flavor: "Plants and vines spring from the ground and ensnare your foes.",
     description: [
       "Each creature is Restrained by entangling plants. A creature can make a Strength Saving Throw at the end of each of its turns, ending the effect on itself on a success.",
@@ -1541,6 +1564,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "When the spell ends, the plants wilt away.",
     ],
     atHigherLevels: forEachAboveDo(1, "the area increases by 5 feet."),
+    sources: ["primal"],
     savingThrow: "str",
     tags: ["area", "control"],
   },
@@ -1583,6 +1607,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Colorful Energy",
   },
   {
+    isPrivate: true,
     name: "False Life",
     level: 1,
     school: "necromancy",
@@ -1605,6 +1630,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Barrier",
   },
   {
+    isPrivate: true,
     name: "Feather Fall",
     level: 1,
     school: "transmutation",
@@ -1658,6 +1684,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area", "control"],
   },
   {
+    isPrivate: true,
     name: "Goo",
     level: 1,
     school: "abjuration",
@@ -1715,6 +1742,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["radiant"],
   },
   {
+    isPrivate: true,
     name: "Hail of Thorns",
     level: 1,
     school: "conjuration",
@@ -1723,12 +1751,12 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     duration: "1 minute",
     components: ["v"],
     concentration: true,
-    sources: ["ranger"],
     flavor: "You create a storm of thorns around the place you shoot.",
     description: [
       "The next time you hit a target with a Ranged weapon Attack, the target and each targets within 5 feet of it take 2d6 piercing damage. Then, the spell ends.",
     ],
     atHigherLevels: forEachAboveDo(1, "the damage increases by 2d6."),
+    sources: ["ranger"],
     tags: ["buff"],
     damageTypes: ["piercing"],
   },
@@ -1750,6 +1778,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   sources: ["bard", "cleric"],
   // },
   {
+    isPrivate: true,
     name: "Hellish Rebuke",
     level: 1,
     school: "evocation",
@@ -1779,6 +1808,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   sources: ["warlock"],
   // },
   {
+    isPrivate: true,
     name: "Heroism",
     level: 1,
     school: "enchantment",
@@ -1818,6 +1848,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["debuff"],
   },
   {
+    isPrivate: true,
     name: "Hunter's Mark",
     level: 1,
     school: "divination",
@@ -1828,7 +1859,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     concentration: true,
     flavor: "You magically mark a creature as your prey.",
     description: [
-      "The creature takes an extra 1d6 Force damage the first time you hit it with an Attack each turn.",
+      "The creature takes an extra 1d6 force damage the first time you hit it with an Attack each turn.",
       "You have Advantage on any Wisdom (Perception or Survival) Check you make to find it.",
       "If the target drops to 0 Hit Points before this spell ends, you can use a Bonus Action on a subsequent turn of yours to mark a new creature.",
     ],
@@ -1836,6 +1867,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       1,
       "the damage increases by 1d6 and the duration doubles."
     ),
+    damageTypes: ["force"],
     sources: ["ranger"],
   },
   // {
@@ -1845,6 +1877,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Identify",
   // },
   {
+    isPrivate: true,
     name: "Illusory Script",
     level: 1,
     school: "illusion",
@@ -1864,6 +1897,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     atHigherLevels: forEachAboveDo(1, "the duration doubles."),
   },
   {
+    isPrivate: true,
     name: "Inflict Wounds",
     level: 1,
     school: "necromancy",
@@ -1879,6 +1913,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["melee"],
   },
   {
+    isPrivate: true,
     name: "Jump",
     level: 1,
     school: "transmutation",
@@ -2019,6 +2054,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["buff"],
   },
   {
+    isPrivate: true,
     name: "Searing",
     level: 1,
     school: "evocation",
@@ -2071,6 +2107,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   tags: ["buff"],
   // },
   {
+    isPrivate: true,
     name: "Silent Image",
     level: 1,
     school: "illusion",
@@ -2171,6 +2208,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Physiomorph",
   },
   {
+    isPrivate: true,
     name: "Stalaclites",
     level: 1,
     school: "evocation",
@@ -2192,6 +2230,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Elemental Burst",
   },
   {
+    isPrivate: true,
     name: "Thunderous",
     level: 1,
     school: "evocation",
@@ -2220,7 +2259,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     area: "15-foot cube",
     duration: "Instantaneous",
     components: ["v", "s"],
-    flavor: "You create a wave of thunderous force.",
+    flavor: "You create a wave of thunderous energy.",
     description: [
       "On a hit, each target takes 2d8 thunder damage and is pushed 10 feet away from you. On a miss, each target takes only half as much damage and isn't pushed.",
       "The spell emits a thunderous boom audible out to 300 feet.",
@@ -2239,6 +2278,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Unseen Servant",
   // },
   {
+    isPrivate: true,
     name: "Witch Bolt",
     level: 1,
     school: "evocation",
@@ -2261,6 +2301,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     damageTypes: ["lightning"],
   },
   {
+    isPrivate: true,
     name: "Wrathful",
     level: 1,
     school: "necromancy",
@@ -2382,6 +2423,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
       "You can also set a password that, when spoken within 5 feet of the object, suppresses the spell for 1 minute.",
       "**Note.** Casting the Knock spell on the object suppresses the lock for 10 minutes.",
     ],
+    group: "Locks",
     sources: ["arcane"],
     // tags: ["utility"],
   },
@@ -2513,6 +2555,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Cordon of Arrows",
   // },
   {
+    isPrivate: true,
     name: "Crown of Madness",
     level: 2,
     school: "enchantment",
@@ -2535,6 +2578,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["bard", "arcane"],
   },
   {
+    isPrivate: true,
     name: "Darkness",
     level: 2,
     school: "evocation",
@@ -2655,13 +2699,13 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     components: ["v", "s"],
     flavor:
       "You weave a distracting string of words to become the center of attention.",
-    sources: ["bard", "warlock"],
     description: [
       "Creatures that can't be Charmed or can't hear you are Immune to this spell.",
       "Choose any number of creatures. They each roll Wisdom (Perception) Checks with Disadvantage to perceive any creature other than you.",
       "The spell ends if you can't speak or if you are Incapacitated.",
     ],
     savingThrow: "wis",
+    sources: ["bard", "warlock"],
     group: "Artistry",
     tags: ["debuff"],
   },
@@ -2716,6 +2760,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Find Traps"
   // },
   {
+    isPrivate: true,
     name: "Flame Blade",
     level: 2,
     school: "conjuration",
@@ -2738,6 +2783,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["melee"],
   },
   {
+    isPrivate: true,
     name: "Flaming Sphere",
     level: 2,
     school: "conjuration",
@@ -2876,6 +2922,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["debuff"],
   },
   {
+    isPrivate: true,
     name: "Hold Person",
     level: 2,
     school: "enchantment",
@@ -2974,6 +3021,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     ],
     atHigherLevels: forEachAboveDo(2, "the range of the spell doubles."),
     sources: ["arcane"],
+    group: "Locks",
     // tags: ["utility"],
   },
   {
@@ -3044,6 +3092,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Beast Bond",
   },
   {
+    isPrivate: true,
     name: "Locate Object",
     level: 2,
     school: "divination",
@@ -3088,6 +3137,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     // tags: ["utility"],
   },
   {
+    isPrivate: true,
     name: "Fake Aura",
     level: 2,
     school: "illusion",
@@ -3107,6 +3157,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane"],
   },
   {
+    isPrivate: true,
     name: "Magic Weapon",
     level: 2,
     school: "transmutation",
@@ -3143,6 +3194,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Psyblitz",
   },
   {
+    isPrivate: true,
     name: "Messenger",
     level: 2,
     school: "enchantment",
@@ -3162,6 +3214,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Beast Bond",
   },
   {
+    isPrivate: true,
     name: "Mind Spike",
     level: 2,
     school: "divination",
@@ -3186,6 +3239,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Psyblitz",
   },
   {
+    isPrivate: true,
     name: "Mirror Image",
     level: 2,
     school: "illusion",
@@ -3225,6 +3279,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Teleportation",
   },
   {
+    isPrivate: true,
     name: "Moonbeam",
     level: 2,
     school: "evocation",
@@ -3378,6 +3433,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Shadow Blade"
   // },
   {
+    isPrivate: true,
     name: "Silence",
     level: 2,
     school: "illusion",
@@ -3427,6 +3483,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "con",
   },
   {
+    isPrivate: true,
     name: "Shining",
     level: 2,
     school: "evocation",
@@ -3449,6 +3506,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     group: "Smite",
   },
   {
+    isPrivate: true,
     name: "Skywrite",
     level: 2,
     school: "transmutation",
@@ -3492,17 +3550,18 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     flavor:
       "Spiritual energy takes the shape of any weapon you desire and serves as your ally in battle.",
     description: [
-      "A floating weapon appears next to a target and deals 1d8 + your Spellcasting Ability Modifier force damage to it.",
+      "A floating weapon appears next to a target and deals 1d8 + your Spellcasting Ability Modifier bludgeoning, piercing or slashing damage to it.",
       "On subsequent turns, as a Bonus Action, you can move the weapon up to 20 feet and repeat the Spellcasting Attempt to deal damage again.",
       "If you cast this spell again, the weapon disappears.",
     ],
     atHigherLevels:
       "With a 4th-level spell slot or higher, the damage increases by 1d8.",
     sources: ["cleric"],
-    damageTypes: ["force"],
+    damageTypes: ["bludgeoning", "piercing", "slashing"],
     tags: ["melee", "summon"],
   },
   {
+    isPrivate: true,
     name: "Suggestion",
     level: 2,
     school: "enchantment",
@@ -3522,7 +3581,6 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     sources: ["arcane"],
     savingThrow: "wis",
     tags: ["control"],
-    isPrivate: true,
   },
   // {
   //   name: "Summon Beast",
@@ -3531,6 +3589,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Tasha's Mind Whip",
   // },
   {
+    isPrivate: true,
     name: "Tornado",
     level: 2,
     school: "conjuration",
@@ -3555,6 +3614,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "str",
   },
   {
+    isPrivate: true,
     name: "Warding Bond",
     level: 2,
     school: "abjuration",
@@ -3580,6 +3640,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
   //   name: "Zone of Truth"
   // },
   {
+    isPrivate: true,
     name: "Acidic Rain",
     level: 3,
     school: "evocation",
@@ -3604,6 +3665,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
   },
   {
+    isPrivate: true,
     name: "Fireball",
     level: 3,
     school: "evocation",
@@ -3629,6 +3691,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
   },
   {
+    isPrivate: true,
     name: "Lightning Bolt",
     level: 3,
     school: "evocation",
@@ -3653,6 +3716,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
   },
   {
+    isPrivate: true,
     name: "Lightning Pillar",
     level: 3,
     school: "transmutation",
@@ -3678,6 +3742,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
   },
   {
+    isPrivate: true,
     name: "Frozen Cube",
     level: 3,
     school: "evocation",
@@ -3702,6 +3767,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
   },
   {
+    isPrivate: true,
     name: "Slow",
     level: 3,
     school: "transmutation",
@@ -3728,6 +3794,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     savingThrow: "wis",
   },
   {
+    isPrivate: true,
     name: "Tempest",
     level: 3,
     school: "conjuration",
@@ -3753,6 +3820,7 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area", "control"],
   },
   {
+    isPrivate: true,
     name: "Deadly Feast",
     level: 5,
     school: "necromancy",
@@ -3774,6 +3842,5 @@ export const SPELL_DATA: (NormalSpellType | MeleeRangedSpellType)[] = [
     tags: ["area"],
     damageTypes: ["poison"],
     ritual: true,
-    isPrivate: true,
   },
 ];
